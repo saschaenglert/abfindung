@@ -115,6 +115,11 @@ h1,h2,h3,.syne{font-family:'Syne','Inter',sans-serif}
   box-shadow:0 0 0 3px rgba(46,143,168,.14);
 }
 .f .hint{font-size:11px; color:var(--ink-light); line-height:1.4}
+.f .erkl{
+  font-size:11.5px; color:var(--ink-mid); line-height:1.55; margin-top:2px;
+  padding-left:9px; border-left:2px solid var(--cream-dark);
+}
+.f .erkl b{color:var(--ink); font-weight:600}
 .fixed{
   font-size:15px; font-weight:600; color:var(--ink-mid);
   background:var(--cream); border:1.5px dashed var(--cream-dark);
@@ -897,28 +902,32 @@ details.calc summary .badge{
   <!-- ================= SCHRITT 4: die Annahmen ================= -->
   <section class="sec">
     <div class="sec-head"><span class="sec-num">SCHRITT 4</span><h2>Was du nicht wissen kannst</h2></div>
-    <p class="sec-intro">Diese vier Zahlen kennt niemand im Voraus. Ändere sie und beobachte, wie sich die vier Optionen gegeneinander verschieben — genau dafür ist dieses Werkzeug da.</p>
+    <p class="sec-intro">Diese vier Zahlen kennt niemand im Voraus — sie sind Annahmen, keine Tatsachen. Unter jedem Feld steht, was gemeint ist und womit du vernünftigerweise rechnen kannst. Ändere die Werte und beobachte, wie sich die vier Optionen gegeneinander verschieben: Genau dafür ist dieses Werkzeug da.</p>
     <div class="card">
       <div class="grid zwei">
         <div class="f">
           <label for="pauseMonate">Neuer Job beginnt nach … Monaten</label>
-          <input type="number" id="pauseMonate" value="0" min="0" max="24" step="1">
+          <input type="number" id="pauseMonate" value="1" min="1" max="24" step="1">
           <div class="hint" id="h-eintritt">—</div>
+          <div class="erkl">Diese Angabe gehört zu <b>Option 2</b>. Sie ergibt nur einen Sinn, wenn zwischen altem und neuem Job mindestens ein Monat ohne Beschäftigung liegt — sonst ist Option 2 dasselbe wie Option 1. Wie lange die Suche dauert, weiß niemand vorher: <b>Sechs Monate</b> sind ein realistischer Ausgangspunkt. Probiere verschiedene Werte aus.</div>
         </div>
         <div class="f">
           <label for="bleibeM">Ablehnen: Monate bleiben <button class="info" type="button" data-i="Manche Arbeitgeber stellen es zur Wahl: Abfindung nehmen und gehen - oder ablehnen, eine Zeit lang weiterarbeiten und am Ende betriebsbedingt ohne Abfindung ausscheiden. 0 heisst: kommt nicht in Frage.">?</button></label>
           <input type="number" id="bleibeM" value="24" min="0" max="60" step="1">
           <div class="hint">0 = kommt nicht in Frage</div>
+          <div class="erkl">Gehört zu <b>Option 4</b>. Größere Unternehmen stellen es oft zur Wahl: Abfindung nehmen und gehen — oder bleiben und <b>24 Monate</b> Zeit bekommen, intern eine neue Stelle zu finden. Gelingt das nicht, scheidet man danach ohne Abfindung aus. Ändere den Wert nur, wenn du die Regelung in deinem Fall kennst.</div>
         </div>
         <div class="f">
           <label for="zins">Anlagezins % / Jahr</label>
           <input type="number" id="zins" value="5" step="0.5" min="0" max="15">
           <div class="hint">Erträge vor Steuern</div>
+          <div class="erkl">Eine Abfindung bleibt selten auf dem Girokonto. Womit du rechnest, ändert das Ergebnis über zwei Jahrzehnte erheblich — dreh an der Zahl und schau zu. Zur Einordnung: Breit streuende Aktienfonds haben langfristig rund <b>7 %</b> im Jahr gebracht, sichere Anlagen liegen eher bei <b>2 bis 2,5 %</b>. Das sind Vergangenheitswerte und keine Zusage für die Zukunft. <b>Dies ist keine Anlageberatung.</b></div>
         </div>
         <div class="f">
           <label for="entnahme">Entnahme € / Monat <button class="info" type="button" data-i="Wie viel du monatlich aus der angelegten Abfindung entnimmst, um das niedrigere Gehalt auszugleichen. Der Vorschlag gleicht die Lücke genau aus — du kannst ihn überschreiben.">?</button></label>
           <input type="number" id="entnahme" value="0" step="50">
           <div class="auto" id="h-entnahme">—</div>
+          <div class="erkl">Nur ausfüllen, wenn das neue Gehalt zum Leben nicht reicht und du monatlich etwas aus der Abfindung nehmen musst. <b>Empfehlenswert ist das nicht:</b> Was du entnimmst, fehlt nicht nur selbst, sondern auch bei den Zinsen bis zur Rente — und die sind ein erheblicher Teil des Endergebnisses. Bei dauerhaften Entnahmen ist das Geld irgendwann aufgebraucht, und von der Abfindung bleibt im Alter nichts übrig.</div>
         </div>
       </div>
     </div>
