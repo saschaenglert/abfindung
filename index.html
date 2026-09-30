@@ -627,6 +627,15 @@ details.calc summary .badge{
 #bo-blatt .bo-fuss li{margin-bottom:2.5px}
 #bo-blatt .neue-seite{page-break-before:always; break-before:page}
 #bo-blatt .bo-info{font-size:11px; color:var(--ink-mid); line-height:1.6; margin:0 0 10px}
+#bo-blatt .bo-legende{display:grid; grid-template-columns:repeat(2,1fr); gap:6px 12px; margin-bottom:4px}
+#bo-blatt .bo-leg{
+  font-size:11px; line-height:1.45; padding:5px 0 5px 10px; border-left:3px solid;
+}
+#bo-blatt .bo-leg b{display:block; font-weight:600; color:var(--ink)}
+#bo-blatt .bo-leg span{color:var(--ink-mid)}
+#bo-blatt .bo-leg.k1{border-color:var(--w1-d)} #bo-blatt .bo-leg.k2{border-color:var(--w2-d)}
+#bo-blatt .bo-leg.k3{border-color:var(--w3-d)} #bo-blatt .bo-leg.k4{border-color:var(--w4-d)}
+@media(max-width:700px){ #bo-blatt .bo-legende{grid-template-columns:1fr} }
 
 @media print{
   /* Die Seite kommt ganz aus dem Layout - nicht nur aus der Sicht. Sonst
@@ -700,28 +709,28 @@ details.calc summary .badge{
       <div class="weg-karte k1">
         <div class="weg-kopf">
           <div class="weg-nr">OPTION 1</div>
-          <div class="weg-titel">Wechseln<small>ohne Arbeitslosigkeit</small></div>
+          <div class="weg-titel">Wechseln<small>ohne Arbeitslosigkeit, mit Abfindung</small></div>
         </div>
         <p>Du nimmst die Abfindung und hast den neuen Job schon sicher. Letzter Tag altes Gehalt, im Monat darauf das erste neue. Keine Lücke.</p>
       </div>
       <div class="weg-karte k2">
         <div class="weg-kopf">
           <div class="weg-nr">OPTION 2</div>
-          <div class="weg-titel">Wechseln<small>nach Arbeitslosigkeit</small></div>
+          <div class="weg-titel">Wechseln<small>nach Arbeitslosigkeit, mit Abfindung</small></div>
         </div>
         <p>Wie Option 1, aber du findest nicht sofort etwas. Du trägst ein, wie viele Monate du brauchst — eine Annahme, die du jederzeit ändern kannst.</p>
       </div>
       <div class="weg-karte k3">
         <div class="weg-kopf">
           <div class="weg-nr">OPTION 3</div>
-          <div class="weg-titel">Bleiben<small>Angebot abgelehnt</small></div>
+          <div class="weg-titel">Bleiben<small>Angebot abgelehnt, ohne Abfindung</small></div>
         </div>
         <p>Du lehnst ab und findest im Unternehmen eine andere Stelle. Dein Gehalt läuft unverändert weiter. Keine Abfindung.</p>
       </div>
       <div class="weg-karte k4">
         <div class="weg-kopf">
           <div class="weg-nr">OPTION 4</div>
-          <div class="weg-titel">Wechseln<small>nach 2 Jahren</small></div>
+          <div class="weg-titel">Wechseln<small id="k4-sub">nach 2 Jahren, ohne Abfindung</small></div>
         </div>
         <p>Du lehnst ab und hoffst auf eine interne Stelle — sie kommt nicht. Nach der Zeit, die du unten einträgst, wechselst du doch. Ohne Abfindung.</p>
       </div>
@@ -1581,6 +1590,9 @@ details.calc summary .badge{
       spalten, nBrutto, satzGehalt, grenzsatz, bestStrich, stErmaess, soliErm, kiErm,
       renteNeu, lueckeM, pauseM, basisJahr, abfJahr
     };
+    const k4 = document.getElementById('k4-sub');
+    if (k4) k4.textContent = (bleibeM<=0 ? 'ohne Abfindung' : bleibeTxt+', ohne Abfindung');
+
     renderWeg();
 
     // Rechenweg: Fuenftelregelung
@@ -1886,6 +1898,9 @@ details.calc summary .badge{
 
 
   /* ============ Bericht: aus den gerenderten Tabellen, nie abweichend ============ */
+  const ABF_ZUSATZ = {neu:'mit Abfindung', alg:'mit Abfindung',
+                      bleiben:'ohne Abfindung', abl:'ohne Abfindung'};
+
   const BERICHT_FELDER = [
     ['restjahre','Jahre bis zur Rente'], ['stkl','Steuerklasse'], ['kinder','Kinder'],
     ['kirche','Kirchensteuer'], ['kvart','Krankenversicherung'], ['zusatz','KV-Zusatzbeitrag','%'],
@@ -1939,7 +1954,7 @@ details.calc summary .badge{
       wegAktiv = c.k; renderVerlauf();
       const t = fuerBericht(document.getElementById('tbl-verlauf').cloneNode(true));
       return '<div class="bo-weg k'+(i+1)+'"><div class="bo-weg-k">'+c.t+
-             '<small>'+c.s+'</small></div>'+t.outerHTML+'</div>';
+             '<small>'+c.s+' — '+ABF_ZUSATZ[c.k]+'</small></div>'+t.outerHTML+'</div>';
     }).join('');
     wegAktiv = merkWeg; verlaufKum = merkKum; renderVerlauf();
 
@@ -1948,6 +1963,11 @@ details.calc summary .badge{
         '<div><div class="n">Sam</div><div class="s">der Abfindungs-Rechner</div></div>'+
         '<div class="d">Erstellt am '+heute+'<br>Gerechnet über '+N+' Jahre</div>'+
       '</div>'+
+
+      '<h3>Die vier Optionen</h3>'+
+      '<div class="bo-legende">'+ERG.spalten.map((c,i)=>
+        '<div class="bo-leg k'+(i+1)+'"><b>Option '+(i+1)+' · '+c.t+'</b>'+
+        '<span>'+c.s+' — '+ABF_ZUSATZ[c.k]+'</span></div>').join('')+'</div>'+
 
       '<h3>Die Optionen im Überblick</h3>'+
       '<p class="bo-info">Gerechnet sind Nettoeinkommen, Entnahmen aus der Abfindung und das Anlagekonto über die gesamte Zeit bis zum Rentenbeginn.</p>'+
