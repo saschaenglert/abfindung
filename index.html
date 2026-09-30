@@ -612,20 +612,22 @@ details.calc summary .badge{
 #bo-blatt .bo-info{font-size:11px; color:var(--ink-mid); line-height:1.6; margin:0 0 10px}
 
 @media print{
-  /* Alles unsichtbar, nur der Bericht wieder sichtbar - unabhaengig davon,
-     wie tief das Overlay im Dokument haengt. */
-  body.druckt *{visibility:hidden!important}
-  body.druckt #bericht-overlay,
-  body.druckt #bericht-overlay *{visibility:visible!important}
+  /* Die Seite kommt ganz aus dem Layout - nicht nur aus der Sicht. Sonst
+     belegen die ausgeblendeten Abschnitte weiter Platz und es entstehen
+     leere Seiten hinter dem Bericht. Das Overlay haengt per JS direkt am
+     Seitenkoerper, deshalb greift der Kindselektor zuverlaessig. */
+  body.druckt > *:not(#bericht-overlay){display:none!important}
   body.druckt .bo-leiste{display:none!important}
   body.druckt #bericht-overlay{
-    position:absolute!important; left:0; top:0; width:100%;
-    background:#fff; padding:0; overflow:visible; display:block!important;
+    position:static!important; background:#fff; padding:0!important;
+    overflow:visible; display:block!important; height:auto!important;
   }
   body.druckt #bo-blatt{
     box-shadow:none; max-width:none; margin:0; padding:0; border-radius:0;
   }
-  body.druckt{background:#fff!important; overflow:visible!important}
+  body.druckt #bo-blatt > *:last-child{margin-bottom:0!important}
+  body.druckt{background:#fff!important; overflow:visible!important; height:auto!important}
+  html{height:auto!important}
   @page{size:A4; margin:15mm 13mm}
 }
 
