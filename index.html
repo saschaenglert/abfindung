@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<meta name="description" content="Vier Wege nach einem Abfindungsangebot im Vergleich.">
+<meta name="description" content="Vier Optionen nach einem Abfindungsangebot im Vergleich.">
 <meta name="color-scheme" content="light">
 <style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -97,10 +97,16 @@ h1,h2,h3,.syne{font-family:'Syne','Inter',sans-serif}
   font-size:10px; font-weight:700; letter-spacing:.55px; text-transform:uppercase;
   color:#49536a; display:flex; align-items:center; gap:5px;
 }
+.f input[type=month],.f input[type=date]{
+  /* Safari zentriert Datumsfelder und macht sie hoeher als die uebrigen */
+  text-align:left; -webkit-appearance:none; appearance:none;
+  min-height:0; line-height:1.25;
+}
 .f input,.f select{
   font-family:'Inter',sans-serif; font-size:15px; font-weight:600; color:var(--ink);
   background:#e4e9f3; border:1.5px solid #8e9cbb;
   border-radius:8px; padding:10px 11px; width:100%;
+  min-height:44px;
   font-variant-numeric:tabular-nums; transition:border-color .15s, background .15s, box-shadow .15s;
 }
 .f input:hover,.f select:hover{border-color:#9aa6c0}
@@ -140,6 +146,12 @@ h1,h2,h3,.syne{font-family:'Syne','Inter',sans-serif}
 }
 
 .split{display:grid; grid-template-columns:1fr 1fr; gap:13px}
+/* Heutiger und neuer Job als getrennte Bloecke - auf dem Handy stehen sie
+   untereinander und waeren sonst eine durchgehende weisse Flaeche */
+.split > div{
+  background:var(--cream); border:1px solid var(--cream-dark);
+  border-radius:10px; padding:13px 13px 14px;
+}
 .col-head{
   font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:.5px;
   text-transform:uppercase; padding-bottom:8px; margin-bottom:11px;
@@ -646,7 +658,7 @@ details.calc summary .badge{
 @media(max-width:560px){
   .wege-grid{grid-template-columns:1fr; gap:9px}
   .weg-karte{padding:11px 12px 12px}
-  .split{grid-template-columns:1fr; gap:18px}
+  .split{grid-template-columns:1fr; gap:14px}
   .wrap{padding-block:14px 44px}
   }
 @media(prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
@@ -672,38 +684,38 @@ details.calc summary .badge{
 
 <div class="wrap">
 
-  <p class="claim"><strong>Ein Abfindungsangebot ist eine Entscheidung über viele Jahre — nicht über eine Summe.</strong> Sam stellt vier Wege nebeneinander und rechnet jeden bis zu deinem Renteneintritt durch: Gehalt, Steuern, Arbeitslosengeld, Rentenansprüche und das, was aus der angelegten Abfindung wird. Am Ende steht für jeden Weg eine Zahl — und du siehst, woraus sie sich zusammensetzt.</p>
-  <p class="claim klein"><strong>Nichts von dem, was du eingibst, wird gespeichert.</strong> Alles bleibt in deinem Browser und ist weg, sobald du die Seite neu lädst — es gibt kein Konto und keine Anmeldung.</p>
+  <p class="claim"><strong>Ein Abfindungsangebot ist eine Entscheidung über viele Jahre — nicht über eine Summe.</strong></p>
+  <p class="claim">Sam stellt vier deiner Optionen nebeneinander und rechnet jede bis zu deinem Renteneintritt durch: Gehalt, Steuern, Arbeitslosengeld, Rentenansprüche und das, was aus der angelegten Abfindung wird. Am Ende steht für jede Option eine Zahl — und du siehst, woraus sie sich zusammensetzt.</p>
 
   <!-- ================= EINSTIEG: die vier Wege ================= -->
   <section class="sec">
-    <div class="sec-head"><span class="sec-num">WORUM ES GEHT</span><h2>Vier Wege im Vergleich</h2></div>
-    <p class="sec-intro">Welcher davon für dich in Frage kommt, musst du nicht vorher wissen — Sam rechnet alle vier parallel und stellt sie nebeneinander.</p>
+    <div class="sec-head"><span class="sec-num">WORUM ES GEHT</span><h2>Vier Optionen im Vergleich</h2></div>
+    <p class="sec-intro">Welche davon für dich in Frage kommt, musst du nicht vorher wissen — Sam rechnet alle vier parallel und stellt sie nebeneinander.</p>
     <div class="wege-grid">
       <div class="weg-karte k1">
         <div class="weg-kopf">
-          <div class="weg-nr">WEG 1</div>
+          <div class="weg-nr">OPTION 1</div>
           <div class="weg-titel">Wechseln<small>ohne Arbeitslosigkeit</small></div>
         </div>
         <p>Du nimmst die Abfindung und hast den neuen Job schon sicher. Letzter Tag altes Gehalt, im Monat darauf das erste neue. Keine Lücke.</p>
       </div>
       <div class="weg-karte k2">
         <div class="weg-kopf">
-          <div class="weg-nr">WEG 2</div>
+          <div class="weg-nr">OPTION 2</div>
           <div class="weg-titel">Wechseln<small>nach Arbeitslosigkeit</small></div>
         </div>
-        <p>Wie Weg 1, aber du findest nicht sofort etwas. Du trägst ein, wie viele Monate du brauchst — eine Annahme, die du jederzeit ändern kannst.</p>
+        <p>Wie Option 1, aber du findest nicht sofort etwas. Du trägst ein, wie viele Monate du brauchst — eine Annahme, die du jederzeit ändern kannst.</p>
       </div>
       <div class="weg-karte k3">
         <div class="weg-kopf">
-          <div class="weg-nr">WEG 3</div>
+          <div class="weg-nr">OPTION 3</div>
           <div class="weg-titel">Bleiben<small>Angebot abgelehnt</small></div>
         </div>
         <p>Du lehnst ab und findest im Unternehmen eine andere Stelle. Dein Gehalt läuft unverändert weiter. Keine Abfindung.</p>
       </div>
       <div class="weg-karte k4">
         <div class="weg-kopf">
-          <div class="weg-nr">WEG 4</div>
+          <div class="weg-nr">OPTION 4</div>
           <div class="weg-titel">Wechseln<small>nach 2 Jahren</small></div>
         </div>
         <p>Du lehnst ab und hoffst auf eine interne Stelle — sie kommt nicht. Nach der Zeit, die du unten einträgst, wechselst du doch. Ohne Abfindung.</p>
@@ -714,7 +726,7 @@ details.calc summary .badge{
   <!-- ================= EINGABE ================= -->
   <section class="sec">
     <div class="sec-head"><span class="sec-num">SCHRITT 1</span><h2>Über dich</h2></div>
-    <p class="sec-intro">Egal welchen Weg du gehst: Wie viel von deinem Geld beim Finanzamt und bei den Sozialkassen landet, hängt an diesen Angaben. Ohne sie lässt sich kein einziger Weg rechnen.</p>
+    <p class="sec-intro">Für welche Option du dich auch entscheidest: Wie viel von deinem Geld beim Finanzamt und bei den Sozialkassen landet, hängt an diesen Angaben. Ohne sie lässt sich keine einzige Option rechnen.</p>
     <div class="card">
       <div class="grid zwei">
         <div class="f">
@@ -759,7 +771,8 @@ details.calc summary .badge{
 
   <section class="sec">
     <div class="sec-head"><span class="sec-num">SCHRITT 2</span><h2>Dein Gehalt</h2></div>
-    <p class="sec-intro">Links steht, was du heute verdienst — das ist der Maßstab, an dem alles gemessen wird und der Weg 3 komplett bestimmt. Rechts steht das neue Gehalt; es zählt in allen Wegen, in denen du irgendwann wechselst. Trag auch ein, was leicht vergessen wird: Weihnachtsgeld, Urlaubsgeld, Bonus, Betriebsrente.</p>
+    <p class="sec-intro">Zuerst erfasst du, was du heute verdienst — mit allem, was dazugehört: Weihnachtsgeld, Urlaubsgeld, Bonus, Überstunden, Betriebsrente. Das ist der Maßstab, an dem alles gemessen wird, und es bestimmt Option 3 vollständig.</p>
+    <p class="sec-intro">Danach das neue Gehalt. Da drei der vier Optionen einen Wechsel bedeuten, musst du hier eine Annahme treffen — auch wenn du noch kein Angebot hast. Trag ein, womit du rechnest, und ändere die Zahl ruhig mehrfach: So siehst du, ab welchem Gehalt sich ein Wechsel überhaupt trägt.</p>
     <div class="card">
       <div class="split">
         <div>
@@ -884,7 +897,7 @@ details.calc summary .badge{
   <!-- ================= SCHRITT 4: die Annahmen ================= -->
   <section class="sec">
     <div class="sec-head"><span class="sec-num">SCHRITT 4</span><h2>Was du nicht wissen kannst</h2></div>
-    <p class="sec-intro">Diese vier Zahlen kennt niemand im Voraus. Ändere sie und beobachte, wie sich die vier Wege gegeneinander verschieben — genau dafür ist dieses Werkzeug da.</p>
+    <p class="sec-intro">Diese vier Zahlen kennt niemand im Voraus. Ändere sie und beobachte, wie sich die vier Optionen gegeneinander verschieben — genau dafür ist dieses Werkzeug da.</p>
     <div class="card">
       <div class="grid zwei">
         <div class="f">
@@ -913,11 +926,11 @@ details.calc summary .badge{
 
   <!-- ================= ERGEBNIS — der One-Pager ================= -->
   <section class="sec">
-    <div class="sec-head"><span class="sec-num">ERGEBNIS</span><h2>Dein Ergebnis auf einen Blick</h2><button class="info gross" type="button" data-i="Alles Wesentliche auf einer Seite. Wähle oben den Weg, den du durchrechnen willst.">?</button></div>
+    <div class="sec-head"><span class="sec-num">ERGEBNIS</span><h2>Dein Ergebnis auf einen Blick</h2><button class="info gross" type="button" data-i="Alles Wesentliche auf einer Seite. Wähle unten die Option, die du im Detail sehen willst.">?</button></div>
 
 
     <div class="card">
-      <div class="chart-title">Die Wege im Überblick <button class="info gross" type="button" data-i="Bleiben ist die Null - jeder Weg ist dagegen gerechnet. Die oberen Bloecke gelten fuer die ganze Zeit bis zur Rente. Ab dem Block MIT DER ZEITRAUM-LEISTE zaehlen nur die dort gewaehlten Jahre; benachbarte Jahre werden zusammengezaehlt.">?</button></div>
+      <div class="chart-title">Die Optionen im Überblick <button class="info gross" type="button" data-i="Bleiben ist die Null - jede Option ist dagegen gerechnet. Die oberen Bloecke gelten fuer die ganze Zeit bis zur Rente. Ab dem Block MIT DER ZEITRAUM-LEISTE zaehlen nur die dort gewaehlten Jahre; benachbarte Jahre werden zusammengezaehlt.">?</button></div>
       <div class="tbl-scroll"><table class="jahr" id="tbl-jahr">
         <thead id="matrix-kopf"></thead>
         <tbody id="matrix-body"></tbody>
@@ -926,8 +939,8 @@ details.calc summary .badge{
     </div>
 
     <div class="card" style="margin-top:12px">
-      <div class="chart-title">Der Verlauf, Jahr für Jahr <button class="info gross" type="button" data-i="Alle Jahre bis zur Rente untereinander - fuer den oben gewaehlten Weg. Waehrend die Tabelle darueber die Wege vergleicht, zeigt diese, wie sich ein Weg ueber die Zeit entwickelt: wann die Abfindung versteuert wird, wann das Bargeld aufgebraucht ist, wie das angelegte Kapital waechst.">?</button></div>
-      <div class="hero-switch" id="weg-switch" role="group" aria-label="Weg wählen"></div>
+      <div class="chart-title">Der Verlauf, Jahr für Jahr <button class="info gross" type="button" data-i="Alle Jahre bis zur Rente untereinander - fuer die oben gewaehlte Option. Waehrend die Tabelle darueber die Optionen vergleicht, zeigt diese, wie sich eine Option ueber die Zeit entwickelt: wann die Abfindung versteuert wird, wann das Bargeld aufgebraucht ist, wie das angelegte Kapital waechst.">?</button></div>
+      <div class="hero-switch" id="weg-switch" role="group" aria-label="Option wählen"></div>
       <div class="jahrmodus" role="group" aria-label="Darstellung">
         <button type="button" class="vm an" data-v="jahr">Pro Jahr</button>
         <button type="button" class="vm" data-v="kum">Kumuliert</button>
@@ -1003,7 +1016,7 @@ details.calc summary .badge{
 
   <section class="sec">
     <div class="sec-head"><span class="sec-num">MITNEHMEN</span><h2>Ergebnis sichern</h2></div>
-    <p class="sec-intro">Sam erstellt aus deinen Angaben einen mehrseitigen Bericht: das Ergebnis aller vier Wege, deine Eingaben zum Nachvollziehen, die Herleitung und den Verlauf Jahr für Jahr. Den kannst du ausdrucken oder als PDF sichern — auf dem iPhone über <b>Teilen → Drucken</b>, dann mit zwei Fingern aufziehen und sichern.</p>
+    <p class="sec-intro">Sam erstellt aus deinen Angaben einen mehrseitigen Bericht: das Ergebnis aller vier Optionen, deine Eingaben zum Nachvollziehen, die Herleitung und den Verlauf Jahr für Jahr. Den kannst du ausdrucken oder als PDF sichern — auf dem iPhone über <b>Teilen → Drucken</b>, dann mit zwei Fingern aufziehen und sichern.</p>
     <button type="button" id="btn-bericht" class="gross-btn">Bericht erstellen</button>
   </section>
 
@@ -1722,7 +1735,7 @@ details.calc summary .badge{
        v:c=>gesamt[c], rang:1,
        info:'Alles, was ueber die gesamte Zeit zusammenkommt: das verdiente Nettoeinkommen, die Entnahmen aus der Abfindung und das, was am Ende auf dem Anlagekonto liegt. Die Farben zeigen die Reihenfolge: blau ist die hoechste Summe, dann gruen, gelb, rot.'},
 
-      {abstand:1, t:'Abstand zum besten Weg',
+      {abstand:1, t:'Abstand zur besten Option',
        txt:c=>{ const d=gesamt[c]-maxWert; return d>=0 ? '—' : '−'+eur0(Math.abs(d))+' €'; }},
 
     ];
@@ -1803,7 +1816,7 @@ details.calc summary .badge{
       ? 'Im Jahr '+E.abfJahr+' geht die Abfindung mit <b>'+eur(E.abfAuszahlung)+
         '</b> auf das Anlagekonto. Im Jahr '+(E.abfJahr+1)+' kommt die Steuererstattung von <b>'+
         eur(E.erstattung)+'</b> dazu — der Arbeitgeber hatte ohne Fünftelregelung zu viel einbehalten.'
-      : 'Bei diesem Weg gibt es keine Abfindung und damit kein Anlagekonto.';
+      : 'Bei dieser Option gibt es keine Abfindung und damit kein Anlagekonto.';
   }
 
   /* ============ Der gewählte Weg ============ */
@@ -1927,7 +1940,7 @@ details.calc summary .badge{
         '<div class="d">Erstellt am '+heute+'<br>Gerechnet über '+N+' Jahre</div>'+
       '</div>'+
 
-      '<h3>Die Wege im Überblick</h3>'+
+      '<h3>Die Optionen im Überblick</h3>'+
       '<p class="bo-info">Gerechnet sind Nettoeinkommen, Entnahmen aus der Abfindung und das Anlagekonto über die gesamte Zeit bis zum Rentenbeginn.</p>'+
       matrix.outerHTML+
 
