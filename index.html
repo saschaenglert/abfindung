@@ -612,10 +612,20 @@ details.calc summary .badge{
 #bo-blatt .bo-info{font-size:11px; color:var(--ink-mid); line-height:1.6; margin:0 0 10px}
 
 @media print{
-  body>*:not(#bericht-overlay){display:none!important}
-  .bo-leiste{display:none!important}
-  #bericht-overlay{position:static; background:#fff; padding:0; overflow:visible}
-  #bo-blatt{box-shadow:none; max-width:none; margin:0; padding:0; border-radius:0}
+  /* Alles unsichtbar, nur der Bericht wieder sichtbar - unabhaengig davon,
+     wie tief das Overlay im Dokument haengt. */
+  body.druckt *{visibility:hidden!important}
+  body.druckt #bericht-overlay,
+  body.druckt #bericht-overlay *{visibility:visible!important}
+  body.druckt .bo-leiste{display:none!important}
+  body.druckt #bericht-overlay{
+    position:absolute!important; left:0; top:0; width:100%;
+    background:#fff; padding:0; overflow:visible; display:block!important;
+  }
+  body.druckt #bo-blatt{
+    box-shadow:none; max-width:none; margin:0; padding:0; border-radius:0;
+  }
+  body.druckt{background:#fff!important; overflow:visible!important}
   @page{size:A4; margin:15mm 13mm}
 }
 
@@ -1945,14 +1955,19 @@ details.calc summary .badge{
       '</div>';
   }
 
+  // Das Overlay gehoert direkt an den Seitenkoerper, nicht in den Inhaltsrahmen
+  document.body.appendChild(document.getElementById('bericht-overlay'));
+
   document.getElementById('btn-bericht').addEventListener('click',()=>{
     berichtBauen();
     document.getElementById('bericht-overlay').hidden = false;
+    document.body.classList.add('druckt');
     document.body.style.overflow = 'hidden';
     window.scrollTo(0,0);
   });
   document.getElementById('bo-zu').addEventListener('click',()=>{
     document.getElementById('bericht-overlay').hidden = true;
+    document.body.classList.remove('druckt');
     document.body.style.overflow = '';
   });
   document.getElementById('bo-druck').addEventListener('click',()=>window.print());
