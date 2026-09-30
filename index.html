@@ -1,0 +1,1968 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="description" content="Vier Wege nach einem Abfindungsangebot im Vergleich.">
+<meta name="color-scheme" content="light">
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<title>Sam, der Abfindungs-Rechner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+
+<style>
+:root{
+  --navy:#1C2540; --navy2:#253060;
+  --ink:#2a3142; --ink-mid:#5a6478; --ink-light:#9aa3b2;
+  --cream:#f7f8fb; --cream-mid:#eef0f5; --cream-dark:#d8dce8;
+  --white:#ffffff; --line-new:#DDE1EC;
+  --red:#d4899a; --red-pale:#fdf0f3;
+  --green:#7ab8a4; --green-pale:#edf7f4;
+  --amber:#b8965a; --amber-pale:#f9f4e8;
+
+  /* Tool-Akzent: Petrol - neu, unterscheidet sich von Immo/Fewo/Gastro/Steuer */
+  --accent:#2E8FA8; --accent-bg:#E7F2F6; --accent-pale:#F3F9FB; --accent-icon:#5FB3C9;
+
+  /* Szenario-Farben (validiert: CVD-Separation bestanden) */
+  --sz-alt:#3B6FB5; --sz-neu:#C97A29; --sz-alg:#7B4EA8; --sz-abl:#B4576F;
+
+  /* Wegfarben (Okabe-Ito, gegen Rot-Gruen- und Blau-Gelb-Schwaeche geprueft).
+     -d ist die dunklere Variante fuer weisse Schrift darauf. */
+  --w1:#0072B2; --w1-d:#005C90;
+  --w2:#E69F00; --w2-d:#8A6000;
+  --w3:#009E73; --w3-d:#00715A;
+  --w4:#CC79A7; --w4-d:#9B4C79;
+
+  --r:12px; --rl:20px;
+  --sh:0 2px 10px rgba(30,40,80,.07);
+  --shm:0 6px 20px rgba(30,40,80,.10);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#e6e9f2; color:var(--ink);
+  font-size:14px; line-height:1.5;
+  -webkit-text-size-adjust:100%;
+}
+h1,h2,h3,.syne{font-family:'Syne','Inter',sans-serif}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px}
+
+/* ---------- Header ---------- */
+.header{
+  position:sticky; top:0; z-index:100;
+  background:var(--navy); min-height:56px;
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  padding:10px 60px; box-shadow:0 2px 16px rgba(0,0,0,.25);
+}
+.sam-icon{width:38px;height:38px;flex-shrink:0}
+.hd-txt{display:flex; flex-direction:column; line-height:1.15; min-width:0}
+.hd-name{font-family:'Syne',sans-serif; font-weight:700; font-size:15px; color:#fff; letter-spacing:-.2px}
+.hd-sub{font-family:'Syne',sans-serif; font-weight:500; font-size:12px; color:var(--accent-icon)}
+.wrap{max-width:880px; margin:0 auto; padding-inline:16px; padding-block:18px 56px}
+
+/* ---------- Abschnitte ---------- */
+.sec{margin-bottom:26px}
+.sec-head{display:flex; align-items:baseline; gap:10px; margin-bottom:4px; flex-wrap:wrap}
+.sec-num{
+  font-family:'Syne',sans-serif; font-size:10px; font-weight:700; letter-spacing:.8px;
+  color:var(--accent); background:var(--accent-bg);
+  padding:3px 8px; border-radius:5px; flex-shrink:0;
+}
+.sec h2{font-size:17px; font-weight:700; letter-spacing:-.2px; text-wrap:balance}
+.sec-sub{font-size:12.5px; color:var(--ink-light); margin-bottom:13px; max-width:62ch}
+
+.card{
+  background:var(--white); border:1px solid #b9c2d6;
+  border-radius:var(--r); box-shadow:var(--sh); padding:16px;
+}
+.card + .card{margin-top:12px}
+
+/* ---------- Formular ---------- */
+.grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,158px),1fr));
+  gap:13px; align-items:start;
+}
+/* Hinweiszeilen sollen die Zeilenhöhe nicht auseinanderziehen */
+.f .hint,.f .auto{min-height:15px}
+.grid.zwei{grid-template-columns:repeat(2,1fr)}
+@media(max-width:560px){ .grid.zwei{grid-template-columns:1fr} }
+.f{display:flex; flex-direction:column; gap:5px; min-width:0}
+.f label{
+  font-size:10px; font-weight:700; letter-spacing:.55px; text-transform:uppercase;
+  color:#49536a; display:flex; align-items:center; gap:5px;
+}
+.f input,.f select{
+  font-family:'Inter',sans-serif; font-size:15px; font-weight:600; color:var(--ink);
+  background:#e4e9f3; border:1.5px solid #8e9cbb;
+  border-radius:8px; padding:10px 11px; width:100%;
+  font-variant-numeric:tabular-nums; transition:border-color .15s, background .15s, box-shadow .15s;
+}
+.f input:hover,.f select:hover{border-color:#9aa6c0}
+.f input:focus,.f select:focus{
+  outline:none; border-color:var(--accent); background:var(--white);
+  box-shadow:0 0 0 3px rgba(46,143,168,.14);
+}
+.f .hint{font-size:11px; color:var(--ink-light); line-height:1.4}
+.fixed{
+  font-size:15px; font-weight:600; color:var(--ink-mid);
+  background:var(--cream); border:1.5px dashed var(--cream-dark);
+  border-radius:8px; padding:10px 11px; font-variant-numeric:tabular-nums;
+}
+.note{
+  margin-top:14px; padding:12px 14px; background:var(--cream);
+  border:1px solid var(--line-new); border-left:3px solid var(--accent);
+  border-radius:8px; font-size:12px; color:var(--ink-mid); line-height:1.6; max-width:70ch;
+}
+.note b{color:var(--ink); font-weight:600}
+.f .auto{font-size:11px; color:var(--accent); font-weight:600}
+
+.info{
+  width:15px;height:15px;border-radius:50%; flex-shrink:0;
+  background:var(--cream-mid); border:none; color:var(--ink-light);
+  font-size:10px; font-weight:700; font-family:'Inter',sans-serif;
+  cursor:pointer; line-height:1; padding:0;
+}
+.info:hover{background:var(--accent-bg); color:var(--accent)}
+.info.gross{width:17px; height:17px; font-size:11px; margin-left:7px; vertical-align:middle}
+.info:active{background:var(--accent); color:var(--white)}
+.infopop{
+  position:fixed; z-index:60; box-sizing:border-box;
+  background:var(--white); border:1px solid var(--line-new);
+  border-left:3px solid var(--accent); border-radius:8px;
+  padding:11px 13px; font-size:12px; line-height:1.55; color:var(--ink-mid);
+  box-shadow:0 10px 28px rgba(28,37,64,.18);
+}
+
+.split{display:grid; grid-template-columns:1fr 1fr; gap:13px}
+.col-head{
+  font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:.5px;
+  text-transform:uppercase; padding-bottom:8px; margin-bottom:11px;
+  border-bottom:2px solid var(--line-new);
+}
+.col-head.alt{color:var(--sz-alt); border-color:var(--sz-alt)}
+.col-head.neu{color:var(--sz-neu); border-color:var(--sz-neu)}
+
+/* ---------- Ergebnis: Hauptzahl ---------- */
+
+.hero-switch{
+  display:flex; gap:3px; background:var(--cream-mid); padding:3px;
+  border-radius:9px; margin-bottom:12px; border:1px solid var(--cream-dark);
+}
+.hsw{
+  flex:1; min-width:0; font-family:'Syne',sans-serif; font-size:10px; font-weight:700;
+  letter-spacing:.3px; padding:8px 5px; border:none; border-radius:7px; cursor:pointer;
+  background:transparent; color:var(--ink-mid); transition:background .15s, color .15s;
+  line-height:1.25; text-align:center;
+}
+.hsw small{
+  display:block; font-family:'Inter',sans-serif; font-size:9.5px; font-weight:400;
+  color:var(--ink-light); margin-top:2px;
+}
+.hsw.active small{color:rgba(255,255,255,.85)}
+.hsw:hover{color:var(--ink)}
+.hsw.active{background:var(--navy); color:#fff}
+.hsw.active.k1{background:var(--w1-d)} .hsw.active.k2{background:var(--w2-d)}
+.hsw.active.k3{background:var(--w3-d)} .hsw.active.k4{background:var(--w4-d)}
+.hsw:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+
+/* Kopfzeile der Vergleichstabelle - gleiche Optik wie die Schalter, nur ohne Klick */
+#tbl-jahr{table-layout:fixed; min-width:500px}
+#tbl-jahr th:first-child,#tbl-jahr td:first-child{
+  width:33%; white-space:normal; line-height:1.3;
+}
+#tbl-jahr td{padding-left:6px; padding-right:6px}
+#tbl-jahr thead th{
+  border-bottom:none; padding:0 3px 9px; vertical-align:bottom; background:var(--white);
+}
+#tbl-jahr thead th:first-child{padding:0}
+.mk-box{
+  display:block; border:none; border-radius:7px; padding:7px 4px 6px; text-align:center;
+  font-family:'Syne',sans-serif; font-size:10px; font-weight:700; letter-spacing:.3px;
+  color:#fff; line-height:1.25; white-space:normal; text-transform:none;
+}
+.mk-box small{
+  display:block; font-family:'Inter',sans-serif; font-size:9.5px; font-weight:400;
+  letter-spacing:0; color:rgba(255,255,255,.82); margin-top:2px;
+}
+.mk-box.k1{background:var(--w1-d)} .mk-box.k2{background:var(--w2-d)}
+.mk-box.k3{background:var(--w3-d)} .mk-box.k4{background:var(--w4-d)}
+@media(max-width:560px){
+  #tbl-jahr{min-width:400px; font-size:11px}
+  #tbl-jahr th:first-child,#tbl-jahr td:first-child{width:28%}
+  #tbl-jahr td{padding-left:4px; padding-right:4px}
+  .mk-box{padding:6px 3px 5px; font-size:9.5px}
+  .mk-box small{font-size:9px}
+}
+
+
+.jz>b.pos{color:#3f8f78} .jz>b.neg{color:#b4576f}
+
+@media(max-width:560px){
+        .jk-top,}
+.jk.jetzt .jk.jetzt .jk-z.summe.gut{background:var(--green-pale)} .jk-z.summe.gut b{color:#3d7d6b}
+.jk-z.summe.schlecht{background:var(--red-pale)} .jk-z.summe.schlecht b{color:#a85f72}
+.jk-z b.pos{color:#3f8f78} .jk-z b.neg{color:#b4576f}
+
+/* ---------- Jahressicht ---------- */
+table.jahr{min-width:0; font-size:11.5px}
+table.jahr th,table.jahr td{padding:7px 5px; white-space:nowrap}
+table.jahr th:first-child,table.jahr td:first-child{
+  position:sticky; left:0; background:var(--white); z-index:2;
+  text-align:left; font-weight:600; min-width:54px; padding-left:0;
+}
+table.jahr tbody tr:nth-child(even) td:first-child{background:var(--cream)}
+table.jahr tr.gruppe th{
+  font-family:'Syne',sans-serif; font-size:9.5px; letter-spacing:.6px; text-transform:uppercase;
+  color:var(--ink-light); text-align:center; border-bottom:1px solid var(--cream-mid);
+  padding-bottom:4px; background:var(--white);
+}
+table.jahr tr.gruppe th+th{border-left:1px solid var(--line-new)}
+table.jahr thead tr:last-child th{font-size:9.5px; line-height:1.25; vertical-align:bottom}
+table.jahr tr.jetzt td{background:var(--amber-pale); font-weight:600}
+table.jahr tr.summe td{
+  background:var(--accent-bg); font-weight:700;
+  border-top:2px solid var(--accent); border-bottom:none;
+}
+table.jahr tr.summe td:first-child{background:var(--accent-bg); line-height:1.2}
+table.jahr tr.summe small{font-size:9px; font-weight:400; color:var(--ink-mid)}
+table.jahr tr.jetzt td:first-child{background:var(--amber-pale)}
+table.jahr td.neg{color:#b4576f} table.jahr td.pos{color:#3f8f78}
+table.jahr td.leer{color:var(--ink-light)}
+table.jahr tr.gr td{
+  font-family:'Syne',sans-serif; font-size:9.5px; font-weight:700; letter-spacing:.6px;
+  text-transform:uppercase; color:var(--ink-light); text-align:left;
+  padding:13px 0 4px; border-bottom:1px solid var(--cream-mid); background:var(--white)!important;
+}
+table.jahr tr.haupt td{font-weight:700}
+table.jahr tr.abstand td{
+  border-bottom:none; color:var(--ink-mid); font-size:11px; padding-top:5px;
+}
+table.jahr tr.abstand td:first-child{font-weight:500; color:var(--ink-light)}
+table.jahr tr.haupt td:first-child{font-weight:700}
+table.jahr td:first-child{min-width:150px; font-weight:500}
+
+/* ---------- Hinweis zum Zahlungsdatum ---------- */
+
+/* ---------- Verlaufstabelle: Jahre untereinander ---------- */
+table.jahr{min-width:0; font-size:11.5px}
+table.jahr th,table.jahr td{padding:7px 5px; white-space:nowrap; text-align:right}
+table.jahr th:first-child,table.jahr td:first-child{
+  position:sticky; left:0; background:var(--white); z-index:2;
+  text-align:left; font-weight:600; min-width:54px; padding-left:0;
+}
+table.jahr tbody tr:nth-child(even) td{background:var(--cream)}
+table.jahr tbody tr:nth-child(even) td:first-child{background:var(--cream)}
+table.jahr tr.gruppe th{
+  font-family:'Syne',sans-serif; font-size:9.5px; letter-spacing:.6px; text-transform:uppercase;
+  color:var(--ink-light); text-align:center; border-bottom:1px solid var(--cream-mid);
+  padding-bottom:4px; background:var(--white);
+}
+table.jahr tr.gruppe th+th{border-left:1px solid var(--line-new)}
+table.jahr thead tr:last-child th{
+  font-size:9.5px; line-height:1.25; vertical-align:bottom; font-family:'Syne',sans-serif;
+  font-weight:700; color:var(--ink-mid); border-bottom:2px solid var(--line-new); padding-bottom:6px;
+}
+table.jahr td{border-bottom:1px solid var(--cream-mid); font-variant-numeric:tabular-nums}
+table.jahr tr.abfjahr td{background:var(--amber-pale); font-weight:600}
+table.jahr tr.abfjahr td:first-child{background:var(--amber-pale)}
+table.jahr td.neg{color:#b4576f} table.jahr td.pos{color:#3f8f78}
+table.jahr td.leer{color:var(--ink-light)}
+
+/* ---------- Jahresleiste ---------- */
+.jahrmodus{display:flex; gap:3px; background:var(--cream-mid); padding:3px; border-radius:9px;
+  border:1px solid var(--cream-dark); margin-bottom:9px}
+.jm,.vm{flex:1; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; padding:8px 6px;
+  border:none; border-radius:7px; cursor:pointer; background:transparent; color:var(--ink-mid);
+  transition:background .15s, color .15s}
+.jm:hover,.vm:hover{color:var(--ink)}
+.jm.an,.vm.an{background:var(--white); color:var(--accent); box-shadow:0 1px 4px rgba(30,40,80,.10)}
+.jm:focus-visible,.vm:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.jahrleiste{display:flex; flex-wrap:wrap; gap:4px; margin:12px 0 14px}
+.jl{
+  font-family:'Syne',sans-serif; font-size:11.5px; font-weight:700;
+  padding:8px 11px; border-radius:7px; cursor:pointer;
+  background:var(--cream-mid); border:1px solid var(--cream-dark); color:var(--ink-mid);
+  transition:background .14s, color .14s, border-color .14s;
+}
+.jl:hover{border-color:var(--accent); color:var(--ink)}
+.jl.an{background:var(--accent); border-color:var(--accent); color:#fff}
+.jl.rand{box-shadow:inset 0 -3px 0 rgba(0,0,0,.14)}
+.jl:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+
+/* ---------- Szenario-Regler im Ergebnis ---------- */
+.regler{
+  background:var(--cream); border:1px solid var(--line-new);
+  border-radius:10px; padding:12px 14px; margin-bottom:16px;
+}
+.regler label{
+  display:block; font-size:10px; font-weight:700; letter-spacing:.5px;
+  text-transform:uppercase; color:#49536a; margin-bottom:9px;
+}
+.regler-in{display:flex; align-items:center; gap:13px}
+.regler input[type=range]{
+  flex:1; min-width:0; accent-color:var(--accent); height:22px; cursor:pointer;
+}
+.regler output{
+  font-family:'Syne',sans-serif; font-size:16px; font-weight:800; color:var(--accent);
+  font-variant-numeric:tabular-nums; min-width:52px; text-align:right; flex-shrink:0;
+}
+
+/* ---------- Vergleichsmatrix ---------- */
+table.matrix{min-width:0; font-size:11.5px; border-collapse:collapse}
+table.matrix th,table.matrix td{padding:7px 5px; text-align:right; white-space:nowrap}
+table.matrix tbody tr:nth-child(even) td{background:var(--cream)}
+table.matrix tbody tr:nth-child(even) td:first-child{background:var(--cream)}
+table.matrix td{border-bottom:1px solid var(--cream-mid)}
+/* Erste Spalte bleibt beim seitlichen Wischen stehen */
+table.matrix th:first-child,table.matrix td:first-child{
+  text-align:left; white-space:normal; width:38%; min-width:104px; padding-left:0;
+  position:sticky; left:0; background:var(--white); z-index:2;
+}
+table.matrix tr.detail td:first-child{background:var(--cream)}
+
+table.matrix th:last-child,table.matrix td:last-child{padding-right:0}
+table.matrix thead th{
+  font-family:'Syne',sans-serif; font-size:9.5px; font-weight:700; letter-spacing:.3px;
+  color:var(--ink-mid); border-bottom:2px solid var(--line-new); vertical-align:bottom;
+  line-height:1.25; text-transform:none; height:38px; padding-bottom:6px;
+}
+table.matrix thead th small{min-height:22px; display:flex; align-items:flex-end; justify-content:flex-end}
+table.matrix thead th:first-child small{justify-content:flex-start}
+table.matrix thead th small{
+  display:block; font-family:'Inter',sans-serif; font-size:9.5px; font-weight:400;
+  color:var(--ink-light); margin-top:2px;
+}
+table.matrix tr.trenner td{
+  padding:16px 0 10px; border-bottom:2px solid var(--accent);
+}
+.leiste-kopf{
+  font-family:'Syne',sans-serif; font-size:9.5px; font-weight:700; letter-spacing:.7px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:8px;
+}
+table.matrix tr.trenner .jahrleiste{margin:0}
+table.matrix tr.gr td{
+  font-family:'Syne',sans-serif; font-size:9.5px; font-weight:700; letter-spacing:.6px;
+  text-transform:uppercase; color:var(--ink-light); padding:13px 0 4px;
+  border-bottom:1px solid var(--cream-mid); background:var(--white)!important;
+}
+table.matrix tr:first-child.gr td{padding-top:4px}
+table.matrix tr.kz{cursor:default}
+
+table.matrix tr.kz td{font-variant-numeric:tabular-nums; font-weight:600}
+table.matrix tr.kz td:first-child{font-weight:600; color:var(--ink); font-size:11.5px; min-width:150px}
+table.matrix tr.kz td.aktiv{background:var(--accent-bg)}
+table.matrix tr.kz.haupt td{font-weight:700}
+table.matrix tr.detail td{
+  font-size:11px; font-weight:400; color:var(--ink-mid); padding:5px 6px;
+  background:var(--cream); font-variant-numeric:tabular-nums;
+}
+table.matrix tr.detail td:first-child{padding-left:14px; font-weight:400; color:var(--ink-light)}
+table.matrix tr.detail:last-of-type td{padding-bottom:9px}
+.kz-auf{
+  display:inline-block; width:12px; color:var(--accent); font-weight:700;
+  font-size:11px; margin-right:2px;
+}
+table.matrix td.neg{color:#b4576f} table.matrix td.pos{color:#3f8f78}
+
+
+/* ---------- Szenario-Karten ---------- */
+.szs{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,205px),1fr)); gap:12px; margin-bottom:16px}
+.sz{
+  background:var(--white); border:1px solid var(--line-new); border-radius:var(--r);
+  box-shadow:var(--sh); padding:15px; border-top:3px solid var(--line-new);
+  display:flex; flex-direction:column; gap:11px;
+}
+.sz.alt{border-top-color:var(--sz-alt)}
+.sz.neu{border-top-color:var(--sz-neu)}
+.sz.alg{border-top-color:var(--sz-alg)}
+.sz-name{font-family:'Syne',sans-serif; font-size:13px; font-weight:700; letter-spacing:-.1px}
+.sz-name .tag{display:block; font-family:'Inter',sans-serif; font-size:11px; font-weight:400; color:var(--ink-light); margin-top:2px}
+.sz-big{
+  font-family:'Syne',sans-serif; font-size:23px; font-weight:800; letter-spacing:-.7px;
+  font-variant-numeric:tabular-nums;
+}
+.sz.alt .sz-big{color:var(--sz-alt)} .sz.neu .sz-big{color:var(--sz-neu)} .sz.alg .sz-big{color:var(--sz-alg)}
+.sz-big small{display:block; font-family:'Inter',sans-serif; font-size:10.5px; font-weight:500; color:var(--ink-light); letter-spacing:.3px; text-transform:uppercase; margin-top:3px}
+.sz-rows{display:flex; flex-direction:column; gap:6px; border-top:1px solid var(--cream-mid); padding-top:10px}
+.sz-row{display:flex; justify-content:space-between; gap:10px; font-size:12px}
+.sz-row span{color:var(--ink-mid)}
+.sz-row b{font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap}
+.sz-row.br{color:var(--ink-light)}
+.sz-row.br span{color:var(--ink-light)}
+.sz-row.br b{font-weight:500; color:var(--ink-mid)}
+.sz-row.br + .sz-row:not(.br){
+  border-top:1px dashed var(--cream-dark); padding-top:7px; margin-top:1px;
+}
+
+.chart-card{padding:16px 14px 12px}
+.chart-title{font-family:'Syne',sans-serif; font-size:13px; font-weight:700; margin-bottom:2px}
+.chart-sub{font-size:11.5px; color:var(--ink-light); margin-bottom:12px}
+
+/* ---------- Tabelle ---------- */
+.tbl-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 -14px; padding:0 14px}
+table{border-collapse:collapse; width:100%; min-width:460px; font-size:12.5px}
+th,td{padding:8px 9px; text-align:right; white-space:nowrap}
+th{
+  font-family:'Syne',sans-serif; font-size:10px; font-weight:700; letter-spacing:.5px;
+  text-transform:uppercase; color:var(--ink-mid);
+  border-bottom:2px solid var(--line-new); position:sticky; top:0; background:var(--white);
+}
+th:first-child,td:first-child{text-align:left}
+td{border-bottom:1px solid var(--cream-mid); font-variant-numeric:tabular-nums}
+tbody tr:nth-child(even){background:var(--cream)}
+tbody tr.mark td{background:var(--accent-bg); font-weight:600}
+
+.ar.gut  .ar.mittel .ar.schlecht .ar.null .ar-name small{font-size:10.5px; color:var(--ink-light)}
+.ar.gut .ar.mittel .ar.schlecht .ar.null .ar-zahl small.pos{color:#3f8f78} .ar-zahl small.neg{color:#b4576f}
+
+/* ---------- Schlusszeile: Rangfolge dezent eingefärbt ---------- */
+table.jahr tr.bilanz td{
+  border-top:2px solid var(--line-new); border-bottom:none;
+  padding-top:11px; padding-bottom:11px; font-weight:800; font-size:12.5px;
+}
+table.jahr tr.bilanz td:first-child{font-weight:700}
+table.jahr td.rang1{background:var(--accent-bg)!important; color:#22708a}
+table.jahr td.rang2{background:var(--green-pale)!important; color:#3d7d6b}
+table.jahr td.rang3{background:var(--amber-pale)!important; color:#8a6d31}
+table.jahr td.rang4{background:var(--red-pale)!important;   color:#a8475f}
+
+/* ---------- Summen unter den Gehaltsspalten ---------- */
+.summe-block{
+  margin-top:16px; padding-top:14px; border-top:2px solid var(--line-new);
+  display:flex; flex-direction:column; gap:13px;
+}
+.anzeige{
+  font-family:'Inter',sans-serif; font-size:15px; font-weight:700; color:#fff;
+  background:#1F6E85; border:1.5px solid #185A6D;
+  border-radius:8px; padding:10px 11px; width:100%;
+  font-variant-numeric:tabular-nums;
+}
+.anzeige.minus{color:#fff; background:#8F3A4F; border-color:#75303F}
+.anzeige.leise{font-weight:600; color:#fff; background:#5a6478; border-color:#49536a}
+
+/* ---------- Umschalter / Tabelle ---------- */
+.switch{
+  display:flex; gap:3px; background:var(--cream-mid); padding:3px;
+  border-radius:9px; margin:13px 0 12px; border:1px solid var(--cream-dark);
+}
+.sw{
+  flex:1; font-family:'Syne',sans-serif; font-size:11.5px; font-weight:700;
+  padding:8px 6px; border:none; border-radius:7px; cursor:pointer;
+  background:transparent; color:var(--ink-mid); transition:background .15s, color .15s;
+  letter-spacing:.2px;
+}
+.sw:hover{color:var(--ink)}
+.sw.active{background:var(--white); color:var(--accent); box-shadow:0 1px 4px rgba(30,40,80,.10)}
+th.det,td.det{display:none}
+table.det th.det,table.det td.det{display:table-cell}
+.toggle{
+  display:flex; align-items:center; gap:8px; margin-top:12px;
+  font-size:12px; color:var(--ink-mid); cursor:pointer; user-select:none;
+}
+.toggle input{width:16px; height:16px; accent-color:var(--accent); cursor:pointer}
+td.neg{color:#b4576f} td.pos{color:#3f8f78}
+tbody tr.leer td{background:var(--amber-pale); font-weight:600}
+tbody tr.leer td:first-child::after{content:' ◂ aufgebraucht'; font-size:10px; color:var(--amber); font-weight:600}
+
+
+/* ---------- Rechenweg ---------- */
+details.calc{
+  background:var(--white); border:1px solid var(--line-new);
+  border-radius:var(--r); box-shadow:var(--sh); margin-top:12px; overflow:hidden;
+}
+details.calc + details.calc{margin-top:8px}
+details.calc summary{
+  padding:14px 16px; cursor:pointer; list-style:none;
+  font-family:'Syne',sans-serif; font-size:13px; font-weight:700;
+  display:flex; align-items:center; gap:9px;
+}
+details.calc summary::-webkit-details-marker{display:none}
+details.calc summary::before{
+  content:'+'; font-size:15px; color:var(--accent); width:17px; flex-shrink:0;
+}
+details.calc[open] summary::before{content:'−'}
+details.calc summary .badge{
+  margin-left:auto; font-family:'Inter',sans-serif; font-size:11.5px; font-weight:600;
+  color:var(--accent); background:var(--accent-bg); padding:3px 9px; border-radius:20px;
+  font-variant-numeric:tabular-nums;
+}
+.calc-body{padding:0 16px 16px; font-size:12.5px; color:var(--ink-mid); line-height:1.6}
+.calc-body p{margin-bottom:9px; max-width:64ch}
+.calc-body p:last-child{margin-bottom:0}
+.steps{display:flex; flex-direction:column; gap:0; margin:11px 0}
+.step{display:flex; justify-content:space-between; gap:12px; padding:7px 0; border-bottom:1px solid var(--cream-mid)}
+.step:last-child{border-bottom:none}
+.step.sum{border-top:2px solid var(--line-new); margin-top:3px; padding-top:9px; font-weight:600; color:var(--ink)}
+.step span{color:var(--ink-mid)} .step.sum span{color:var(--ink)}
+.step b{font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums; white-space:nowrap}
+.para{font-size:11px; color:var(--ink-light); font-style:italic; margin-top:9px}
+
+/* ---------- Einstieg: die vier Wege ---------- */
+.claim{
+  font-size:14.5px; line-height:1.65; color:var(--ink-mid);
+  max-width:72ch; margin:0 0 18px;
+}
+.claim strong{color:var(--ink); font-weight:600}
+.claim.klein{font-size:12.5px; margin-top:-8px}
+
+.sec-intro{
+  font-size:12px; color:var(--ink-mid); line-height:1.6; max-width:70ch;
+  margin:-4px 0 11px;
+}
+.wege-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:11px}
+.weg-karte{
+  background:var(--white); border:1px solid #b9c2d6; border-radius:var(--r);
+  display:flex; flex-direction:column; overflow:hidden;
+  box-shadow:0 2px 7px rgba(28,37,64,.09);
+}
+.weg-kopf{padding:11px 13px 12px}
+.weg-karte.k1 .weg-kopf{background:var(--w1-d)}
+.weg-karte.k2 .weg-kopf{background:var(--w2-d)}
+.weg-karte.k3 .weg-kopf{background:var(--w3-d)}
+.weg-karte.k4 .weg-kopf{background:var(--w4-d)}
+.weg-nr{
+  font-family:'Syne',sans-serif; font-size:9.5px; font-weight:700; letter-spacing:.7px;
+  color:rgba(255,255,255,.75); margin-bottom:5px;
+}
+.weg-titel{
+  font-family:'Syne',sans-serif; font-size:15px; font-weight:700;
+  line-height:1.2; color:#fff;
+}
+.weg-titel small{
+  display:block; font-family:'Inter',sans-serif; font-size:11px; font-weight:500;
+  color:rgba(255,255,255,.82); margin-top:3px; letter-spacing:0;
+}
+.weg-karte p{
+  font-size:11.5px; color:var(--ink-mid); line-height:1.55;
+  padding:11px 13px 13px; margin:0;
+}
+
+/* ---------- Knopf und Berichtsansicht ---------- */
+.gross-btn{
+  font-family:'Syne',sans-serif; font-size:13px; font-weight:700; letter-spacing:.3px;
+  background:var(--accent); color:#fff; border:none; border-radius:9px;
+  padding:13px 22px; cursor:pointer; box-shadow:0 2px 8px rgba(31,110,133,.28);
+}
+.gross-btn:hover{background:#1a6478}
+.gross-btn:focus-visible{outline:2px solid var(--navy); outline-offset:2px}
+
+#bericht-overlay{
+  position:fixed; inset:0; z-index:200; overflow-y:auto;
+  background:#dfe3ec; padding:0 0 50px;
+}
+.bo-leiste{
+  position:sticky; top:0; z-index:2; display:flex; gap:10px; flex-wrap:wrap;
+  align-items:center; justify-content:center;
+  background:var(--navy); padding:11px 16px; box-shadow:0 2px 14px rgba(0,0,0,.25);
+}
+.bo-zurueck{
+  font-family:'Syne',sans-serif; font-size:12px; font-weight:600;
+  background:transparent; color:#aebdd6; border:1px solid rgba(255,255,255,.25);
+  border-radius:8px; padding:11px 16px; cursor:pointer;
+}
+.bo-zurueck:hover{color:#fff; border-color:rgba(255,255,255,.5)}
+
+#bo-blatt{
+  background:var(--white); max-width:820px; margin:20px auto; padding:32px 36px 28px;
+  box-shadow:0 8px 30px rgba(28,37,64,.16); border-radius:4px;
+}
+#bo-blatt .bo-kopf{display:flex; align-items:center; gap:12px;
+  border-bottom:2px solid var(--navy); padding-bottom:12px; margin-bottom:6px}
+#bo-blatt .bo-kopf svg{width:36px; height:36px; flex-shrink:0}
+#bo-blatt .bo-kopf .n{font-family:'Syne',sans-serif; font-weight:800; font-size:18px; color:var(--navy); line-height:1.1}
+#bo-blatt .bo-kopf .s{font-family:'Syne',sans-serif; font-weight:500; font-size:11.5px; color:#1F6E85}
+#bo-blatt .bo-kopf .d{margin-left:auto; text-align:right; font-size:10.5px; color:var(--ink-light); line-height:1.5}
+#bo-blatt h3{font-family:'Syne',sans-serif; font-size:13px; margin:20px 0 8px; color:var(--navy);
+  border-bottom:1px solid var(--line-new); padding-bottom:5px}
+#bo-blatt table{width:100%; border-collapse:collapse; font-size:11px}
+#bo-blatt th,#bo-blatt td{padding:4.5px 6px; text-align:right; white-space:nowrap}
+#bo-blatt th:first-child,#bo-blatt td:first-child{text-align:left; white-space:normal}
+#bo-blatt tbody td{border-bottom:1px solid var(--cream-mid); font-variant-numeric:tabular-nums}
+#bo-blatt tbody tr:nth-child(even){background:var(--cream)}
+#bo-blatt .bo-eing{display:grid; grid-template-columns:repeat(3,1fr); gap:5px 16px; font-size:11px}
+#bo-blatt .bo-eing div{display:flex; justify-content:space-between; gap:8px;
+  border-bottom:1px dotted var(--line-new); padding:3px 0}
+#bo-blatt .bo-eing span{color:var(--ink-mid)}
+#bo-blatt .bo-eing b{font-weight:600; font-variant-numeric:tabular-nums; text-align:right}
+#bo-blatt .bo-weg{margin-bottom:13px; border:1px solid var(--line-new); border-radius:8px;
+  overflow:hidden; break-inside:avoid; page-break-inside:avoid}
+#bo-blatt .bo-weg-k{padding:6px 10px; color:#fff; font-family:'Syne',sans-serif;
+  font-size:11px; font-weight:700}
+#bo-blatt .bo-weg-k small{font-family:'Inter',sans-serif; font-size:10px; font-weight:400;
+  color:rgba(255,255,255,.85); margin-left:7px}
+#bo-blatt .bo-weg.k1 .bo-weg-k{background:var(--w1-d)} #bo-blatt .bo-weg.k2 .bo-weg-k{background:var(--w2-d)}
+#bo-blatt .bo-weg.k3 .bo-weg-k{background:var(--w3-d)} #bo-blatt .bo-weg.k4 .bo-weg-k{background:var(--w4-d)}
+#bo-blatt .bo-weg table{font-size:10px}
+#bo-blatt .bo-weg th,#bo-blatt .bo-weg td{padding:3px 7px}
+#bo-blatt .bo-fuss{margin-top:20px; padding-top:11px; border-top:1px solid var(--line-new);
+  font-size:9.5px; color:var(--ink-light); line-height:1.6; break-inside:avoid}
+#bo-blatt .bo-fuss>b{display:block; font-family:'Syne',sans-serif; font-size:10.5px;
+  color:var(--ink-mid); margin-bottom:6px}
+#bo-blatt .bo-fuss p{margin:0 0 6px} #bo-blatt .bo-fuss b{color:var(--ink-mid)}
+#bo-blatt .bo-fuss ul{margin:3px 0 7px; padding-left:15px}
+#bo-blatt .bo-fuss li{margin-bottom:2.5px}
+#bo-blatt .neue-seite{page-break-before:always; break-before:page}
+#bo-blatt .bo-info{font-size:11px; color:var(--ink-mid); line-height:1.6; margin:0 0 10px}
+
+@media print{
+  body>*:not(#bericht-overlay){display:none!important}
+  .bo-leiste{display:none!important}
+  #bericht-overlay{position:static; background:#fff; padding:0; overflow:visible}
+  #bo-blatt{box-shadow:none; max-width:none; margin:0; padding:0; border-radius:0}
+  @page{size:A4; margin:15mm 13mm}
+}
+
+/* ---------- Haftung ---------- */
+.legal{
+  background:var(--white); border:1px solid var(--red); border-left:3px solid var(--red);
+  border-radius:var(--r); padding:16px; margin-top:26px;
+}
+.legal h3{font-size:13px; font-weight:700; margin-bottom:8px; color:#a85f72}
+.legal p{font-size:12px; color:var(--ink-mid); line-height:1.6; max-width:66ch}
+.legal p + p{margin-top:7px}
+
+.foot{margin-top:22px; font-size:11.5px; color:var(--ink-light); line-height:1.6; text-align:center}
+
+@media(max-width:900px){ .wege-grid{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:560px){
+  .wege-grid{grid-template-columns:1fr; gap:9px}
+  .weg-karte{padding:11px 12px 12px}
+  .split{grid-template-columns:1fr; gap:18px}
+  .wrap{padding-block:14px 44px}
+  }
+@media(prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+</style>
+
+<header class="header">
+  <svg class="sam-icon" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+    <circle cx="50" cy="50" r="50" fill="#2C3862"/>
+    <circle cx="50" cy="40" r="14" fill="none" stroke="#5FB3C9" stroke-width="3.5"/>
+    <rect x="41" y="29" width="18" height="6" rx="3" fill="#5FB3C9"/>
+    <path d="M44 43 Q50 49 56 43" stroke="#5FB3C9" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <circle cx="45.5" cy="39.5" r="1.8" fill="#5FB3C9"/>
+    <circle cx="54.5" cy="39.5" r="1.8" fill="#5FB3C9"/>
+    <path d="M30 72 Q50 58 70 72" stroke="#5FB3C9" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+    <circle cx="32" cy="70" r="3" fill="#5FB3C9"/>
+    <circle cx="68" cy="70" r="3" fill="#5FB3C9"/>
+  </svg>
+  <div class="hd-txt">
+    <div class="hd-name">Sam</div>
+    <div class="hd-sub">der Abfindungs-Rechner</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <p class="claim"><strong>Ein Abfindungsangebot ist eine Entscheidung über viele Jahre — nicht über eine Summe.</strong> Sam stellt vier Wege nebeneinander und rechnet jeden bis zu deinem Renteneintritt durch: Gehalt, Steuern, Arbeitslosengeld, Rentenansprüche und das, was aus der angelegten Abfindung wird. Am Ende steht für jeden Weg eine Zahl — und du siehst, woraus sie sich zusammensetzt.</p>
+  <p class="claim klein"><strong>Nichts von dem, was du eingibst, wird gespeichert.</strong> Alles bleibt in deinem Browser und ist weg, sobald du die Seite neu lädst — es gibt kein Konto und keine Anmeldung.</p>
+
+  <!-- ================= EINSTIEG: die vier Wege ================= -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">WORUM ES GEHT</span><h2>Vier Wege im Vergleich</h2></div>
+    <p class="sec-intro">Welcher davon für dich in Frage kommt, musst du nicht vorher wissen — Sam rechnet alle vier parallel und stellt sie nebeneinander.</p>
+    <div class="wege-grid">
+      <div class="weg-karte k1">
+        <div class="weg-kopf">
+          <div class="weg-nr">WEG 1</div>
+          <div class="weg-titel">Wechseln<small>ohne Arbeitslosigkeit</small></div>
+        </div>
+        <p>Du nimmst die Abfindung und hast den neuen Job schon sicher. Letzter Tag altes Gehalt, im Monat darauf das erste neue. Keine Lücke.</p>
+      </div>
+      <div class="weg-karte k2">
+        <div class="weg-kopf">
+          <div class="weg-nr">WEG 2</div>
+          <div class="weg-titel">Wechseln<small>nach Arbeitslosigkeit</small></div>
+        </div>
+        <p>Wie Weg 1, aber du findest nicht sofort etwas. Du trägst ein, wie viele Monate du brauchst — eine Annahme, die du jederzeit ändern kannst.</p>
+      </div>
+      <div class="weg-karte k3">
+        <div class="weg-kopf">
+          <div class="weg-nr">WEG 3</div>
+          <div class="weg-titel">Bleiben<small>Angebot abgelehnt</small></div>
+        </div>
+        <p>Du lehnst ab und findest im Unternehmen eine andere Stelle. Dein Gehalt läuft unverändert weiter. Keine Abfindung.</p>
+      </div>
+      <div class="weg-karte k4">
+        <div class="weg-kopf">
+          <div class="weg-nr">WEG 4</div>
+          <div class="weg-titel">Wechseln<small>nach 2 Jahren</small></div>
+        </div>
+        <p>Du lehnst ab und hoffst auf eine interne Stelle — sie kommt nicht. Nach der Zeit, die du unten einträgst, wechselst du doch. Ohne Abfindung.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EINGABE ================= -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">SCHRITT 1</span><h2>Über dich</h2></div>
+    <p class="sec-intro">Egal welchen Weg du gehst: Wie viel von deinem Geld beim Finanzamt und bei den Sozialkassen landet, hängt an diesen Angaben. Ohne sie lässt sich kein einziger Weg rechnen.</p>
+    <div class="card">
+      <div class="grid zwei">
+        <div class="f">
+          <label for="restjahre">Jahre bis zur Rente</label>
+          <input type="number" id="restjahre" value="17" min="1" max="45">
+        </div>
+        <div class="f">
+          <label for="stkl">Steuerklasse</label>
+          <select id="stkl">
+            <option value="1" selected>I — ledig</option>
+            <option value="3">III — verheiratet, höheres Einkommen</option>
+            <option value="4">IV — verheiratet, ähnliches Einkommen</option>
+            <option value="5">V — verheiratet, niedrigeres Einkommen</option>
+          </select>
+        </div>
+        <div class="f">
+          <label for="kinder">Kinder</label>
+          <input type="number" id="kinder" value="1" min="0" max="10">
+        </div>
+        <div class="f">
+          <label for="kirche">Kirchensteuer</label>
+          <select id="kirche">
+            <option value="0" selected>nein</option>
+            <option value="0.09">ja — 9 %</option>
+            <option value="0.08">ja — 8 % (BY/BW)</option>
+          </select>
+        </div>
+        <div class="f">
+          <label for="kvart">Krankenversicherung</label>
+          <select id="kvart">
+            <option value="gkv" selected>gesetzlich</option>
+            <option value="pkv">privat</option>
+          </select>
+        </div>
+        <div class="f">
+          <label for="zusatz">KV-Zusatzbeitrag <button class="info" type="button" data-i="Jede Krankenkasse legt ihren Zusatzbeitrag selbst fest. Schau auf deiner Lohnabrechnung nach — üblich sind derzeit rund 2,9 %.">?</button></label>
+          <input type="number" id="zusatz" value="2.9" step="0.1" min="0" max="5">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">SCHRITT 2</span><h2>Dein Gehalt</h2></div>
+    <p class="sec-intro">Links steht, was du heute verdienst — das ist der Maßstab, an dem alles gemessen wird und der Weg 3 komplett bestimmt. Rechts steht das neue Gehalt; es zählt in allen Wegen, in denen du irgendwann wechselst. Trag auch ein, was leicht vergessen wird: Weihnachtsgeld, Urlaubsgeld, Bonus, Betriebsrente.</p>
+    <div class="card">
+      <div class="split">
+        <div>
+          <div class="col-head alt">Heutiger Job</div>
+          <div class="grid" style="grid-template-columns:1fr">
+            <div class="f"><label for="a_brutto">Monatsbrutto €</label><input type="number" id="a_brutto" value="4000" step="100"></div>
+            <div class="f"><label for="a_weih">Weihnachtsgeld € / Jahr</label><input type="number" id="a_weih" value="4000" step="500"></div>
+            <div class="f"><label for="a_urlaub">Urlaubsgeld € / Jahr</label><input type="number" id="a_urlaub" value="2000" step="500"></div>
+            <div class="f"><label for="a_bonus">Bonus / Provision € / Jahr</label><input type="number" id="a_bonus" value="0" step="1000"></div>
+            <div class="f"><label for="a_ueber">Überstunden € / Jahr</label><input type="number" id="a_ueber" value="0" step="500"></div>
+            <div class="f">
+              <label for="a_bav">Betriebsrente Arbeitgeber € / Jahr <button class="info" type="button" data-i="Nur der Anteil, den dein Arbeitgeber zahlt. Dieser Beitrag ist für dich steuer- und beitragsfrei — deshalb ist er mehr wert als der reine Betrag.">?</button></label>
+              <input type="number" id="a_bav" value="2000" step="300">
+            </div>
+          </div>
+          <div class="summe-block">
+            <div class="f">
+              <label>Jahresgehalt brutto</label>
+              <div class="anzeige" id="sum-a-jahr">—</div>
+            </div>
+            <div class="f">
+              <label>Ø im Monat</label>
+              <div class="anzeige" id="sum-a-monat">—</div>
+            </div>
+            <div class="f">
+              <label>Rente je Jahr Arbeit</label>
+              <div class="anzeige leise" id="sum-a-bav">—</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="col-head neu">Neuer Job</div>
+          <div class="grid" style="grid-template-columns:1fr">
+            <div class="f"><label for="n_brutto">Monatsbrutto €</label><input type="number" id="n_brutto" value="3500" step="100"></div>
+            <div class="f"><label for="n_weih">Weihnachtsgeld € / Jahr</label><input type="number" id="n_weih" value="0" step="500"></div>
+            <div class="f"><label for="n_urlaub">Urlaubsgeld € / Jahr</label><input type="number" id="n_urlaub" value="0" step="500"></div>
+            <div class="f"><label for="n_bonus">Bonus / Provision € / Jahr</label><input type="number" id="n_bonus" value="0" step="1000"></div>
+            <div class="f"><label for="n_ueber">Überstunden € / Jahr</label><input type="number" id="n_ueber" value="0" step="500"></div>
+            <div class="f"><label for="n_bav">Betriebsrente Arbeitgeber € / Jahr</label><input type="number" id="n_bav" value="0" step="300"></div>
+          </div>
+          <div class="summe-block">
+            <div class="f">
+              <label>Jahresgehalt brutto</label>
+              <div class="anzeige" id="sum-n-jahr">—</div>
+            </div>
+            <div class="f">
+              <label>Ø im Monat</label>
+              <div class="anzeige" id="sum-n-monat">—</div>
+            </div>
+            <div class="f">
+              <label>Rente je Jahr Arbeit</label>
+              <div class="anzeige leise" id="sum-n-bav">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">SCHRITT 3</span><h2>Das Angebot auf dem Tisch</h2></div>
+    <p class="sec-intro">Jetzt wird es konkret: Wie viel bietet dein Arbeitgeber, und wann fließt das Geld? Das Zahlungsdatum ist der größte Hebel der ganzen Rechnung — eine Zahlung im Januar statt im Dezember kann fünfstellig sparen. Alter, Jahre im Betrieb und die Art der Beendigung bestimmen zusammen, ob und wie lange dein Arbeitslosengeld ruht.</p>
+    <div class="card">
+      <div class="grid zwei">
+        <div class="f"><label for="abf">Abfindung €</label><input type="number" id="abf" value="100000" step="5000">
+          <div class="auto" id="h-faktor">—</div>
+        </div>
+        <div class="f">
+          <label for="dAustritt">Letzter Arbeitstag</label>
+          <input type="month" id="dAustritt" value="2026-12">
+          <div class="hint" id="h-austritt">—</div>
+        </div>
+        <div class="f">
+          <label for="vertrag">Wie endet dein Arbeitsverhältnis? <button class="info" type="button" data-i="Beim Aufhebungsvertrag rechnet Sam mit zwoelf Wochen Sperrzeit - dem gesetzlichen Regelfall nach § 159 SGB III, weil du das Arbeitsverhaeltnis selbst mit geloest hast. Ob sie in deinem Fall wirklich verhaengt wird, entscheidet die Arbeitsagentur: Bei einer drohenden betriebsbedingten Kuendigung kann ein wichtiger Grund anerkannt werden. Klaere das vor der Unterschrift, nicht danach. Anders als beim Ruhen bleibst du waehrend einer Sperrzeit krankenversichert.">?</button></label>
+          <select id="vertrag">
+            <option value="kuendigung">Kündigung durch den Arbeitgeber</option>
+            <option value="aufhebung" selected>Aufhebungsvertrag</option>
+          </select>
+        </div>
+        <div class="f">
+          <label for="frist">Kündigungsfrist eingehalten? <button class="info" type="button" data-i="Endet das Arbeitsverhältnis früher als es die ordentliche Kündigungsfrist zulassen würde — typisch beim Aufhebungsvertrag — ruht der Anspruch auf Arbeitslosengeld (§ 158 SGB III).">?</button></label>
+          <select id="frist"><option value="ja">ja — reguläre Frist</option><option value="nein" selected>nein — vorzeitiges Ende</option></select>
+        </div>
+        <div class="f">
+          <label for="alter">Alter</label>
+          <input type="number" id="alter" value="50" min="18" max="67">
+        </div>
+        <div class="f">
+          <label for="jahre">Jahre im Betrieb</label>
+          <input type="number" id="jahre" value="20" min="0" max="50">
+        </div>
+        <div class="f">
+          <label for="dAbfindung">Abfindung wird gezahlt <button class="info" type="button" data-i="Entscheidend fuer die Steuer: Die Abfindung wird komplett in dem Kalenderjahr versteuert, in dem sie zufliesst - oben auf alles andere, was du in diesem Jahr verdienst. Eine Zahlung im Januar statt im Dezember trifft auf ein leeres Jahr und kann fuenfstellig sparen. Wichtig: Sie muss in EINEM Jahr fliessen, sonst entfaellt die Fuenftelregelung ganz.">?</button></label>
+          <input type="month" id="dAbfindung" value="2027-01">
+          <div class="hint" id="h-abfzeit">—</div>
+        </div>
+      </div>
+
+      <div class="summe-block">
+        <div class="grid zwei">
+          <div class="f">
+            <label>Steuer auf die Abfindung</label>
+            <div class="anzeige minus" id="sum-abf-steuer">—</div>
+          </div>
+          <div class="f">
+            <label>Auf dein Konto</label>
+            <div class="anzeige" id="sum-abf-netto">—</div>
+          </div>
+          <div class="f">
+            <label>Je Jahr Betriebszugehörigkeit</label>
+            <div class="anzeige leise" id="sum-abf-jahr">—</div>
+          </div>
+          <div class="f">
+            <label>In Monatsgehältern</label>
+            <div class="anzeige leise" id="sum-abf-mon">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SCHRITT 4: die Annahmen ================= -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">SCHRITT 4</span><h2>Was du nicht wissen kannst</h2></div>
+    <p class="sec-intro">Diese vier Zahlen kennt niemand im Voraus. Ändere sie und beobachte, wie sich die vier Wege gegeneinander verschieben — genau dafür ist dieses Werkzeug da.</p>
+    <div class="card">
+      <div class="grid zwei">
+        <div class="f">
+          <label for="pauseMonate">Neuer Job beginnt nach … Monaten</label>
+          <input type="number" id="pauseMonate" value="0" min="0" max="24" step="1">
+          <div class="hint" id="h-eintritt">—</div>
+        </div>
+        <div class="f">
+          <label for="bleibeM">Ablehnen: Monate bleiben <button class="info" type="button" data-i="Manche Arbeitgeber stellen es zur Wahl: Abfindung nehmen und gehen - oder ablehnen, eine Zeit lang weiterarbeiten und am Ende betriebsbedingt ohne Abfindung ausscheiden. 0 heisst: kommt nicht in Frage.">?</button></label>
+          <input type="number" id="bleibeM" value="24" min="0" max="60" step="1">
+          <div class="hint">0 = kommt nicht in Frage</div>
+        </div>
+        <div class="f">
+          <label for="zins">Anlagezins % / Jahr</label>
+          <input type="number" id="zins" value="5" step="0.5" min="0" max="15">
+          <div class="hint">Erträge vor Steuern</div>
+        </div>
+        <div class="f">
+          <label for="entnahme">Entnahme € / Monat <button class="info" type="button" data-i="Wie viel du monatlich aus der angelegten Abfindung entnimmst, um das niedrigere Gehalt auszugleichen. Der Vorschlag gleicht die Lücke genau aus — du kannst ihn überschreiben.">?</button></label>
+          <input type="number" id="entnahme" value="0" step="50">
+          <div class="auto" id="h-entnahme">—</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ERGEBNIS — der One-Pager ================= -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">ERGEBNIS</span><h2>Dein Ergebnis auf einen Blick</h2><button class="info gross" type="button" data-i="Alles Wesentliche auf einer Seite. Wähle oben den Weg, den du durchrechnen willst.">?</button></div>
+
+
+    <div class="card">
+      <div class="chart-title">Die Wege im Überblick <button class="info gross" type="button" data-i="Bleiben ist die Null - jeder Weg ist dagegen gerechnet. Die oberen Bloecke gelten fuer die ganze Zeit bis zur Rente. Ab dem Block MIT DER ZEITRAUM-LEISTE zaehlen nur die dort gewaehlten Jahre; benachbarte Jahre werden zusammengezaehlt.">?</button></div>
+      <div class="tbl-scroll"><table class="jahr" id="tbl-jahr">
+        <thead id="matrix-kopf"></thead>
+        <tbody id="matrix-body"></tbody>
+      </table></div>
+      <p class="para" id="jahr-note"></p>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <div class="chart-title">Der Verlauf, Jahr für Jahr <button class="info gross" type="button" data-i="Alle Jahre bis zur Rente untereinander - fuer den oben gewaehlten Weg. Waehrend die Tabelle darueber die Wege vergleicht, zeigt diese, wie sich ein Weg ueber die Zeit entwickelt: wann die Abfindung versteuert wird, wann das Bargeld aufgebraucht ist, wie das angelegte Kapital waechst.">?</button></div>
+      <div class="hero-switch" id="weg-switch" role="group" aria-label="Weg wählen"></div>
+      <div class="jahrmodus" role="group" aria-label="Darstellung">
+        <button type="button" class="vm an" data-v="jahr">Pro Jahr</button>
+        <button type="button" class="vm" data-v="kum">Kumuliert</button>
+      </div>
+      <div class="tbl-scroll"><table id="tbl-verlauf" class="jahr">
+        <thead id="verlauf-kopf"></thead>
+        <tbody id="verlauf-body"></tbody>
+      </table></div>
+      <p class="para" id="verlauf-note" style="margin-top:10px"></p>
+      <p class="para"><b>Gehalt weniger</b> vergleicht nur die Gehälter — das Anlagekonto und seine Zinsen stehen bewusst daneben, nicht darin verrechnet. Die Spalte sagt, was im Monat fehlt, nicht wie du insgesamt dastehst.</p>
+    </div>
+  </section>
+
+  <!-- ================= RECHENWEG ================= -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">NACHRECHNEN</span><h2>Wie Sam auf die Zahlen kommt</h2><button class="info gross" type="button" data-i="Jeder Rechenweg einzeln aufklappbar — damit du prüfen kannst, ob die Annahmen zu deinem Fall passen.">?</button></div>
+
+    <details class="calc">
+      <summary>Die Fünftelregelung <span class="badge" id="bd-5">—</span></summary>
+      <div class="calc-body">
+        <p>Seit 2025 darf dein Arbeitgeber die Steuerermäßigung nicht mehr beim Lohnsteuerabzug anwenden. Er versteuert die Abfindung voll. Die Ermäßigung nach § 34 EStG bekommst du erst mit der Steuererklärung im Folgejahr zurück.</p>
+        <div class="steps" id="st-5"></div>
+        <p class="para">Berechnet nach dem Einkommensteuertarif 2026 (§ 32a EStG). Näherung: ohne Werbungskosten, Vorsorgeaufwendungen und Freibeträge.</p>
+      </div>
+    </details>
+
+    <details class="calc">
+      <summary>Ruhenszeit und Krankenversicherung <span class="badge" id="bd-ruhe">—</span></summary>
+      <div class="calc-body">
+        <p id="txt-ruhe">—</p>
+        <div class="steps" id="st-ruhe"></div>
+        <p id="txt-kv">—</p>
+        <p class="para">§ 158 SGB III für das Ruhen, § 5 Abs. 1 Nr. 2 SGB V für den Versicherungsschutz. Die Beiträge im Ruhenszeitraum sind mit dem Höchstsatz für freiwillig Versicherte geschätzt.</p>
+      </div>
+    </details>
+
+    <details class="calc">
+      <summary>Progressionsvorbehalt beim Arbeitslosengeld <span class="badge" id="bd-prog">—</span></summary>
+      <div class="calc-body">
+        <p>Arbeitslosengeld ist steuerfrei — es erhöht aber den Steuersatz auf alles andere, was du im selben Jahr verdienst (§ 32b EStG). Nimmst du im Jahr der Pause noch einen neuen Job auf, wird dieses Gehalt deshalb höher besteuert, als es allein besteuert würde.</p>
+        <div class="steps" id="st-prog"></div>
+        <p class="para">Das Finanzamt rechnet den Tarif auf Einkommen plus Arbeitslosengeld, nimmt den daraus entstehenden Durchschnittssatz und wendet ihn auf das tatsächliche Einkommen an. Vereinfacht ohne Arbeitnehmer-Pauschbetrag.</p>
+      </div>
+    </details>
+
+    <details class="calc">
+      <summary>Wegfallende Betriebsrente <span class="badge" id="bd-bav">—</span></summary>
+      <div class="calc-body">
+        <p>Der Arbeitgeberbeitrag ist für dich steuer- und beitragsfrei. Willst du dieselbe Summe selbst ansparen, musst du sie aus versteuertem Netto aufbringen — du brauchst also spürbar mehr Brutto, um auf dasselbe herauszukommen.</p>
+        <div class="steps" id="st-bav"></div>
+        <p class="para">Steuerfrei sind Arbeitgeberbeiträge bis 8 % der Beitragsbemessungsgrenze (§ 3 Nr. 63 EStG), 2026 also bis 8.112 € im Jahr.</p>
+      </div>
+    </details>
+
+
+    <details class="calc">
+      <summary>Geldanlage der Abfindung <span class="badge" id="bd-anl">—</span></summary>
+      <div class="calc-body">
+        <p id="txt-anl">—</p>
+        <div class="steps" id="st-anl"></div>
+        <p class="para">Konstanter Zins, monatliche Entnahme. Erträge ohne Steuerabzug, keine Kursschwankungen.</p>
+      </div>
+    </details>
+
+    <details class="calc">
+      <summary>Alle Annahmen und Rechengrößen 2026 <span class="badge">Übersicht</span></summary>
+      <div class="calc-body">
+        <div class="steps" id="st-ann"></div>
+        <p class="para">Die mit „geschätzt“ markierten Werte prüfe ich vor dem echten Tool noch gegen die amtliche Quelle.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">MITNEHMEN</span><h2>Ergebnis sichern</h2></div>
+    <p class="sec-intro">Sam erstellt aus deinen Angaben einen mehrseitigen Bericht: das Ergebnis aller vier Wege, deine Eingaben zum Nachvollziehen, die Herleitung und den Verlauf Jahr für Jahr. Den kannst du ausdrucken oder als PDF sichern — auf dem iPhone über <b>Teilen → Drucken</b>, dann mit zwei Fingern aufziehen und sichern.</p>
+    <button type="button" id="btn-bericht" class="gross-btn">Bericht erstellen</button>
+  </section>
+
+  <div class="legal">
+    <h3>Keine Steuer- oder Rechtsberatung</h3>
+    <p>Diese Seite ist ein unverbindlicher Rechner zur eigenen Orientierung. Sie ersetzt keine Beratung durch Steuerberater, Rechtsanwalt, Krankenkasse oder Agentur für Arbeit — und darf für keine Entscheidung die alleinige Grundlage sein.</p>
+    <p>Die Lohnsteuer wird über den Einkommensteuertarif 2026 angenähert, nicht nach dem amtlichen Lohnsteuer-Berechnungsverfahren. Freibeträge, Werbungskosten, Vorsorgeaufwendungen und persönliche Besonderheiten bleiben unberücksichtigt. Die tatsächlichen Beträge weichen ab. Für Vollständigkeit und Richtigkeit wird keine Haftung übernommen.</p>
+    <p>Ob das Arbeitslosengeld tatsächlich ruht und wie lange, entscheidet allein die Agentur für Arbeit im Einzelfall. Kläre das vor Unterschrift eines Aufhebungsvertrags dort ab.</p>
+  </div>
+
+  <p class="foot">Sam, der Abfindungs-Rechner · Rechenstand 2026<br>Es werden keine Daten gespeichert oder übertragen</p>
+
+<div id="bericht-overlay" hidden>
+  <div class="bo-leiste">
+    <button type="button" id="bo-druck" class="gross-btn">Drucken oder als PDF sichern</button>
+    <button type="button" id="bo-zu" class="bo-zurueck">Zurück zum Rechner</button>
+  </div>
+  <div class="blatt" id="bo-blatt"></div>
+</div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ Rechengrößen 2026 ============ */
+  const K = {
+    bbgRV: 101400,        // 8.450 €/Monat
+    bbgKV: 69750,         // 5.812,50 €/Monat
+    rvAN: 0.093, avAN: 0.013, kvAN: 0.073, pvAN: 0.018, pvKinderlos: 0.006,
+    bavFrei: 8112,        // 8 % der BBG RV
+    soliFreigrenze: 20350,// § 3 Abs. 3 Nr. 2 SolzG (Splitting: doppelt)
+    kvAllgemein: 0.146,   // allgemeiner Beitragssatz GKV
+    pvVoll: 0.036,        // Pflegeversicherung, voller Satz
+    pvVollKinderlos: 0.042,
+    durchschnittsentgelt: 51944,  // Rentenversicherung 2026
+    rentenwert: 42.52     // € je Entgeltpunkt ab 01.07.2026 (Rentenwertbestimmungsverordnung 2026)
+  };
+
+  const eur = n => Math.round(n).toLocaleString('de-DE') + ' €';
+  const eur0 = n => Math.round(n).toLocaleString('de-DE');
+  const val = id => { const e=document.getElementById(id); const v=parseFloat(e.value); return isNaN(v)?0:v; };
+  const sel = id => document.getElementById(id).value;
+
+  /* ---- Einkommensteuertarif 2026, § 32a EStG ---- */
+  function estGrund(zvE){
+    const x = Math.floor(Math.max(0, zvE));
+    if (x <= 12348) return 0;
+    if (x <= 17799){ const y=(x-12348)/10000; return Math.floor((914.51*y+1400)*y); }
+    if (x <= 69878){ const z=(x-17799)/10000; return Math.floor((173.10*z+2397)*z+1034.87); }
+    if (x <= 277825) return Math.floor(0.42*x-11135.63);
+    return Math.floor(0.45*x-19470.38);
+  }
+  // Splitting bei Steuerklasse III
+  function est(zvE, stkl){
+    return stkl===3 ? 2*estGrund(zvE/2) : estGrund(zvE);
+  }
+  function soli(steuer, stkl){
+    const grenze = stkl===3 ? K.soliFreigrenze*2 : K.soliFreigrenze;
+    if (steuer <= grenze) return 0;
+    return Math.min(0.055*steuer, 0.119*(steuer-grenze));
+  }
+
+  /* ---- Sozialabgaben Arbeitnehmer ---- */
+  function svAN(brutto, kinder, zusatzProz, gkv){
+    const rv = Math.min(brutto, K.bbgRV) * K.rvAN;
+    const av = Math.min(brutto, K.bbgRV) * K.avAN;
+    if (!gkv) return { rv, av, kv:0, pv:0, summe: rv+av };
+    const basis = Math.min(brutto, K.bbgKV);
+    const kv = basis * (K.kvAN + (zusatzProz/100)/2);
+    const pv = basis * (K.pvAN + (kinder>0?0:K.pvKinderlos));
+    return { rv, av, kv, pv, summe: rv+av+kv+pv };
+  }
+
+  /* ---- Netto aus Brutto ---- */
+  function netto(brutto, p){
+    const sv = svAN(brutto, p.kinder, p.zusatz, p.gkv);
+    const zvE = Math.max(0, brutto - sv.summe);   // Naeherung: SV als Abzug
+    const lst = est(zvE, p.stkl);
+    const so = soli(lst, p.stkl);
+    const ki = lst * p.kirche;
+    return { brutto, sv:sv.summe, svDetail:sv, lst, soli:so, kirche:ki, netto: brutto - sv.summe - lst - so - ki };
+  }
+
+  /* ---- Datumsfelder: "2026-12" wird zu Monaten seit Jahr 0 ---- */
+  function monat(id){
+    const v=(document.getElementById(id).value||'').split('-');
+    return { jahr:+v[0]||2026, monat:+v[1]||1 };
+  }
+  const alsIndex = (d, basisJahr) => (d.jahr-basisJahr)*12 + d.monat;   // 1..12 im Basisjahr
+
+  /* ---- Progressionsvorbehalt § 32b EStG ----
+     Arbeitslosengeld ist steuerfrei, erhöht aber den Steuersatz auf alles
+     andere: Der Tarif wird auf zvE + Lohnersatz angewandt, der sich daraus
+     ergebende Durchschnittssatz dann auf das tatsächliche zvE. */
+  function nettoMitProgression(bruttoJahr, lohnersatz, p){
+    if (lohnersatz <= 0) return netto(bruttoJahr, p);
+    const sv = svAN(bruttoJahr, p.kinder, p.zusatz, p.gkv);
+    const zvE = Math.max(0, bruttoJahr - sv.summe);
+    const gesamt = zvE + lohnersatz;
+    const satz = gesamt>0 ? est(gesamt, p.stkl)/gesamt : 0;
+    const lst = zvE * satz;
+    const so = soli(lst, p.stkl);
+    const ki = lst * p.kirche;
+    return {
+      brutto:bruttoJahr, sv:sv.summe, lst, soli:so, kirche:ki, satz,
+      netto: bruttoJahr - sv.summe - lst - so - ki,
+      ohneProgression: netto(bruttoJahr, p).netto
+    };
+  }
+
+  /* ---- Fuenftelregelung ---- */
+  /* Lohnersatz (Arbeitslosengeld) ist steuerfrei, hebt aber den Steuersatz
+     auf alles andere - auch auf die Abfindung (§ 32b EStG). */
+  function estProg(zvE, stkl, lohnersatz){
+    if (!lohnersatz || lohnersatz<=0) return est(zvE, stkl);
+    const g = zvE + lohnersatz;
+    return g>0 ? (est(g, stkl)/g)*zvE : 0;
+  }
+  function fuenftel(zvEohne, abfindung, stkl, lohnersatz){
+    const ohne = estProg(zvEohne, stkl, lohnersatz);
+    const mitFuenftel = ohne + 5*(estProg(zvEohne + abfindung/5, stkl, lohnersatz) - ohne);
+    const voll = estProg(zvEohne + abfindung, stkl, lohnersatz);
+    return { ohne, mitFuenftel, voll, vorteil: voll - mitFuenftel };
+  }
+
+  /* ---- Kuendigungsfrist § 622 BGB ---- */
+  function frist(jahre){
+    if (jahre>=20) return 7; if (jahre>=15) return 6; if (jahre>=12) return 5;
+    if (jahre>=10) return 4; if (jahre>=8) return 3; if (jahre>=5) return 2;
+    if (jahre>=2) return 1; return 1;
+  }
+
+  /* ---- Ruhenszeit § 158 SGB III ---- */
+  /* Was ein freiwillig Versicherter ohne Erwerbseinkommen hoechstens zahlt:
+     voller Satz auf die Beitragsbemessungsgrenze, kein Arbeitgeberanteil. */
+  function kvSelbstzahlerM(p){
+    const basis = K.bbgKV/12;
+    const kv = basis * (K.kvAllgemein + p.zusatz/100);
+    const pv = basis * (p.kinder>0 ? K.pvVoll : K.pvVollKinderlos);
+    return kv + pv;
+  }
+
+  function ruhen(p){
+    if (p.fristOK) return { monate:0, anteil:0, fristM:frist(p.jahre), grund:'frist' };
+    const fristM = frist(p.jahre);
+    let anteil = 60;
+    anteil -= Math.floor(p.jahre/5)*5;
+    if (p.alter>35) anteil -= Math.floor((p.alter-35)/5)*5;
+    anteil = Math.max(25, anteil);
+    const anrechenbar = p.abf * anteil/100;
+    const monateBis60 = p.aBruttoM>0 ? anrechenbar/p.aBruttoM : 0;
+    const monate = Math.min(fristM, monateBis60, 12);
+    return {
+      monate, anteil, fristM, anrechenbar, monateBis60,
+      grund: monateBis60 < fristM ? 'anteil' : 'frist'
+    };
+  }
+
+  /* ---- Arbeitslosengeld nach § 153 SGB III ----
+     Leistungsentgelt = Bemessungsentgelt (gedeckelt auf die BBG)
+     minus 20 % Sozialversicherungspauschale minus Lohnsteuer und Soli.
+     Davon 67 % mit Kind, sonst 60 %. */
+  function alg(bruttoJahr, p){
+    const bemessung = Math.min(bruttoJahr, K.bbgRV);
+    const nachPauschale = bemessung * 0.80;
+    const lst = est(nachPauschale, p.stkl);
+    const leistungsentgelt = nachPauschale - lst - soli(lst, p.stkl);
+    const satz = p.kinder>0 ? 0.67 : 0.60;
+    return Math.max(0, leistungsentgelt) * satz / 12;   // €/Monat
+  }
+
+  /* ============ Hauptberechnung ============ */
+  function rechne(){
+    const p = {
+      alter: val('alter'), jahre: val('jahre'), restjahre: Math.max(1,val('restjahre')),
+      stkl: parseInt(sel('stkl')), kinder: val('kinder'),
+      kirche: parseFloat(sel('kirche')), gkv: sel('kvart')==='gkv',
+      zusatz: val('zusatz'),
+      abf: val('abf'), fristOK: sel('frist')==='ja',
+      aufhebung: sel('vertrag')==='aufhebung',
+      zins: val('zins')/100,
+      aBruttoM: val('a_brutto')
+    };
+
+    // --- Jahresbrutto beider Jobs ---
+    const aBrutto = val('a_brutto')*12 + val('a_weih') + val('a_urlaub') + val('a_bonus') + val('a_ueber');
+    const nBrutto = val('n_brutto')*12 + val('n_weih') + val('n_urlaub') + val('n_bonus') + val('n_ueber');
+
+    /* ===== Zeitschiene ===== */
+    const dA = monat('dAustritt'), dZ = monat('dAbfindung');
+    const basisJahr = dA.jahr;
+    const iAustritt = dA.monat;                       // letzter Monat im alten Job
+    const pauseWunsch = Math.max(0, Math.min(24, val('pauseMonate')));
+    const iEintritt = iAustritt + pauseWunsch + 1;    // 0 = direkt im Folgemonat
+    const iAbf      = alsIndex(dZ, basisJahr);        // Monat der Abfindungszahlung
+    /* Jahr 1 ist das erste Jahr, in dem sich etwas aendert.
+       Wer zum 31.12. ausscheidet, hat das Austrittsjahr noch voll im alten Job -
+       dann beginnt die Zaehlung im Folgejahr. */
+    const versatz   = (iAustritt >= 12 && iAbf > 12) ? 1 : 0;
+    const abfJahr   = Math.max(1, Math.ceil(iAbf/12) - versatz);
+    const lueckeM   = Math.max(0, iEintritt - iAustritt - 1);
+    const pauseM    = Math.max(1, lueckeM);   // Vergleichsspalte: immer mindestens ein Monat
+
+    document.getElementById('h-austritt').textContent =
+      iAustritt<12 ? iAustritt+' Monate Gehalt in '+basisJahr : 'volles Jahr '+basisJahr;
+    document.getElementById('h-eintritt').textContent =
+      lueckeM>0 ? lueckeM+(lueckeM===1?' Monat':' Monate')+' ohne Job'
+                : 'startet im Monat nach dem letzten Arbeitstag';
+    document.getElementById('h-abfzeit').textContent =
+      'versteuert in '+(basisJahr+versatz+abfJahr-1)+' (Jahr '+abfJahr+')';
+
+    /* Was in einem Kalenderjahr zusammenkommt */
+    function jahrBasisMit(j, eintritt){               // j = 1 ist das erste Jahr der Veränderung
+      const off=(versatz+j-1)*12;
+      const von=off+1, bis=off+12;
+      let altM=0, neuM=0, freiM=0;
+      for(let m=von;m<=bis;m++){
+        if (m<=iAustritt) altM++;
+        else if (m>=eintritt) neuM++;
+        else freiM++;
+      }
+      return {altM, neuM, freiM};
+    }
+    const jahrBasis = j => jahrBasisMit(j, iEintritt);
+
+
+    const aNet = netto(aBrutto, p);
+    const nNet = netto(nBrutto, p);
+
+    const aMonat = aNet.netto/12, nMonat = nNet.netto/12;
+
+    document.getElementById('sum-a-jahr').textContent  = eur(aBrutto);
+    document.getElementById('sum-a-monat').textContent = eur(aBrutto/12);
+    // Rentenanspruch, den ein Jahr mit diesem Gehalt bringt (vereinfacht: Entgeltpunkte mal Rentenwert)
+    const rentePro = b => (Math.min(b,K.bbgRV)/K.durchschnittsentgelt)*K.rentenwert;
+    document.getElementById('sum-a-bav').textContent = eur(rentePro(aBrutto))+' / Monat';
+    document.getElementById('sum-n-jahr').textContent  = eur(nBrutto);
+    document.getElementById('sum-n-monat').textContent = eur(nBrutto/12);
+    document.getElementById('sum-n-bav').textContent = eur(rentePro(nBrutto))+' / Monat';
+    const luecke = aMonat - nMonat;   // monatliche Netto-Differenz
+
+    // --- Ruhen und ALG (steht vor der Abfindungssteuer: das ALG hebt deren Satz) ---
+    const R = ruhen(p);
+    const algM = alg(aBrutto, p);
+    const ruheM = Math.min(R.monate, pauseM);
+    /* Sperrzeit bei Arbeitsaufgabe: zwoelf Wochen (§ 159 Abs. 1 Nr. 1, Abs. 3 SGB III).
+       Sie laeuft parallel zum Ruhen, nicht danach - und anders als beim Ruhen
+       bleibt die Krankenversicherung bestehen (§ 5 Abs. 1 Nr. 2 SGB V). */
+    const sperrM = p.aufhebung ? Math.min(12/4.345, pauseM) : 0;
+    const stillM = Math.max(ruheM, sperrM);          // Monate ganz ohne Arbeitslosengeld
+    const algM_anz = Math.max(0, pauseM - stillM);
+    const sperrVerlust = Math.max(0, stillM - ruheM) * alg(aBrutto, p);
+    const kvSelbst = p.gkv ? ruheM * kvSelbstzahlerM(p) : 0;
+
+    // --- Abfindung: Auszahlung und Erstattung ---
+    /* Im Jahr der Zahlung zaehlt alles, was in diesem Kalenderjahr zufliesst -
+       und das haengt davon ab, ob der Weg eine Pause enthaelt. */
+    function abfSteuer(eintritt){
+      const jb = jahrBasisMit(abfJahr, eintritt);
+      const br = aBrutto*(jb.altM/12) + nBrutto*(jb.neuM/12);
+      // Arbeitslosengeld in genau diesem Jahr - steuerfrei, hebt aber den Satz
+      const stillHier = Math.min(jb.freiM, stillM);
+      const lohnersatz = algM * Math.max(0, jb.freiM - stillHier);
+      const sv = svAN(br, p.kinder, p.zusatz, p.gkv);
+      const zv = Math.max(0, br - sv.summe);
+      const f  = fuenftel(zv, p.abf, p.stkl, lohnersatz);
+      const stE = (f.mitFuenftel - f.ohne)*(1+p.kirche)
+                + soli(f.mitFuenftel,p.stkl) - soli(f.ohne,p.stkl);
+      const stV = (f.voll - f.ohne)*(1+p.kirche)
+                + soli(f.voll,p.stkl) - soli(f.ohne,p.stkl);
+      return { f5:f, zvE:zv, stEndg:stE, stVoll:stV,
+               netto:p.abf-stE, auszahlung:p.abf-stV, erstattung:stV-stE };
+    }
+    const abfOhnePause = abfSteuer(iAustritt+1);
+    const abfMitPause  = abfSteuer(iAustritt+pauseM+1);
+    const f5 = abfOhnePause.f5;
+    const zvEbasis = abfOhnePause.zvE;
+    const abfAuszahlung = abfOhnePause.auszahlung;   // was der AG ueberweist
+    const abfEndgueltig = abfOhnePause.netto;        // nach Erstattung
+    const erstattung    = abfOhnePause.erstattung;
+    const stVoll = abfOhnePause.stVoll, soliVoll = 0, kiVoll = 0;
+    const stErmaess = abfOhnePause.stEndg, soliErm = 0, kiErm = 0;
+    document.getElementById('sum-abf-steuer').textContent = eur(stErmaess+soliErm+kiErm);
+    document.getElementById('sum-abf-netto').textContent  = eur(abfEndgueltig);
+
+    // --- Betriebsrente ---
+    const bavAlt = val('a_bav'), bavNeu = val('n_bav'), bavDiff = bavAlt - bavNeu;
+    // Grenzbelastung fuer Brutto-Aequivalent
+    const grenz = (est(zvEbasis+1000,p.stkl)-est(zvEbasis,p.stkl))/1000;
+    const svSatz = nBrutto < K.bbgKV ? (K.rvAN+K.avAN+K.kvAN+p.zusatz/200+K.pvAN) : (nBrutto<K.bbgRV ? K.rvAN+K.avAN : 0);
+    const belastung = Math.min(0.85, grenz*(1+p.kirche) + svSatz);
+    const bavBrutto = bavDiff>0 ? bavDiff/(1-belastung) : 0;
+
+    // --- Entnahme ---
+    const entnahmeFeld = document.getElementById('entnahme');
+    // Vorschlag: nichts entnehmen, alles bis zur Rente arbeiten lassen
+    if (!entnahmeFeld.dataset.touched) entnahmeFeld.value = 0;
+    document.getElementById('h-entnahme').innerHTML =
+      '0 € = bis zur Rente anlegen · ' + eur(Math.max(0,Math.round(luecke))) +
+      ' würde die Lücke ausgleichen';
+    const entnahme = val('entnahme');
+
+    /* --- Vermögensverlauf ---
+       Gemeinsame Basis für alle drei Szenarien: der gewohnte Lebensstandard
+       des ALTEN Nettogehalts. Wer bleibt, deckt ihn aus dem Gehalt und baut
+       nur die Betriebsrente auf. Wer wechselt, muss die Differenz aus der
+       Abfindung entnehmen. Nur so sind die Linien vergleichbar. */
+    // Das Eingabefeld laesst bis zu 45 Jahre zu - hier nicht heimlich deckeln
+    const J = Math.max(1, Math.min(p.restjahre, 45));
+    const abgSatz = 0;   // Erträge werden vor Steuern gezeigt (siehe Hinweis im Formular)
+
+    /* --- Jahr für Jahr: was beim Weg „Mit Pause" tatsächlich ankommt ---
+       Berücksichtigt Ruhenszeit (kein Geld, KV selbst), Arbeitslosengeld
+       und den Progressionsvorbehalt auf das Gehalt desselben Jahres. */
+    function jahrMitPause(j){
+      const von=(j-1)*12, bis=j*12;
+      const pauseInJahr = Math.max(0, Math.min(bis, pauseM) - von);
+      // Ruhen endet spätestens mit der Pause - wer wieder arbeitet, ist versichert
+      const ruheInJahr  = Math.min(pauseInJahr, Math.max(0, Math.min(bis, ruheM) - von));
+      const stillInJahr = Math.min(pauseInJahr, Math.max(0, Math.min(bis, stillM) - von));
+      const algInJahr   = Math.max(0, pauseInJahr - stillInJahr);
+      const jobInJahr   = 12 - pauseInJahr;
+
+      const bruttoJ = nBrutto * jobInJahr/12;
+      const algJ    = algM * algInJahr;
+      const kvJ     = p.gkv ? kvSelbstzahlerM(p) * ruheInJahr : 0;
+      const sperrJ  = Math.max(0, stillInJahr - ruheInJahr) * algM;
+      const n = nettoMitProgression(bruttoJ, algJ, p);
+      return {
+        netto: n.netto + algJ - kvJ, sperr: sperrJ,
+        brutto: bruttoJ, gehaltNetto: n.netto, alg: algJ, kv: kvJ,
+        est: (n.lst||0)+(n.soli||0)+(n.kirche||0),
+        satz: bruttoJ>0 ? ((n.lst||0)+(n.soli||0)+(n.kirche||0))/bruttoJ : 0,
+        verlustDurchProgression: algJ>0 ? n.ohneProgression - n.netto : 0
+      };
+    }
+    const pauseJahre = [];
+    for(let j=1;j<=J;j++) pauseJahre.push(jahrMitPause(j));
+    const progressionsVerlust = pauseJahre.reduce((s,x)=>s+x.verlustDurchProgression,0);
+
+    // Was in der Pausenzeit gegenüber dem alten Gehalt fehlt
+
+    /* --- Monatsgenaue Simulation für die Tabelle ---
+       Startkapital ist die Abfindung. Jeden Monat wird entnommen, um das
+       niedrigere Gehalt auszugleichen; der Rest verzinst sich. */
+    const bleibeM = val('bleibeM');
+    const mZinsT = Math.pow(1+p.zins, 1/12)-1;
+    /* Zwei Töpfe: Topf 1 traegt die Entnahmen der naechsten Jahre und darf
+       deshalb nicht schwanken. Entnommen wird immer zuerst aus Topf 1.
+       Topf 2 ist der Rest und bleibt liegen. */
+
+
+    function simuliere(start, entnahmeM, erstattungBetrag, ausgleich){
+      // Vor dem Zahlungsjahr gibt es kein Kapital - die Abfindung ist noch nicht da
+      let konto = 0, erstattungOffen = erstattungBetrag;
+      const jahre = [];
+      const hole = betrag => { const a=Math.min(betrag, Math.max(0,konto)); konto-=a; return a; };
+      for(let j=1;j<=J;j++){
+        let entnommen=0, zins2=0;
+        if (j < abfJahr){ jahre.push({entnommen:0, zinsen:0, rest:null}); continue; }
+        if (j === abfJahr)   konto = start;
+        if (j === abfJahr+1){ konto += erstattungOffen; erstattungOffen=0; }   // Erstattung im Folgejahr
+        /* Was in der Pause an Gehalt fehlt, wird aus der Abfindung entnommen -
+           sonst wuerde der Ausfall ohne Zinsen zaehlen, die Steuerersparnis aber mit. */
+        const ausgleichM = ausgleich ? (ausgleich[j-1]||0)/12 : 0;
+        for(let m=0;m<12;m++){
+          entnommen += hole(entnahmeM + ausgleichM);
+          const z = Math.max(0,konto)*mZinsT;
+          konto += z; zins2 += z;
+        }
+        jahre.push({ entnommen, zinsen: zins2, rest: Math.max(0,konto) });
+      }
+      return jahre;
+    }
+    /* Wie viel fehlt dem Pause-Weg in jedem Jahr gegenueber dem nahtlosen Wechsel?
+       Genau das wird aus der Abfindung entnommen. */
+    const ausgleichAlg = [];
+    for(let j=1;j<=J;j++){
+      const r = jahresDaten('neu', j), d = jahresDaten('alg', j);
+      const cashR = r.netto + (r.alg||0) - (r.kv||0);
+      const cashD = d.netto + (d.alg||0) - (d.kv||0);
+      ausgleichAlg.push(Math.max(0, cashR - cashD));
+    }
+    const sim    = simuliere(abfOhnePause.auszahlung, entnahme, abfOhnePause.erstattung, null);
+    const simAlg = simuliere(abfMitPause.auszahlung,  entnahme, abfMitPause.erstattung, ausgleichAlg);
+
+    /* --- Szenario 4: Angebot ablehnen --- */
+    // In der Bleibe-Zeit laeuft das alte Gehalt unveraendert weiter
+    const bleibeNettoM = aMonat;
+    const vorsprungM = bleibeNettoM - nMonat;                 // mehr Netto je Monat
+    const vorsprung = vorsprungM * bleibeM;                   // ueber die Bleibe-Zeit
+    const bavExtra = (bavAlt - bavNeu) * (bleibeM/12);        // laenger Betriebsrente
+    const ablehnenWert = vorsprung + Math.max(0, bavExtra);
+    const kippMonate = vorsprungM > 1 ? abfEndgueltig / vorsprungM : null;
+
+    // --- Break-even: wie lange traegt die Abfindung die Luecke ---
+    let kapital = abfAuszahlung + erstattung, monate = 0;
+    const mZins = Math.pow(1+p.zins*(1-abgSatz), 1/12)-1;
+    if (luecke > 0.5){
+      while (kapital > 0 && monate < 600){ kapital = kapital*(1+mZins) - luecke; monate++; }
+    } else { monate = 600; }
+
+    /* ============ Ausgabe ============ */
+    const jeJahr = p.jahre>0 ? p.abf/p.jahre : 0;
+    const inMonaten = val('a_brutto')>0 ? jeJahr/val('a_brutto') : 0;
+    document.getElementById('h-faktor').textContent = '';
+    document.getElementById('sum-abf-jahr').textContent = p.jahre>0 ? eur(jeJahr) : '—';
+    document.getElementById('sum-abf-mon').textContent  = p.jahre>0
+      ? inMonaten.toFixed(2).replace('.',',')+' Monatsgehälter' : '—';
+
+    /* ===== Rentenlücke: weniger Brutto heißt weniger Entgeltpunkte ===== */
+    const punkte = b => Math.min(b, K.bbgRV)/K.durchschnittsentgelt;
+    const punkteAlt = punkte(aBrutto), punkteNeu = punkte(nBrutto);
+    const rentePerJahr = (punkteAlt - punkteNeu) * K.rentenwert;   // €/Monat je Jahr Differenz
+    const renteNeu = rentePerJahr * J;
+    // Pause: in der Ruhenszeit gar keine Punkte, beim ALG-Bezug aus 80 % des Entgelts
+    const renteAlg = renteNeu
+      + (punkteAlt - punkte(aBrutto*0.8)) * (algM_anz/12) * K.rentenwert
+      + punkteAlt * (ruheM/12) * K.rentenwert;
+    const renteAbl = rentePerJahr * Math.max(0, J - bleibeM/12);
+
+    /* ===== Bilanz: jeder Weg gegen „ich bleibe" ===== */
+    const Mges = J*12;
+    const zins = s => s.reduce((a,x)=>a+x.zinsen,0);
+
+    const fehltNeu = luecke * Mges;
+    const fehltAlg = pauseJahre.reduce((s,x)=> s + (aMonat*12 - x.netto), 0);
+    const fehltAbl = luecke * Math.max(0, Mges - bleibeM);
+
+    const wege = {
+      neu: {
+        name:'Wechseln ohne Pause', fehlt:fehltNeu,
+        ertrag: abfEndgueltig + zins(sim), rente:renteNeu, sim:sim,
+        nettoM: ()=>nMonat, abZeile: 0
+      },
+      alg: {
+        name:'Wechseln nach '+lueckeM+' Monaten Pause', fehlt:fehltAlg,
+        ertrag: abfEndgueltig + zins(simAlg), rente:renteAlg, sim:simAlg,
+        nettoM: j => pauseJahre[j-1] ? pauseJahre[j-1].netto/12 : nMonat, abZeile: 0
+      },
+      abl: {
+        name:'Wechseln nach '+bleibeM+' Monaten', fehlt:fehltAbl, ertrag:0, rente:renteAbl, sim:null,
+        nettoM: j => (j*12 <= bleibeM) ? aMonat : nMonat, abZeile: 0
+      }
+    };
+    Object.keys(wege).forEach(k=>{ wege[k].strich = wege[k].ertrag - wege[k].fehlt; });
+
+    /* ===== Jahresdaten für die Jahressicht ===== */
+    function jahresDaten(k, j){
+      // "Bleiben" behaelt das alte Gehalt; "abl" bis zum spaeteren Austritt
+      if (k==='bleiben' || (k==='abl' && j*12 <= bleibeM)){
+        const n=netto(aBrutto,p), st=n.lst+n.soli+n.kirche;
+        return { brutto:aBrutto, netto:n.netto, est:st, satz:st/aBrutto, alg:0, kv:0 };
+      }
+      if (k==='abl'){
+        const n=netto(nBrutto,p), st=n.lst+n.soli+n.kirche;
+        return { brutto:nBrutto, netto:n.netto, est:st, satz:st/nBrutto, alg:0, kv:0 };
+      }
+      /* "ohne Pause" wechselt nahtlos, "mit Pause" mit der Vergleichsdauer.
+         Beides unabhaengig davon, was in den Datumsfeldern steht. */
+      const eintritt = (k==='neu') ? iAustritt+1 : iAustritt+pauseM+1;
+      const jb=jahrBasisMit(j, eintritt);
+      const br=aBrutto*(jb.altM/12) + nBrutto*(jb.neuM/12);
+      const ruheHier =(k==='neu')? 0 : Math.min(jb.freiM, Math.max(0, ruheM  - Math.max(0,(j-1)*12)));
+      const stillHier=(k==='neu')? 0 : Math.min(jb.freiM, Math.max(0, stillM - Math.max(0,(j-1)*12)));
+      const algHier =Math.max(0, jb.freiM - stillHier);
+      const algJ=algM*algHier, kvJ=p.gkv? kvSelbstzahlerM(p)*ruheHier : 0;
+      const sperrJ=Math.max(0, stillHier-ruheHier)*algM;
+      const n=nettoMitProgression(br, algJ, p);
+      const st=(n.lst||0)+(n.soli||0)+(n.kirche||0);
+      return { brutto:br, netto:n.netto, est:st, satz: br>0? st/br : 0, alg:algJ, kv:kvJ, sperr:sperrJ };
+    }
+
+    /* ===== Steuersätze ===== */
+    const satzEinbehalt = p.abf>0 ? (stVoll+soliVoll+kiVoll)/p.abf : 0;
+    const satzEndgueltig = p.abf>0 ? (stErmaess+soliErm+kiErm)/p.abf : 0;
+    const satzGehalt = aBrutto>0 ? (aNet.lst+aNet.soli+aNet.kirche)/aBrutto : 0;
+    const grenzsatz = grenz*(1+p.kirche);
+    const proz = x => (x*100).toFixed(1).replace('.',',')+' %';
+
+    /* ===== Vergleichsmatrix: Wege als Spalten, Kennzahlen als Zeilen ===== */
+    // Immer dieselben vier Spalten, damit die Tabelle beim Schieben nicht springt
+    const bleibeTxt = bleibeM<=0 ? 'kein Angebot'
+      : (bleibeM%12===0 ? 'nach '+(bleibeM/12)+(bleibeM===12?' Jahr':' Jahren') : 'nach '+bleibeM+' Monaten');
+    const spalten = [
+      {k:'neu',     t:'Wechseln', s:'ohne Arbeitslosigkeit'},
+      {k:'alg',     t:'Wechseln', s:'nach Arbeitslosigkeit'},
+      {k:'bleiben', t:'Bleiben',  s:'Angebot abgelehnt'},
+      {k:'abl',     t:'Wechseln', s: bleibeTxt}
+    ];
+
+    const dauerTxt = m => m>=600 ? 'dauerhaft'
+      : (Math.floor(m/12)+' J '+(m%12)+' M');
+
+    const W_ = k => k==='bleiben' ? null : wege[k];
+    const zeilen = [];   // Der feste Uebersichtsblock entfaellt - alles haengt am Zeitraum
+
+    const strichWerte = spalten.filter(c=>c.k!=='bleiben'&&c.k!=='abl').map(c=>wege[c.k].strich);
+    const bestStrich = strichWerte.length? Math.max(...strichWerte) : null;
+
+    const istBest = () => false;   // keine Wertung durch das Tool
+    const zelle = (z,c)=>{
+      if (z.txt) return '<td class="'+(istBest(c.k)?'aktiv':'')+'">'+z.txt(c.k)+'</td>';
+      const v=z.wert(c.k);
+      const cls=(v<-100?'neg':(v>100?'pos':''))+(istBest(c.k)?' aktiv':'');
+      return '<td class="'+cls+'">'+(v>100?'+':(v<-100?'−':'± '))+eur0(Math.abs(v))+'</td>';
+    };
+    // Die Zeilen werden in renderJahre() zusammen mit den Zeitraumzeilen ausgegeben
+    ERG_ZEILEN = zeilen; ERG_BEST = bestStrich;
+    const zeilenHtml = zeilen.map((z,i)=>{
+      if (z.gruppe) return '<tr class="gr"><td colspan="'+(spalten.length+1)+'">'+z.gruppe+'</td></tr>';
+      let h='<tr class="kz'+(z.haupt?' haupt':'')+'" data-z="'+i+'">'+
+        '<td>'+(z.det?'<span class="kz-auf">+</span>':'<span class="kz-auf"></span>')+z.t+
+        (z.info?' <button class="info" type="button" data-i="'+z.info.replace(/"/g,'&quot;')+'">?</button>':'')+
+        '</td>'+
+        spalten.map(c=>zelle(z,c)).join('')+'</tr>';
+      if (z.det) h += z.det.map(d=>
+        '<tr class="detail" data-fuer="'+i+'" hidden><td>'+d[0]+'</td>'+
+        spalten.map(c=>{
+          if (d[2]!==undefined) return '<td>'+(istBest(c.k)?d[2]:'')+'</td>';
+          const v=d[1](c.k);
+          return '<td>'+(v===0?'—':(v>0?'+':'−')+eur0(Math.abs(v)))+'</td>';
+        }).join('')+'</tr>'
+      ).join('');
+      return h;
+    }).join('');
+    ERG_HTML = zeilenHtml;
+
+    function handlerSetzen(){ document.querySelectorAll('tr.kz').forEach(tr=>{
+      tr.addEventListener('click',()=>{
+        const i=tr.dataset.z, auf=tr.querySelector('.kz-auf');
+        const dets=document.querySelectorAll('tr.detail[data-fuer="'+i+'"]');
+        if(!dets.length) return;
+        const zu=dets[0].hidden;
+        dets.forEach(d=>d.hidden=!zu);
+        if(auf) auf.textContent = zu?'−':'+';
+      });
+    }); }
+    ERG_HANDLER = handlerSetzen;
+
+
+    document.querySelectorAll('.jz').forEach(e=>e.textContent=J);
+
+    /* ===== Alles merken, damit der Umschalter darauf zugreifen kann ===== */
+    ERG = {
+      J, luecke, aMonat, nMonat, p, wege, monate, abfEndgueltig, abfAuszahlung,
+      erstattung, stVoll, soliVoll, kiVoll, entnahme, bleibeM, ruheM, algM, algM_anz,
+      kvSelbst, sperrM, sperrVerlust, vorsprungM, kippMonate, ablehnenWert,
+      jahresDaten, aBrutto, aNetJahr: aNet.netto, aEst: aNet.lst+aNet.soli+aNet.kirche,
+      estAbfindung: abfOhnePause.stVoll, abfOhne: abfOhnePause, abfMit: abfMitPause,
+      satzEinbehalt, satzEndgueltig,
+      spalten, nBrutto, satzGehalt, grenzsatz, bestStrich, stErmaess, soliErm, kiErm,
+      renteNeu, lueckeM, pauseM, basisJahr, abfJahr
+    };
+    renderWeg();
+
+    // Rechenweg: Fuenftelregelung
+    document.getElementById('bd-5').textContent = erstattung>0 ? '+'+eur(erstattung)+' zurück' : 'kein Vorteil';
+    document.getElementById('st-5').innerHTML = [
+      ['Abfindung brutto', eur(p.abf)],
+      ['Steuer beim Arbeitgeber (volle Besteuerung)', '−'+eur(stVoll+soliVoll+kiVoll)],
+      ['Auszahlung auf dein Konto', eur(abfAuszahlung)],
+      ['Steuer mit Fünftelregelung (Veranlagung)', '−'+eur(stErmaess+soliErm+kiErm)],
+      ['Erstattung mit der Steuererklärung (Jahr '+(abfJahr+1)+')', '+'+eur(erstattung)],
+      ['Endgültig deins', eur(abfEndgueltig), 1]
+    ].map(r=>'<div class="step'+(r[2]?' sum':'')+'"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>').join('');
+
+    // Rechenweg: Ruhen
+    document.getElementById('bd-ruhe').textContent = ruheM>0 ? ruheM.toFixed(1).replace('.',',')+' Monate' : 'kein Ruhen';
+    const tr = document.getElementById('txt-ruhe');
+    if (p.fristOK){
+      tr.innerHTML = 'Die ordentliche Kündigungsfrist von <b>'+frist(p.jahre)+' Monaten</b> wurde eingehalten. Damit ruht der Anspruch auf Arbeitslosengeld nicht — du bekommst ab dem ersten Tag Geld und bleibst über die Agentur krankenversichert.';
+      document.getElementById('st-ruhe').innerHTML='';
+      document.getElementById('txt-kv').textContent='';
+    } else {
+      tr.innerHTML = 'Das Arbeitsverhältnis endet vorzeitig. Damit ruht der Anspruch auf Arbeitslosengeld — und zwar bis zum kürzeren der beiden folgenden Zeitpunkte:';
+      document.getElementById('st-ruhe').innerHTML = [
+        ['Kündigungsfrist bei '+p.jahre+' Jahren Betriebszugehörigkeit', frist(p.jahre)+' Monate'],
+        ['Anrechenbarer Anteil: 60 % − '+Math.floor(p.jahre/5)*5+' % (Betriebsjahre) − '+(p.alter>35?Math.floor((p.alter-35)/5)*5:0)+' % (Alter über 35)', R.anteil+' %'],
+        ['Das sind von der Abfindung', eur(R.anrechenbar||0)],
+        ['Bei '+eur(p.aBruttoM)+' Monatsbrutto entspricht das', (R.monateBis60||0).toFixed(1).replace('.',',')+' Monate'],
+        ['Es gilt der kürzere Wert', R.monate.toFixed(1).replace('.',',')+' Monate', 1]
+      ].map(r=>'<div class="step'+(r[2]?' sum':'')+'"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>').join('');
+      document.getElementById('txt-kv').innerHTML = '<b>Der teure Teil:</b> § 5 Abs. 1 Nr. 2 SGB V lässt die Versicherungspflicht nur bei einer Sperrzeit und bei Urlaubsabgeltung weiterlaufen — beim Ruhen wegen Abfindung nicht. In diesen '+R.monate.toFixed(1).replace('.',',')+' Monaten zahlst du Kranken- und Pflegeversicherung selbst: rund <b>'+eur(kvSelbstzahlerM(p))+' im Monat</b>, zusammen etwa <b>'+eur(R.monate*kvSelbstzahlerM(p))+'</b>.';
+    }
+
+    // Rechenweg: Progressionsvorbehalt
+    const bdP = document.getElementById('bd-prog'), stP = document.getElementById('st-prog');
+    if (lueckeM<=0 || progressionsVerlust<1){
+      bdP.textContent = lueckeM<=0 ? 'keine Pause' : 'ohne Wirkung';
+      stP.innerHTML = '<div class="step"><span>'+
+        (lueckeM<=0 ? 'Ohne Arbeitslosengeld greift der Progressionsvorbehalt nicht.'
+                     : 'In den Pausenjahren kommt kein weiteres Gehalt hinzu, auf das der höhere Satz wirken könnte.')+
+        '</span><b>0 €</b></div>';
+    } else {
+      const j1 = pauseJahre.find(x=>x.verlustDurchProgression>0) || pauseJahre[0];
+      bdP.textContent = '−'+eur(progressionsVerlust);
+      stP.innerHTML = [
+        ['Arbeitslosengeld im betroffenen Jahr', eur(j1.alg)],
+        ['Gehalt im selben Jahr', eur(j1.gehaltNetto)],
+        ['Steuersatz dadurch', (j1.satz*100).toFixed(1).replace('.',',')+' %'],
+        ['Mehr Steuer allein durch den Progressionsvorbehalt', '−'+eur(progressionsVerlust), 1]
+      ].map(r=>'<div class="step'+(r[2]?' sum':'')+'"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>').join('');
+    }
+
+    // Rechenweg: bAV
+    document.getElementById('bd-bav').textContent = bavDiff>0 ? eur(bavBrutto)+' Brutto nötig' : 'kein Wegfall';
+    document.getElementById('st-bav').innerHTML = [
+      ['Arbeitgeberbeitrag heute', eur(bavAlt)],
+      ['Arbeitgeberbeitrag neuer Job', eur(bavNeu)],
+      ['Wegfallender Beitrag', eur(Math.max(0,bavDiff))],
+      ['Deine Grenzbelastung (Steuer plus Sozialabgaben)', (belastung*100).toFixed(1).replace('.',',')+' %'],
+      ['Zusätzliches Brutto, um es selbst anzusparen', eur(bavBrutto), 1]
+    ].map(r=>'<div class="step'+(r[2]?' sum':'')+'"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>').join('');
+
+    // Rechenweg: Anlage
+    document.getElementById('bd-anl').textContent = eur(entnahme)+'/Monat';
+    document.getElementById('txt-anl').innerHTML = 'Die Abfindung wird angelegt und monatlich entnommen, um das niedrigere Gehalt auszugleichen.';
+    document.getElementById('st-anl').innerHTML = [
+      ['Startkapital (Auszahlung plus Erstattung)', eur(abfEndgueltig)],
+      ['Zins', (p.zins*100).toFixed(1).replace('.',',')+' % p. a.'],
+      ['Erträge gezeigt als', 'vor Steuern'],
+      ['Entnahme', eur(entnahme)+' / Monat'],
+      ['Reicht für', monate>=600? 'unbegrenzt' : Math.floor(monate/12)+' J '+(monate%12)+' M', 1]
+    ].map(r=>'<div class="step'+(r[2]?' sum':'')+'"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>').join('');
+
+    // Annahmen
+    document.getElementById('st-ann').innerHTML = [
+      ['Einkommensteuertarif 2026, Grundfreibetrag', '12.348 €'],
+      ['Beitragsbemessungsgrenze Rente / Arbeitslos', '101.400 € im Jahr'],
+      ['Beitragsbemessungsgrenze Kranken / Pflege', '69.750 € im Jahr'],
+      ['Steuerfrei für Betriebsrente (8 % der BBG)', '8.112 € im Jahr'],
+      ['Arbeitslosengeld (§ 153 SGB III)', (p.kinder>0?'67':'60')+' % vom Leistungsentgelt'],
+      ['Steuer auf Anlageerträge', 'nicht abgezogen'],
+      ['Soli-Freigrenze (geschätzt)', eur(K.soliFreigrenze)],
+      ['KV-Beitrag als Selbstzahler', eur(kvSelbstzahlerM(p))+' / Monat']
+    ].map(r=>'<div class="step"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>').join('');
+
+
+  }
+
+  /* ============ Jahrestabelle mit Zeitraum-Leiste ============ */
+  let jahrWahl=1, modus='einzeln';  // 'einzeln' = nur dieses Jahr, 'summe' = ab Jahr 1 bis hier                 // zusammenhaengender Zeitraum, 0 = Austrittsjahr
+  let ERG_ZEILEN=null, ERG_BEST=null, ERG_HTML='', ERG_HANDLER=null;
+
+  function leisteBauen(N){
+    const eintraege=[];
+    for(let j=1;j<=Math.min(5,N);j++) eintraege.push({i:j,t:'Jahr '+j});
+    if (jahrWahl>N) jahrWahl=N;
+
+    document.getElementById('jahrmodus').innerHTML =
+      ['einzeln','summe'].map(m=>
+        '<button type="button" class="jm'+(modus===m?' an':'')+'" data-m="'+m+'">'+
+        (m==='einzeln'?'Einzelnes Jahr':'Ab Jahr 1 aufsummiert')+'</button>').join('');
+
+    document.getElementById('jahrleiste').innerHTML = eintraege.map(e=>{
+      const an = modus==='einzeln' ? e.i===jahrWahl : e.i<=jahrWahl;
+      return '<button type="button" class="jl'+(an?' an':'')+'" data-j="'+e.i+'">'+e.t+'</button>';
+    }).join('');
+
+    document.querySelectorAll('.jm').forEach(b=>b.addEventListener('click',()=>{
+      modus=b.dataset.m; renderJahre();
+    }));
+    document.querySelectorAll('.jl').forEach(b=>b.addEventListener('click',()=>{
+      jahrWahl=+b.dataset.j; renderJahre();
+    }));
+  }
+
+  function renderJahre(){
+    if(!ERG) return;
+    const E=ERG, N=E.J, sp=E.spalten;
+
+    /* Gesamtsicht: alles über die volle Zeit bis zur Rente */
+    const w={};
+    sp.forEach(c=>{
+      const W=E.wege[c.k], t={netto:0, weniger:0, zinsen:0, konto:null, alg:0, kv:0, entnommen:0, sperr:0};
+      for(let j=1;j<=N;j++){
+        const d=E.jahresDaten(c.k,j);
+        const netto=d.netto+(d.alg||0)-(d.kv||0);
+        t.netto += netto;
+        t.alg += (d.alg||0);
+        t.kv  += (d.kv||0);
+        t.sperr += (d.sperr||0);
+        t.weniger += netto - E.aNetJahr;
+        const sim = W && W.sim ? W.sim[j-1] : null;
+        if (sim){ t.zinsen += sim.zinsen; t.entnommen += sim.entnommen;
+                  if (sim.rest!==null) t.konto = sim.rest; }
+      }
+      t.hatAbf = !(c.k==='bleiben' || c.k==='abl');
+      w[c.k]=t;
+    });
+
+    document.getElementById('matrix-kopf').innerHTML =
+      '<tr><th></th>'+sp.map((c,i)=>
+        '<th class="mk"><span class="mk-box k'+(i+1)+'">'+c.t+'<small>'+c.s+'</small></span></th>'
+      ).join('')+'</tr>';
+
+    // Rangfolge nach Gesamtsumme - faerbt nur die Schlusszeile ein
+    const gesamt={}; sp.forEach(c=>gesamt[c.k]=w[c.k].netto+w[c.k].entnommen+(w[c.k].konto||0));
+    const maxWert = Math.max(...Object.values(gesamt));
+
+    const zeilen=[
+      {gruppe:'Über '+N+' Jahre bis zur Rente'},
+      {t:'Einkommen netto insgesamt', v:c=>w[c].netto},
+      {t:'davon Arbeitslosengeld',    v:c=>w[c].alg},
+      {t:'davon Sperrzeit, 12 Wochen', v:c=>-w[c].sperr,
+       info:'Beim Aufhebungsvertrag nimmt Sam zwoelf Wochen Sperrzeit an (§ 159 SGB III), weil du das Arbeitsverhaeltnis selbst mit geloest hast. Hier steht das Arbeitslosengeld, das dadurch nicht fliesst. Steht dort null, faellt die Sperrzeit mit der Ruhenszeit zusammen und kostet dich nichts extra. Ob die Agentur die Sperrzeit wirklich verhaengt, musst du vor der Unterschrift klaeren.'},
+      {t:'davon selbst gezahlte Krankenversicherung', v:c=>-w[c].kv},
+      {t:'Entnahmen aus der Abfindung', v:c=>w[c].entnommen,
+       info:'Was waehrend einer Pause an Gehalt fehlt, wird aus der angelegten Abfindung entnommen - genau wie im echten Leben. Dieses Geld steht dir zur Verfuegung, fehlt aber auf dem Anlagekonto und wirft dort keine Zinsen mehr ab.'},
+      {t:'Zinsen aus der Anlage',     v:c=>w[c].zinsen},
+      {t:'Anlagekonto am Ende',       txt:c=>w[c].konto===null? '—' : eur(w[c].konto)},
+
+      {bilanz:1, t:'Insgesamt: Einkommen, Entnahmen und Anlagekonto',
+       v:c=>gesamt[c], rang:1,
+       info:'Alles, was ueber die gesamte Zeit zusammenkommt: das verdiente Nettoeinkommen, die Entnahmen aus der Abfindung und das, was am Ende auf dem Anlagekonto liegt. Die Farben zeigen die Reihenfolge: blau ist die hoechste Summe, dann gruen, gelb, rot.'},
+
+      {abstand:1, t:'Abstand zum besten Weg',
+       txt:c=>{ const d=gesamt[c]-maxWert; return d>=0 ? '—' : '−'+eur0(Math.abs(d))+' €'; }},
+
+    ];
+
+    const platz = {};
+    sp.map(c=>c.k).sort((a,b)=>gesamt[b]-gesamt[a]).forEach((k,i)=>{ platz[k]=i+1; });
+
+    document.getElementById('matrix-body').innerHTML = zeilen.map(z=>{
+      if (z.gruppe) return '<tr class="gr"><td colspan="'+(sp.length+1)+'">'+z.gruppe+'</td></tr>';
+      return '<tr'+(z.bilanz?' class="bilanz"':(z.abstand?' class="abstand"':(z.stark?' class="haupt"':'')))+'><td>'+z.t+
+        (z.info?' <button class="info" type="button" data-i="'+z.info.replace(/"/g,'&quot;')+'">?</button>':'')+
+        '</td>'+
+        sp.map(c=>{
+          if (z.txt) return '<td>'+z.txt(c.k)+'</td>';
+          const v=z.v(c.k);
+          if (z.rang){
+            return '<td class="rang'+Math.min(4,platz[c.k])+'">'+eur0(v)+' €</td>';
+          }
+          return '<td class="'+(v<-1?'neg':(v>1?'pos':''))+'">'+
+            (v>1?'+':(v<-1?'−':'± '))+eur0(Math.abs(v))+'</td>';
+        }).join('')+'</tr>';
+    }).join('');
+
+    document.getElementById('jahr-note').innerHTML = '';
+  }
+
+  /* ============ Verlauf: alle Jahre untereinander, ein Weg ============ */
+  let verlaufKum=false;
+
+  function renderVerlauf(){
+    if(!ERG) return;
+    const E=ERG, W=E.wege[wegAktiv], N=E.J;
+
+    // Umschalter traegt dieselben Bezeichnungen wie die Spalten oben
+    document.getElementById('weg-switch').innerHTML = E.spalten.map((c,i)=>
+      '<button type="button" class="hsw k'+(i+1)+(c.k===wegAktiv?' active':'')+'" data-weg="'+c.k+'">'+
+      c.t+'<small>'+c.s+'</small></button>').join('');
+    document.querySelectorAll('#weg-switch .hsw').forEach(b=>{
+      b.addEventListener('click',()=>{ wegAktiv=b.dataset.weg; renderVerlauf(); });
+    });
+
+    document.getElementById('verlauf-kopf').innerHTML =
+      '<tr><th>'+(verlaufKum?'bis Jahr':'Jahr')+'</th>'+
+      '<th>Netto<br>'+(verlaufKum?'kumuliert':'im Jahr')+'</th><th>'+(verlaufKum?'⌀ pro':'Netto pro')+'<br>Monat</th>'+
+      '<th>Gehalt weniger<br>als beim Bleiben</th>'+
+      '<th>Anlage&shy;konto<br>Stand</th><th>Zinsen'+(verlaufKum?'<br>kumuliert':'')+'</th>'+
+      '<th>Ent&shy;nahmen'+(verlaufKum?'<br>kumuliert':'')+'</th></tr>';
+
+    const g=(v,cls)=>'<td class="'+(cls||'')+'">'+v+'</td>';
+    const geld=(v,vz)=>(v===0||v===undefined||v===null) ? '<td class="leer">—</td>'
+      : '<td class="'+(v<0?'neg':(vz?'pos':''))+'">'+(vz&&v>0?'+':(v<0?'−':''))+eur0(Math.abs(v))+'</td>';
+
+    let rows='', kumNetto=0, kumVerlust=0, kumZins=0, kumEntnahme=0;
+    for(let j=1;j<=N;j++){
+      const d=E.jahresDaten(wegAktiv,j), sim=W && W.sim ? W.sim[j-1] : null;
+      const netto=d.netto+(d.alg||0)-(d.kv||0);
+      kumNetto    += netto;
+      kumVerlust  += netto - E.aNetJahr;
+      if (sim){ kumZins += sim.zinsen; kumEntnahme += sim.entnommen; }
+      const istAbfJahr = j===E.abfJahr && wegAktiv!=='bleiben' && wegAktiv!=='abl';
+      const zNetto   = verlaufKum? kumNetto : netto;
+      const zMonat   = verlaufKum? kumNetto/(j*12) : netto/12;
+      const zVerlust = verlaufKum? kumVerlust : netto-E.aNetJahr;
+      const zZins    = verlaufKum? kumZins : (sim? sim.zinsen : 0);
+      const zEntn    = verlaufKum? kumEntnahme : (sim? sim.entnommen : 0);
+      rows += '<tr'+(istAbfJahr?' class="abfjahr"':'')+'>'+
+        g('Jahr '+j)+
+        geld(zNetto)+ geld(zMonat)+
+        geld(zVerlust)+
+        (sim && sim.rest!==null ? geld(sim.rest) : g('—','leer'))+
+        (zZins>0 ? geld(zZins,1) : g('—','leer'))+
+        (zEntn>0 ? geld(-zEntn) : g('—','leer'))+
+      '</tr>';
+    }
+    document.getElementById('verlauf-body').innerHTML=rows;
+
+    document.getElementById('verlauf-note').innerHTML = W && W.sim
+      ? 'Im Jahr '+E.abfJahr+' geht die Abfindung mit <b>'+eur(E.abfAuszahlung)+
+        '</b> auf das Anlagekonto. Im Jahr '+(E.abfJahr+1)+' kommt die Steuererstattung von <b>'+
+        eur(E.erstattung)+'</b> dazu — der Arbeitgeber hatte ohne Fünftelregelung zu viel einbehalten.'
+      : 'Bei diesem Weg gibt es keine Abfindung und damit kein Anlagekonto.';
+  }
+
+  /* ============ Der gewählte Weg ============ */
+  let view='monat', wegAktiv='neu', ERG=null;
+
+  function renderWeg(){
+    if(!ERG) return;
+    renderJahre();
+    renderVerlauf();
+  }
+
+  /* ============ Bedienung ============ */
+  document.getElementById('entnahme').addEventListener('input',function(){ this.dataset.touched='1'; });
+
+  document.querySelectorAll('.vm').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.vm').forEach(x=>x.classList.remove('an'));
+      b.classList.add('an'); verlaufKum = b.dataset.v==='kum'; renderVerlauf();
+    });
+  });
+  document.querySelectorAll('.hsw').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.hsw').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active'); wegAktiv=b.dataset.weg; renderVerlauf();
+    });
+  });
+  document.querySelectorAll('input,select').forEach(el=>{
+    el.addEventListener('input',rechne);
+    el.addEventListener('change',rechne);
+  });
+  const pop = document.createElement('div');
+  pop.className = 'infopop'; pop.hidden = true;
+  document.body.appendChild(pop);
+
+  function zeigeInfo(b){
+    if (pop.dataset.q === b.dataset.i && !pop.hidden){ pop.hidden = true; return; }
+    pop.textContent = b.dataset.i; pop.dataset.q = b.dataset.i;
+    pop.hidden = false; pop.style.visibility = 'hidden';
+    const breite = Math.min(300, window.innerWidth - 24);
+    pop.style.width = breite + 'px';
+    const r = b.getBoundingClientRect();
+    pop.style.left = Math.min(Math.max(8, r.left + r.width/2 - breite/2),
+                              window.innerWidth - breite - 8) + 'px';
+    const h = pop.offsetHeight;
+    let oben = r.bottom + 8;
+    if (oben + h > window.innerHeight - 8) oben = Math.max(8, r.top - h - 8);
+    pop.style.top = oben + 'px';
+    pop.style.visibility = 'visible';
+  }
+
+  document.addEventListener('click', e=>{
+    const b = e.target.closest ? e.target.closest('.info') : null;
+    if (b && b.dataset.i){ e.preventDefault(); e.stopPropagation(); zeigeInfo(b); return; }
+    if (!e.target.closest || !e.target.closest('.infopop')) pop.hidden = true;
+  });
+  window.addEventListener('resize', ()=>{ pop.hidden = true; });
+
+
+
+  /* ============ Bericht: aus den gerenderten Tabellen, nie abweichend ============ */
+  const BERICHT_FELDER = [
+    ['restjahre','Jahre bis zur Rente'], ['stkl','Steuerklasse'], ['kinder','Kinder'],
+    ['kirche','Kirchensteuer'], ['kvart','Krankenversicherung'], ['zusatz','KV-Zusatzbeitrag','%'],
+    ['a_brutto','Heutiges Monatsbrutto','€'], ['n_brutto','Neues Monatsbrutto','€'],
+    ['abf','Abfindung','€'], ['dAustritt','Letzter Arbeitstag'], ['dAbfindung','Abfindung wird gezahlt'],
+    ['vertrag','Ende des Arbeitsverhältnisses'], ['frist','Kündigungsfrist eingehalten'],
+    ['alter','Alter'], ['jahre','Jahre im Betrieb'],
+    ['pauseMonate','Neuer Job beginnt nach','Monaten'], ['bleibeM','Ablehnen: Monate bleiben','Monate'],
+    ['zins','Anlagezins','% / Jahr'], ['entnahme','Entnahme','€ / Monat']
+  ];
+  function feldText(id, einheit){
+    const e = document.getElementById(id);
+    if (!e) return '—';
+    if (e.tagName==='SELECT'){
+      // nur der Teil vor dem Gedankenstrich - die Erlaeuterung braucht der Bericht nicht
+      return e.options[e.selectedIndex].textContent.trim().split(' — ')[0];
+    }
+    if (e.type==='month'){
+      const m = monat(id);
+      return m ? ['Januar','Februar','März','April','Mai','Juni','Juli','August',
+                  'September','Oktober','November','Dezember'][m.monat-1]+' '+m.jahr : e.value;
+    }
+    const v = parseFloat(String(e.value).replace(',','.'));
+    if (einheit==='€')         return isNaN(v) ? e.value : eur(v);
+    if (einheit==='€ / Monat') return isNaN(v) ? e.value : eur(v)+' / Monat';
+    const txt = isNaN(v) ? e.value : String(v).replace('.',',');
+    return txt + (einheit ? ' '+einheit : '');
+  }
+  /* Kopien duerfen keine IDs mitbringen - sonst gibt es sie doppelt im Dokument
+     und Abfragen wie #verlauf-body treffen auch die Kopie im Bericht. */
+  function fuerBericht(el){
+    el.querySelectorAll('button').forEach(b=>b.remove());
+    el.removeAttribute('id');
+    el.querySelectorAll('[id]').forEach(x=>x.removeAttribute('id'));
+    return el;
+  }
+
+  function berichtBauen(){
+    if(!ERG) return;
+    const heute = new Date().toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'});
+    const N = ERG.J;
+    const icon = document.querySelector('.sam-icon').outerHTML;
+
+    // Vergleichstabelle aus dem DOM uebernehmen
+    const matrix = fuerBericht(document.getElementById('tbl-jahr').cloneNode(true));
+
+    // Verlauf je Weg, kumuliert - Zustand merken und wiederherstellen
+    const merkWeg = wegAktiv, merkKum = verlaufKum;
+    verlaufKum = true;
+    const verlaeufe = ERG.spalten.map((c,i)=>{
+      wegAktiv = c.k; renderVerlauf();
+      const t = fuerBericht(document.getElementById('tbl-verlauf').cloneNode(true));
+      return '<div class="bo-weg k'+(i+1)+'"><div class="bo-weg-k">'+c.t+
+             '<small>'+c.s+'</small></div>'+t.outerHTML+'</div>';
+    }).join('');
+    wegAktiv = merkWeg; verlaufKum = merkKum; renderVerlauf();
+
+    document.getElementById('bo-blatt').innerHTML =
+      '<div class="bo-kopf">'+icon+
+        '<div><div class="n">Sam</div><div class="s">der Abfindungs-Rechner</div></div>'+
+        '<div class="d">Erstellt am '+heute+'<br>Gerechnet über '+N+' Jahre</div>'+
+      '</div>'+
+
+      '<h3>Die Wege im Überblick</h3>'+
+      '<p class="bo-info">Gerechnet sind Nettoeinkommen, Entnahmen aus der Abfindung und das Anlagekonto über die gesamte Zeit bis zum Rentenbeginn.</p>'+
+      matrix.outerHTML+
+
+      '<h3>Was du eingetragen hast</h3>'+
+      '<div class="bo-eing">'+BERICHT_FELDER.map(f=>
+        '<div><span>'+f[1]+'</span><b>'+feldText(f[0], f[2])+'</b></div>').join('')+'</div>'+
+
+      '<h3 class="neue-seite">Der Verlauf, Jahr für Jahr — alle Werte aufaddiert</h3>'+
+      '<p class="bo-info">Jede Zeile zeigt, was bis zu diesem Jahr zusammengekommen ist. Die letzte Zeile jeder Tabelle entspricht dem Ergebnis oben.</p>'+
+      verlaeufe+
+
+      '<div class="bo-fuss"><b>Haftungsausschluss</b>'+
+      '<p>Diese Auswertung ist eine Orientierungshilfe und <b>keine Steuer-, Renten- oder Rechtsberatung</b>. Sie ersetzt weder die Prüfung deines Vertrags durch eine Fachanwältin oder einen Fachanwalt für Arbeitsrecht noch die Beratung durch eine Steuerberaterin oder einen Steuerberater. Für Entscheidungen, die auf dieser Auswertung beruhen, wird keine Haftung übernommen.</p>'+
+      '<p><b>Grenzen der Berechnung.</b> Die Lohnsteuer wird über den Einkommensteuertarif genähert, nicht über das amtliche Lohnsteuer-Verfahren. Kapitalerträge sind vor Abgeltungsteuer ausgewiesen. Persönliche Freibeträge, Werbungskosten, Sonderausgaben, weitere Einkünfte und die Verhältnisse eines Ehe- oder Lebenspartners bleiben unberücksichtigt. Sämtliche Ergebnisse gelten nur für die eingetragenen Annahmen.</p>'+
+      '<p><b>Themen, die dein Fall berühren kann und die hier nicht abschließend beurteilt werden:</b></p>'+
+      '<ul>'+
+        '<li>Zeitpunkt des Zuflusses der Abfindung und die Voraussetzungen der ermäßigten Besteuerung, insbesondere die Zusammenballung in einem Kalenderjahr</li>'+
+        '<li>Ruhen des Anspruchs auf Arbeitslosengeld sowie der Versicherungsschutz in Kranken- und Pflegeversicherung während dieser Zeit</li>'+
+        '<li>Eintritt, Dauer und Verkürzung einer Sperrzeit sowie die Minderung der Anspruchsdauer</li>'+
+        '<li>Melde- und Mitwirkungspflichten gegenüber der Agentur für Arbeit</li>'+
+        '<li>Auswirkungen auf betriebliche Altersversorgung und gesetzliche Rentenansprüche</li>'+
+        '<li>Zeitpunkt und Höhe einer Erstattung im Rahmen der Einkommensteuerveranlagung</li>'+
+        '<li>Arbeitsrechtliche Fragen zu Aufhebungsvertrag, Kündigungsschutz, Abfindungshöhe und Fristen</li>'+
+      '</ul>'+
+      '<p>Lass ein Abfindungsangebot vor der Unterschrift fachlich prüfen. Nach der Unterschrift sind die meisten der genannten Punkte nicht mehr verhandelbar.</p>'+
+      '<p style="margin-top:9px; padding-top:7px; border-top:1px dotted var(--line-new)">Erstellt mit Sam, dem Abfindungs-Rechner · '+heute+'</p>'+
+      '</div>';
+  }
+
+  document.getElementById('btn-bericht').addEventListener('click',()=>{
+    berichtBauen();
+    document.getElementById('bericht-overlay').hidden = false;
+    document.body.style.overflow = 'hidden';
+    window.scrollTo(0,0);
+  });
+  document.getElementById('bo-zu').addEventListener('click',()=>{
+    document.getElementById('bericht-overlay').hidden = true;
+    document.body.style.overflow = '';
+  });
+  document.getElementById('bo-druck').addEventListener('click',()=>window.print());
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape' && !document.getElementById('bericht-overlay').hidden)
+      document.getElementById('bo-zu').click();
+  });
+
+  rechne();
+})();
+</script>
+</body>
+</html>
