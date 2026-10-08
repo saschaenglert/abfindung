@@ -617,6 +617,8 @@ details.calc summary .badge{
 :is(#bo-blatt,#bo-pdf) .bo-weg.k1 .bo-weg-k{background:var(--w1-d)} :is(#bo-blatt,#bo-pdf) .bo-weg.k2 .bo-weg-k{background:var(--w2-d)}
 :is(#bo-blatt,#bo-pdf) .bo-weg.k3 .bo-weg-k{background:var(--w3-d)} :is(#bo-blatt,#bo-pdf) .bo-weg.k4 .bo-weg-k{background:var(--w4-d)}
 :is(#bo-blatt,#bo-pdf) .bo-weg table{font-size:10px}
+:is(#bo-blatt,#bo-pdf) .bo-weg-abf{display:block; margin-top:3px; font-family:'Inter',sans-serif; font-size:10px; font-weight:400; color:rgba(255,255,255,.92)}
+:is(#bo-blatt,#bo-pdf) .bo-weg-abf b{color:#fff; font-weight:700}
 :is(#bo-blatt,#bo-pdf) .bo-weg th,:is(#bo-blatt,#bo-pdf) .bo-weg td{padding:3px 7px}
 :is(#bo-blatt,#bo-pdf) .bo-fuss{margin-top:20px; padding-top:11px; border-top:1px solid var(--line-new);
   font-size:9.5px; color:var(--ink-light); line-height:1.6; break-inside:avoid}
@@ -1834,8 +1836,8 @@ details.calc summary .badge{
 
     document.getElementById('verlauf-kopf').innerHTML =
       '<tr><th>'+(verlaufKum?'bis Jahr':'Jahr')+'</th>'+
-      '<th>Netto<br>'+(verlaufKum?'kumuliert':'im Jahr')+'</th><th>'+(verlaufKum?'⌀ pro':'Netto pro')+'<br>Monat</th>'+
-      '<th>Steuer&shy;satz<br>'+(verlaufKum?'⌀ bisher':'aufs Gehalt')+'</th>'+
+      '<th>Netto Gehalt<br>'+(verlaufKum?'kumuliert':'im Jahr')+'</th><th>'+(verlaufKum?'⌀ pro':'Netto pro')+'<br>Monat</th>'+
+      '<th>Steuer&shy;satz<br>'+(verlaufKum?'⌀ bisher':'im Jahr')+'</th>'+
       '<th>Gehalt weniger<br>als beim Bleiben</th>'+
       '<th>Anlage&shy;konto<br>Stand</th><th>Zinsen'+(verlaufKum?'<br>kumuliert':'')+'</th>'+
       '<th>Ent&shy;nahmen'+(verlaufKum?'<br>kumuliert':'')+'</th></tr>';
@@ -1844,19 +1846,21 @@ details.calc summary .badge{
     const geld=(v,vz)=>(v===0||v===undefined||v===null) ? '<td class="leer">—</td>'
       : '<td class="'+(v<0?'neg':(vz?'pos':''))+'">'+(vz&&v>0?'+':(v<0?'−':''))+eur0(Math.abs(v))+'</td>';
 
-    // Steuersatz = Steuer aufs Gehalt / Bruttogehalt (E80); die Abfindung hat ihren eigenen Satz
-    const satzZelle=(st,br)=> br>0 ? g(prozent(st/br)) : g('—','leer');
+    // Steuersatz = Steuer / zu versteuerndes Einkommen, im Auszahlungsjahr mit Abfindung (E83)
+    const satzZelle=(st,zv)=> zv>0 ? g(prozent(st/zv)) : g('—','leer');
+    const A = wegAktiv==='alg' ? E.abfMit : (wegAktiv==='neu' ? E.abfOhne : null);
 
-    let rows='', kumNetto=0, kumVerlust=0, kumZins=0, kumEntnahme=0, kumSteuer=0, kumBrutto=0;
+    let rows='', kumNetto=0, kumVerlust=0, kumZins=0, kumEntnahme=0, kumSteuer=0, kumZvE=0;
     for(let j=1;j<=N;j++){
       const d=E.jahresDaten(wegAktiv,j), sim=W && W.sim ? W.sim[j-1] : null;
       const netto=d.netto+(d.alg||0)-(d.kv||0);
       kumNetto    += netto;
       kumVerlust  += netto - E.aNetJahr;
-      kumSteuer   += d.est;
-      kumBrutto   += d.brutto;
       if (sim){ kumZins += sim.zinsen; kumEntnahme += sim.entnommen; }
       const istAbfJahr = j===E.abfJahr && wegAktiv!=='bleiben' && wegAktiv!=='abl';
+      const zvJ = Math.max(0, d.brutto-d.sv) + (istAbfJahr && A ? E.p.abf : 0);
+      const stJ = d.est + (istAbfJahr && A ? A.stEndg : 0);
+      kumSteuer += stJ; kumZvE += zvJ;
       const zNetto   = verlaufKum? kumNetto : netto;
       const zMonat   = verlaufKum? kumNetto/(j*12) : netto/12;
       const zVerlust = verlaufKum? kumVerlust : netto-E.aNetJahr;
@@ -1865,7 +1869,7 @@ details.calc summary .badge{
       rows += '<tr'+(istAbfJahr?' class="abfjahr"':'')+'>'+
         g('Jahr '+j)+
         geld(zNetto)+ geld(zMonat)+
-        (verlaufKum ? satzZelle(kumSteuer,kumBrutto) : satzZelle(d.est,d.brutto))+
+        (verlaufKum ? satzZelle(kumSteuer,kumZvE) : satzZelle(stJ,zvJ))+
         geld(zVerlust)+
         (sim && sim.rest!==null ? geld(sim.rest) : g('—','leer'))+
         (zZins>0 ? geld(zZins,1) : g('—','leer'))+
@@ -1874,14 +1878,13 @@ details.calc summary .badge{
     }
     document.getElementById('verlauf-body').innerHTML=rows;
 
-    // Abfindungssteuer je Option (E50): mit Pause gilt die eigene Rechnung
-    const A = wegAktiv==='alg' ? E.abfMit : E.abfOhne;
     document.getElementById('verlauf-note').innerHTML = W && W.sim
       ? 'Im Jahr '+E.abfJahr+' geht die Abfindung mit <b>'+eur(A.auszahlung)+
         '</b> auf das Anlagekonto. Im Jahr '+(E.abfJahr+1)+' kommt die Steuererstattung von <b>'+
         eur(A.erstattung)+'</b> dazu — der Arbeitgeber hatte ohne Fünftelregelung zu viel einbehalten.'+
         '<br>Steuer auf die Abfindung, endgültig: <b>'+eur(A.stEndg)+'</b> — das sind <b>'+
-        prozent(E.p.abf>0 ? A.stEndg/E.p.abf : 0)+'</b> der Abfindung. Der Steuersatz in der Tabelle gilt nur fürs Gehalt.'
+        prozent(E.p.abf>0 ? A.stEndg/E.p.abf : 0)+'</b> der Abfindung.'+
+        '<br>Der Steuersatz in der Tabelle ist die Steuer geteilt durch das zu versteuernde Einkommen — im Jahr '+E.abfJahr+' einschließlich der Abfindung.'
       : 'Bei dieser Option gibt es keine Abfindung und damit kein Anlagekonto.';
   }
 
@@ -2017,7 +2020,7 @@ details.calc summary .badge{
       '<li><b>Steuer</b> ist die Einkommensteuer nach dem Tarif 2026 (§ 32a EStG)'+(p.stkl===3?' mit Splitting (Steuerklasse III)':', Grundtarif')+
         ', dazu der Solidaritätszuschlag (5,5 % mit Freigrenze und Milderungszone)'+
         (p.kirche>0 ? ' und die Kirchensteuer ('+pz(p.kirche)+' der Einkommensteuer)' : '; Kirchensteuer fällt nicht an')+'.</li>'+
-      '<li><b>Steuersatz</b> ist die Steuer geteilt durch das Bruttoeinkommen. Für die Abfindung gilt ein eigener Satz: Steuer auf die Abfindung geteilt durch die Abfindung.</li>'+
+      '<li><b>Steuersatz</b> ist die Steuer geteilt durch das zu versteuernde Einkommen. Im Jahr der Auszahlung zählt die Abfindung mit: Steuer auf Gehalt und Abfindung geteilt durch zu versteuerndes Einkommen plus Abfindung. Als Zwischenschritt steht zusätzlich der Satz auf die Abfindung allein (Steuer auf die Abfindung geteilt durch die Abfindung).</li>'+
       '<li><b>Abfindung:</b> Auf sie fallen keine Sozialabgaben an. Sie wird nach der Fünftelregelung (§ 34 EStG) versteuert. Der Arbeitgeber behält die Steuer ohne diese Ermäßigung ein (§ 39b EStG), die Ermäßigung kommt mit der Steuererklärung des Folgejahres zurück.</li>'+
       '<li><b>Arbeitslosengeld</b> ist steuerfrei, erhöht aber den Steuersatz auf das übrige Einkommen desselben Jahres, auch auf die Abfindung (Progressionsvorbehalt, § 32b EStG).</li>'+
       '</ul>';
@@ -2045,13 +2048,20 @@ details.calc summary .badge{
       rows += zeile('zu versteuerndes Einkommen', c=>eur(Math.max(0, D[c.k].brutto-D[c.k].sv)), 'bo-sub');
       if (E.spalten.some(c=>D[c.k].alg>0))
         rows += zeile('Arbeitslosengeld (steuerfrei)', c=>D[c.k].alg>0 ? eur(D[c.k].alg) : '—');
+      const zvG = c => Math.max(0, D[c.k].brutto-D[c.k].sv);
       rows += zeile('Steuer aufs Gehalt', c=>eur(D[c.k].est));
-      rows += zeile('Steuersatz aufs Gehalt', c=>satzTxt(D[c.k].est, D[c.k].brutto), 'bo-satz');
       if (j===E.abfJahr){
-        rows += zeile('Abfindung brutto', c=>abfFuer(c.k,E) ? eur(E.p.abf) : '—');
-        rows += zeile('Steuer auf die Abfindung, endgültig', c=>{ const A=abfFuer(c.k,E); return A ? eur(A.stEndg) : '—'; });
-        rows += zeile('Steuersatz auf die Abfindung', c=>{ const A=abfFuer(c.k,E); return A ? satzTxt(A.stEndg, E.p.abf) : '—'; }, 'bo-satz');
-        rows += zeile('vom Arbeitgeber einbehalten', c=>{ const A=abfFuer(c.k,E); return A ? eur(A.stVoll) : '—'; });
+        const A = c => abfFuer(c.k,E), abfB = c => A(c) ? E.p.abf : 0, abfSt = c => A(c) ? A(c).stEndg : 0;
+        rows += zeile('Abfindung brutto', c=>A(c) ? eur(E.p.abf) : '—');
+        rows += zeile('Steuer auf die Abfindung, endgültig', c=>A(c) ? eur(A(c).stEndg) : '—');
+        rows += zeile('Steuersatz auf die Abfindung allein', c=>A(c) ? satzTxt(A(c).stEndg, E.p.abf) : '—');
+        rows += zeile('Abfindung netto', c=>A(c) ? eur(A(c).netto) : '—', 'bo-sub');
+        rows += zeile('vom Arbeitgeber einbehalten', c=>A(c) ? eur(A(c).stVoll) : '—');
+        rows += zeile('zu versteuerndes Einkommen insgesamt', c=>eur(zvG(c)+abfB(c)), 'bo-sub');
+        rows += zeile('Steuer insgesamt', c=>eur(D[c.k].est+abfSt(c)), 'bo-sub');
+        rows += zeile('Durchschnittssteuersatz des Jahres', c=>satzTxt(D[c.k].est+abfSt(c), zvG(c)+abfB(c)), 'bo-satz');
+      } else {
+        rows += zeile('Durchschnittssteuersatz des Jahres', c=>satzTxt(D[c.k].est, zvG(c)), 'bo-satz');
       }
       if (j===E.abfJahr+1)
         rows += zeile('Erstattung vom Finanzamt', c=>{ const A=abfFuer(c.k,E); return A ? '+'+eur(A.erstattung) : '—'; });
@@ -2069,6 +2079,9 @@ details.calc summary .badge{
                     A.jb.neuM ? A.jb.neuM+' Monate neues Gehalt' : '',
                     A.jb.freiM ? A.jb.freiM+' Monate ohne Job' : ''].filter(Boolean).join(', ');
     const prog = A.lohnersatz>0 ? ', mit Progressionsvorbehalt' : '';
+    const stGehalt = E.jahresDaten(c.k, jA).est;
+    // Zeilennummern fuer Verweise - mit Arbeitslosengeld rueckt alles um eine Zeile
+    const zEst = A.lohnersatz>0 ? 5 : 4, zEnd = A.lohnersatz>0 ? 12 : 11;
     let n = 0;
     const z = (txt, wert, cls) => '<tr'+(cls?' class="'+cls+'"':'')+'><td class="nr">'+(++n)+'</td><td>'+txt+'</td><td>'+wert+'</td></tr>';
     return '<div class="bo-weg bo-block k'+(i+1)+'"><div class="bo-weg-k">Option '+(i+1)+' · '+c.t+
@@ -2087,7 +2100,12 @@ details.calc summary .badge{
       z('plus Kirchensteuer'+(p.kirche>0?' ('+prozent(p.kirche)+')':''), eur(estAb*p.kirche))+
       z('Steuer auf die Abfindung, endgültig', eur(A.stEndg), 'bo-sum')+
       z('Abfindung netto ('+eur(p.abf)+' minus Steuer)', eur(A.netto), 'bo-sum')+
-      z('Steuersatz auf die Abfindung (Steuer ÷ Abfindung)', satzTxt(A.stEndg, p.abf), 'bo-satz')+
+      z('Steuersatz auf die Abfindung allein (Zeile '+zEnd+' ÷ Abfindung)', satzTxt(A.stEndg, p.abf))+
+      '<tr class="bo-grp"><td colspan="3">Das ganze Jahr '+jA+'</td></tr>'+
+      z('Steuer aufs Gehalt (Zeile '+zEst+' plus Solidaritätszuschlag und Kirchensteuer darauf)', eur(stGehalt))+
+      z('Steuer insgesamt (Gehalt plus Zeile '+zEnd+')', eur(stGehalt+A.stEndg), 'bo-sub')+
+      z('zu versteuerndes Einkommen insgesamt (Zeile 3 plus Abfindung)', eur(A.zvE+p.abf), 'bo-sub')+
+      z('Durchschnittssteuersatz des Jahres', satzTxt(stGehalt+A.stEndg, A.zvE+p.abf), 'bo-satz')+
       '<tr class="bo-grp"><td colspan="3">Zahlungsfluss</td></tr>'+
       z('vom Arbeitgeber einbehalten — ohne Fünftelregelung (§ 39b EStG)', eur(A.stVoll))+
       z('Auszahlung aufs Konto im Jahr '+jA, eur(A.auszahlung))+
@@ -2108,7 +2126,7 @@ details.calc summary .badge{
       const d = g.d, jahre = g.von===g.bis ? 'Jahr '+g.von : 'Jahr '+g.von+' bis '+g.bis+' <small>je Jahr</small>';
       return '<tr><td>'+jahre+'</td><td>'+eur(d.brutto)+'</td><td>'+minus(d.sv)+'</td><td>'+
         eur(Math.max(0,d.brutto-d.sv))+'</td><td>'+(d.alg>0?eur(d.alg):'—')+'</td><td>'+eur(d.est)+'</td><td>'+
-        satzTxt(d.est, d.brutto)+'</td></tr>';
+        satzTxt(d.est, Math.max(0,d.brutto-d.sv))+'</td></tr>';
     }).join('');
     return '<div class="bo-weg bo-block k'+(i+1)+'"><div class="bo-weg-k">Option '+(i+1)+' · '+c.t+
       '<small>'+c.s+' — Steuer aufs Gehalt, Jahr für Jahr</small></div>'+
@@ -2151,8 +2169,11 @@ details.calc summary .badge{
     const verlaeufe = ERG.spalten.map((c,i)=>{
       wegAktiv = c.k; renderVerlauf();
       const t = fuerBericht(document.getElementById('tbl-verlauf').cloneNode(true));
+      const A = abfFuer(c.k, ERG);
+      const abfZeile = A ? '<span class="bo-weg-abf">Abfindung '+eur(ERG.p.abf)+' brutto · '+
+        eur(A.stEndg)+' Steuer · <b>'+eur(A.netto)+' netto</b></span>' : '';
       return '<div class="bo-weg k'+(i+1)+'"><div class="bo-weg-k">'+c.t+
-             '<small>'+c.s+' — '+ABF_ZUSATZ[c.k]+'</small></div>'+
+             '<small>'+c.s+' — '+ABF_ZUSATZ[c.k]+'</small>'+abfZeile+'</div>'+
              '<div class="bo-scroll">'+t.outerHTML+'</div></div>';
     }).join('');
     wegAktiv = merkWeg; verlaufKum = merkKum; renderVerlauf();
