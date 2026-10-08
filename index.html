@@ -575,7 +575,7 @@ details.calc summary .badge{
   background:#dfe3ec; padding:0 0 50px;
 }
 .bo-leiste{
-  position:sticky; top:0; z-index:2; display:flex; gap:10px; flex-wrap:wrap;
+  position:sticky; top:0; z-index:10; display:flex; gap:10px; flex-wrap:wrap;
   align-items:center; justify-content:center;
   background:var(--navy); padding:11px 16px; box-shadow:0 2px 14px rgba(0,0,0,.25);
 }
@@ -635,7 +635,15 @@ details.calc summary .badge{
 #bo-blatt .bo-leg span{color:var(--ink-mid)}
 #bo-blatt .bo-leg.k1{border-color:var(--w1-d)} #bo-blatt .bo-leg.k2{border-color:var(--w2-d)}
 #bo-blatt .bo-leg.k3{border-color:var(--w3-d)} #bo-blatt .bo-leg.k4{border-color:var(--w4-d)}
-@media(max-width:700px){ #bo-blatt .bo-legende{grid-template-columns:1fr} }
+/* Tabellen sind fuer A4 gebaut und auf dem Handy breiter als der Bildschirm.
+   Jede liegt deshalb in einem eigenen Schiebebereich - sonst schneidet der
+   abgerundete Rahmen der Verlaufstabellen die rechten Spalten ab. */
+#bo-blatt .bo-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+@media(max-width:700px){
+  #bo-blatt{padding:20px 14px 18px; margin:10px auto}
+  #bo-blatt .bo-legende{grid-template-columns:1fr}
+  #bo-blatt .bo-eing{grid-template-columns:1fr}
+}
 
 @media print{
   /* Die Seite kommt ganz aus dem Layout - nicht nur aus der Sicht. Sonst
@@ -652,6 +660,7 @@ details.calc summary .badge{
     box-shadow:none; max-width:none; margin:0; padding:0; border-radius:0;
   }
   body.druckt #bo-blatt > *:last-child{margin-bottom:0!important}
+  body.druckt #bo-blatt .bo-scroll{overflow:visible}
   body.druckt{background:#fff!important; overflow:visible!important; height:auto!important}
   html{height:auto!important}
   @page{size:A4; margin:15mm 13mm}
@@ -1954,7 +1963,8 @@ details.calc summary .badge{
       wegAktiv = c.k; renderVerlauf();
       const t = fuerBericht(document.getElementById('tbl-verlauf').cloneNode(true));
       return '<div class="bo-weg k'+(i+1)+'"><div class="bo-weg-k">'+c.t+
-             '<small>'+c.s+' — '+ABF_ZUSATZ[c.k]+'</small></div>'+t.outerHTML+'</div>';
+             '<small>'+c.s+' — '+ABF_ZUSATZ[c.k]+'</small></div>'+
+             '<div class="bo-scroll">'+t.outerHTML+'</div></div>';
     }).join('');
     wegAktiv = merkWeg; verlaufKum = merkKum; renderVerlauf();
 
@@ -1971,7 +1981,7 @@ details.calc summary .badge{
 
       '<h3>Die Optionen im Überblick</h3>'+
       '<p class="bo-info">Gerechnet sind Nettoeinkommen, Entnahmen aus der Abfindung und das Anlagekonto über die gesamte Zeit bis zum Rentenbeginn.</p>'+
-      matrix.outerHTML+
+      '<div class="bo-scroll">'+matrix.outerHTML+'</div>'+
 
       '<h3>Was du eingetragen hast</h3>'+
       '<div class="bo-eing">'+BERICHT_FELDER.map(f=>
