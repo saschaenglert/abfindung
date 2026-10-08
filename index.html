@@ -586,59 +586,79 @@ details.calc summary .badge{
 }
 .bo-zurueck:hover{color:#fff; border-color:rgba(255,255,255,.5)}
 
-#bo-blatt{
+:is(#bo-blatt,#bo-pdf){
   background:var(--white); max-width:820px; margin:20px auto; padding:32px 36px 28px;
   box-shadow:0 8px 30px rgba(28,37,64,.16); border-radius:4px;
 }
-#bo-blatt .bo-kopf{display:flex; align-items:center; gap:12px;
+:is(#bo-blatt,#bo-pdf) .bo-kopf{display:flex; align-items:center; gap:12px;
   border-bottom:2px solid var(--navy); padding-bottom:12px; margin-bottom:6px}
-#bo-blatt .bo-kopf svg{width:36px; height:36px; flex-shrink:0}
-#bo-blatt .bo-kopf .n{font-family:'Syne',sans-serif; font-weight:800; font-size:18px; color:var(--navy); line-height:1.1}
-#bo-blatt .bo-kopf .s{font-family:'Syne',sans-serif; font-weight:500; font-size:11.5px; color:#1F6E85}
-#bo-blatt .bo-kopf .d{margin-left:auto; text-align:right; font-size:10.5px; color:var(--ink-light); line-height:1.5}
-#bo-blatt h3{font-family:'Syne',sans-serif; font-size:13px; margin:20px 0 8px; color:var(--navy);
+:is(#bo-blatt,#bo-pdf) .bo-kopf svg{width:36px; height:36px; flex-shrink:0}
+:is(#bo-blatt,#bo-pdf) .bo-kopf .n{font-family:'Syne',sans-serif; font-weight:800; font-size:18px; color:var(--navy); line-height:1.1}
+:is(#bo-blatt,#bo-pdf) .bo-kopf .s{font-family:'Syne',sans-serif; font-weight:500; font-size:11.5px; color:#1F6E85}
+:is(#bo-blatt,#bo-pdf) .bo-kopf .d{margin-left:auto; text-align:right; font-size:10.5px; color:var(--ink-light); line-height:1.5}
+:is(#bo-blatt,#bo-pdf) h3{font-family:'Syne',sans-serif; font-size:13px; margin:20px 0 8px; color:var(--navy);
   border-bottom:1px solid var(--line-new); padding-bottom:5px}
-#bo-blatt table{width:100%; border-collapse:collapse; font-size:11px}
-#bo-blatt th,#bo-blatt td{padding:4.5px 6px; text-align:right; white-space:nowrap}
-#bo-blatt th:first-child,#bo-blatt td:first-child{text-align:left; white-space:normal}
-#bo-blatt tbody td{border-bottom:1px solid var(--cream-mid); font-variant-numeric:tabular-nums}
-#bo-blatt tbody tr:nth-child(even){background:var(--cream)}
-#bo-blatt .bo-eing{display:grid; grid-template-columns:repeat(3,1fr); gap:5px 16px; font-size:11px}
-#bo-blatt .bo-eing div{display:flex; justify-content:space-between; gap:8px;
+:is(#bo-blatt,#bo-pdf) table{width:100%; border-collapse:collapse; font-size:11px}
+:is(#bo-blatt,#bo-pdf) th,:is(#bo-blatt,#bo-pdf) td{padding:4.5px 6px; text-align:right; white-space:nowrap}
+:is(#bo-blatt,#bo-pdf) th:first-child,:is(#bo-blatt,#bo-pdf) td:first-child{text-align:left; white-space:normal}
+:is(#bo-blatt,#bo-pdf) tbody td{border-bottom:1px solid var(--cream-mid); font-variant-numeric:tabular-nums}
+:is(#bo-blatt,#bo-pdf) tbody tr:nth-child(even){background:var(--cream)}
+:is(#bo-blatt,#bo-pdf) .bo-eing{display:grid; grid-template-columns:repeat(3,1fr); gap:5px 16px; font-size:11px}
+:is(#bo-blatt,#bo-pdf) .bo-eing div{display:flex; justify-content:space-between; gap:8px;
   border-bottom:1px dotted var(--line-new); padding:3px 0}
-#bo-blatt .bo-eing span{color:var(--ink-mid)}
-#bo-blatt .bo-eing b{font-weight:600; font-variant-numeric:tabular-nums; text-align:right}
-#bo-blatt .bo-weg{margin-bottom:13px; border:1px solid var(--line-new); border-radius:8px;
+:is(#bo-blatt,#bo-pdf) .bo-eing span{color:var(--ink-mid)}
+:is(#bo-blatt,#bo-pdf) .bo-eing b{font-weight:600; font-variant-numeric:tabular-nums; text-align:right}
+:is(#bo-blatt,#bo-pdf) .bo-weg{margin-bottom:13px; border:1px solid var(--line-new); border-radius:8px;
   overflow:hidden; break-inside:avoid; page-break-inside:avoid}
-#bo-blatt .bo-weg-k{padding:6px 10px; color:#fff; font-family:'Syne',sans-serif;
+:is(#bo-blatt,#bo-pdf) .bo-weg-k{padding:6px 10px; color:#fff; font-family:'Syne',sans-serif;
   font-size:11px; font-weight:700}
-#bo-blatt .bo-weg-k small{font-family:'Inter',sans-serif; font-size:10px; font-weight:400;
+:is(#bo-blatt,#bo-pdf) .bo-weg-k small{font-family:'Inter',sans-serif; font-size:10px; font-weight:400;
   color:rgba(255,255,255,.85); margin-left:7px}
-#bo-blatt .bo-weg.k1 .bo-weg-k{background:var(--w1-d)} #bo-blatt .bo-weg.k2 .bo-weg-k{background:var(--w2-d)}
-#bo-blatt .bo-weg.k3 .bo-weg-k{background:var(--w3-d)} #bo-blatt .bo-weg.k4 .bo-weg-k{background:var(--w4-d)}
-#bo-blatt .bo-weg table{font-size:10px}
-#bo-blatt .bo-weg th,#bo-blatt .bo-weg td{padding:3px 7px}
-#bo-blatt .bo-fuss{margin-top:20px; padding-top:11px; border-top:1px solid var(--line-new);
+:is(#bo-blatt,#bo-pdf) .bo-weg.k1 .bo-weg-k{background:var(--w1-d)} :is(#bo-blatt,#bo-pdf) .bo-weg.k2 .bo-weg-k{background:var(--w2-d)}
+:is(#bo-blatt,#bo-pdf) .bo-weg.k3 .bo-weg-k{background:var(--w3-d)} :is(#bo-blatt,#bo-pdf) .bo-weg.k4 .bo-weg-k{background:var(--w4-d)}
+:is(#bo-blatt,#bo-pdf) .bo-weg table{font-size:10px}
+:is(#bo-blatt,#bo-pdf) .bo-weg th,:is(#bo-blatt,#bo-pdf) .bo-weg td{padding:3px 7px}
+:is(#bo-blatt,#bo-pdf) .bo-fuss{margin-top:20px; padding-top:11px; border-top:1px solid var(--line-new);
   font-size:9.5px; color:var(--ink-light); line-height:1.6; break-inside:avoid}
-#bo-blatt .bo-fuss>b{display:block; font-family:'Syne',sans-serif; font-size:10.5px;
+:is(#bo-blatt,#bo-pdf) .bo-fuss>b{display:block; font-family:'Syne',sans-serif; font-size:10.5px;
   color:var(--ink-mid); margin-bottom:6px}
-#bo-blatt .bo-fuss p{margin:0 0 6px} #bo-blatt .bo-fuss b{color:var(--ink-mid)}
-#bo-blatt .bo-fuss ul{margin:3px 0 7px; padding-left:15px}
-#bo-blatt .bo-fuss li{margin-bottom:2.5px}
-#bo-blatt .neue-seite{page-break-before:always; break-before:page}
-#bo-blatt .bo-info{font-size:11px; color:var(--ink-mid); line-height:1.6; margin:0 0 10px}
-#bo-blatt .bo-legende{display:grid; grid-template-columns:repeat(2,1fr); gap:6px 12px; margin-bottom:4px}
-#bo-blatt .bo-leg{
+:is(#bo-blatt,#bo-pdf) .bo-fuss p{margin:0 0 6px} :is(#bo-blatt,#bo-pdf) .bo-fuss b{color:var(--ink-mid)}
+:is(#bo-blatt,#bo-pdf) .bo-fuss ul{margin:3px 0 7px; padding-left:15px}
+:is(#bo-blatt,#bo-pdf) .bo-fuss li{margin-bottom:2.5px}
+:is(#bo-blatt,#bo-pdf) .neue-seite{page-break-before:always; break-before:page}
+:is(#bo-blatt,#bo-pdf) .bo-info{font-size:11px; color:var(--ink-mid); line-height:1.6; margin:0 0 10px}
+:is(#bo-blatt,#bo-pdf) .bo-legende{display:grid; grid-template-columns:repeat(2,1fr); gap:6px 12px; margin-bottom:4px}
+:is(#bo-blatt,#bo-pdf) .bo-leg{
   font-size:11px; line-height:1.45; padding:5px 0 5px 10px; border-left:3px solid;
 }
-#bo-blatt .bo-leg b{display:block; font-weight:600; color:var(--ink)}
-#bo-blatt .bo-leg span{color:var(--ink-mid)}
-#bo-blatt .bo-leg.k1{border-color:var(--w1-d)} #bo-blatt .bo-leg.k2{border-color:var(--w2-d)}
-#bo-blatt .bo-leg.k3{border-color:var(--w3-d)} #bo-blatt .bo-leg.k4{border-color:var(--w4-d)}
+:is(#bo-blatt,#bo-pdf) .bo-leg b{display:block; font-weight:600; color:var(--ink)}
+:is(#bo-blatt,#bo-pdf) .bo-leg span{color:var(--ink-mid)}
+:is(#bo-blatt,#bo-pdf) .bo-leg.k1{border-color:var(--w1-d)} :is(#bo-blatt,#bo-pdf) .bo-leg.k2{border-color:var(--w2-d)}
+:is(#bo-blatt,#bo-pdf) .bo-leg.k3{border-color:var(--w3-d)} :is(#bo-blatt,#bo-pdf) .bo-leg.k4{border-color:var(--w4-d)}
+:is(#bo-blatt,#bo-pdf) .bo-leg .bo-leg-e{display:block; margin-top:2px; font-size:10.5px; color:var(--ink-mid)}
+/* Steuer im Detail */
+:is(#bo-blatt,#bo-pdf) .bo-liste{margin:0 0 10px; padding-left:16px; font-size:10.5px; line-height:1.55; color:var(--ink-mid)}
+:is(#bo-blatt,#bo-pdf) .bo-liste li{margin-bottom:3px} :is(#bo-blatt,#bo-pdf) .bo-liste b{color:var(--ink)}
+:is(#bo-blatt,#bo-pdf) th.bo-o{color:#fff; text-align:center; font-family:'Syne',sans-serif; font-size:10px; padding:5px 6px}
+:is(#bo-blatt,#bo-pdf) th.bo-o small{display:block; font-family:'Inter',sans-serif; font-weight:400; font-size:9.5px; color:rgba(255,255,255,.85)}
+:is(#bo-blatt,#bo-pdf) th.bo-o.k1{background:var(--w1-d)} :is(#bo-blatt,#bo-pdf) th.bo-o.k2{background:var(--w2-d)}
+:is(#bo-blatt,#bo-pdf) th.bo-o.k3{background:var(--w3-d)} :is(#bo-blatt,#bo-pdf) th.bo-o.k4{background:var(--w4-d)}
+:is(#bo-blatt,#bo-pdf) tr.bo-grp td{background:var(--cream-mid)!important; font-family:'Syne',sans-serif; font-weight:700;
+  font-size:10px; color:var(--navy); text-align:left; letter-spacing:.2px}
+:is(#bo-blatt,#bo-pdf) tr.bo-sub td{font-weight:600}
+:is(#bo-blatt,#bo-pdf) tr.bo-sum td{font-weight:700; border-top:1.5px solid var(--navy)}
+:is(#bo-blatt,#bo-pdf) tr.bo-satz td{color:#1F6E85; font-weight:600}
+:is(#bo-blatt,#bo-pdf) table.bo-rw td.nr{width:22px; color:var(--ink-light); text-align:right}
+:is(#bo-blatt,#bo-pdf) table.bo-rw td:nth-child(2){text-align:left; white-space:normal}
+:is(#bo-blatt,#bo-pdf) table.bo-sj td small{color:var(--ink-light); font-size:9px}
+:is(#bo-blatt,#bo-pdf) .bo-block{break-inside:avoid; page-break-inside:avoid}
 /* Tabellen sind fuer A4 gebaut und auf dem Handy breiter als der Bildschirm.
    Jede liegt deshalb in einem eigenen Schiebebereich - sonst schneidet der
    abgerundete Rahmen der Verlaufstabellen die rechten Spalten ab. */
-#bo-blatt .bo-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+:is(#bo-blatt,#bo-pdf) .bo-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+/* PDF zum Teilen: wie der Ausdruck, ohne Schatten und Schiebebereiche */
+#bo-pdf{box-shadow:none; margin:0; max-width:none; width:718px; box-sizing:border-box; padding:0; border-radius:0}  /* A4 minus 2 x 10 mm Rand */
+#bo-pdf .bo-scroll{overflow:visible}
 @media(max-width:700px){
   #bo-blatt{padding:20px 14px 18px; margin:10px auto}
   #bo-blatt .bo-legende{grid-template-columns:1fr}
@@ -656,11 +676,12 @@ details.calc summary .badge{
     position:static!important; background:#fff; padding:0!important;
     overflow:visible; display:block!important; height:auto!important;
   }
-  body.druckt #bo-blatt{
+  body.druckt :is(#bo-blatt,#bo-pdf){
     box-shadow:none; max-width:none; margin:0; padding:0; border-radius:0;
   }
-  body.druckt #bo-blatt > *:last-child{margin-bottom:0!important}
-  body.druckt #bo-blatt .bo-scroll{overflow:visible}
+  body.druckt :is(#bo-blatt,#bo-pdf) > *:last-child{margin-bottom:0!important}
+  body.druckt :is(#bo-blatt,#bo-pdf) .bo-scroll{overflow:visible}
+  body.druckt :is(#bo-blatt,#bo-pdf) th.bo-o, body.druckt :is(#bo-blatt,#bo-pdf) tr.bo-grp td{-webkit-print-color-adjust:exact; print-color-adjust:exact}
   body.druckt{background:#fff!important; overflow:visible!important; height:auto!important}
   html{height:auto!important}
   @page{size:A4; margin:15mm 13mm}
@@ -1043,7 +1064,7 @@ details.calc summary .badge{
 
   <section class="sec">
     <div class="sec-head"><span class="sec-num">MITNEHMEN</span><h2>Ergebnis sichern</h2></div>
-    <p class="sec-intro">Sam erstellt aus deinen Angaben einen mehrseitigen Bericht: das Ergebnis aller vier Optionen, deine Eingaben zum Nachvollziehen, die Herleitung und den Verlauf Jahr für Jahr. Den kannst du ausdrucken oder als PDF sichern — auf dem iPhone über <b>Teilen → Drucken</b>, dann mit zwei Fingern aufziehen und sichern.</p>
+    <p class="sec-intro">Sam erstellt aus deinen Angaben einen mehrseitigen Bericht: das Ergebnis aller vier Optionen, deine Eingaben zum Nachvollziehen, den Verlauf Jahr für Jahr und die Nachrechnung der Steuer — geeignet auch zur Prüfung durch eine Steuerberaterin oder einen Steuerberater. Mit <b>Bericht teilen</b> öffnet sich auf dem iPhone das Teilen-Menü; dort <b>Mail</b> antippen, das PDF hängt dann schon an.</p>
     <button type="button" id="btn-bericht" class="gross-btn">Bericht erstellen</button>
   </section>
 
@@ -1058,7 +1079,8 @@ details.calc summary .badge{
 
 <div id="bericht-overlay" hidden>
   <div class="bo-leiste">
-    <button type="button" id="bo-druck" class="gross-btn">Drucken oder als PDF sichern</button>
+    <button type="button" id="bo-teilen" class="gross-btn">Bericht teilen</button>
+    <button type="button" id="bo-druck" class="bo-zurueck">Drucken</button>
     <button type="button" id="bo-zu" class="bo-zurueck">Zurück zum Rechner</button>
   </div>
   <div class="blatt" id="bo-blatt"></div>
@@ -1085,6 +1107,7 @@ details.calc summary .badge{
 
   const eur = n => Math.round(n).toLocaleString('de-DE') + ' €';
   const eur0 = n => Math.round(n).toLocaleString('de-DE');
+  const prozent = x => (x*100).toFixed(1).replace('.',',') + ' %';
   const val = id => { const e=document.getElementById(id); const v=parseFloat(e.value); return isNaN(v)?0:v; };
   const sel = id => document.getElementById(id).value;
 
@@ -1316,7 +1339,9 @@ details.calc summary .badge{
       const stV = (f.voll - f.ohne)*(1+p.kirche)
                 + soli(f.voll,p.stkl) - soli(f.ohne,p.stkl);
       return { f5:f, zvE:zv, stEndg:stE, stVoll:stV,
-               netto:p.abf-stE, auszahlung:p.abf-stV, erstattung:stV-stE };
+               netto:p.abf-stE, auszahlung:p.abf-stV, erstattung:stV-stE,
+               // Zwischenwerte fuer den Rechenweg im Bericht
+               jb, brutto:br, sv:sv.summe, lohnersatz };
     }
     const abfOhnePause = abfSteuer(iAustritt+1);
     const abfMitPause  = abfSteuer(iAustritt+pauseM+1);
@@ -1497,11 +1522,11 @@ details.calc summary .badge{
       // "Bleiben" behaelt das alte Gehalt; "abl" bis zum spaeteren Austritt
       if (k==='bleiben' || (k==='abl' && j*12 <= bleibeM)){
         const n=netto(aBrutto,p), st=n.lst+n.soli+n.kirche;
-        return { brutto:aBrutto, netto:n.netto, est:st, satz:st/aBrutto, alg:0, kv:0 };
+        return { brutto:aBrutto, netto:n.netto, est:st, satz:st/aBrutto, alg:0, kv:0, sv:n.sv };
       }
       if (k==='abl'){
         const n=netto(nBrutto,p), st=n.lst+n.soli+n.kirche;
-        return { brutto:nBrutto, netto:n.netto, est:st, satz:st/nBrutto, alg:0, kv:0 };
+        return { brutto:nBrutto, netto:n.netto, est:st, satz:st/nBrutto, alg:0, kv:0, sv:n.sv };
       }
       /* "ohne Pause" wechselt nahtlos, "mit Pause" mit der Vergleichsdauer.
          Beides unabhaengig davon, was in den Datumsfeldern steht. */
@@ -1515,7 +1540,7 @@ details.calc summary .badge{
       const sperrJ=Math.max(0, stillHier-ruheHier)*algM;
       const n=nettoMitProgression(br, algJ, p);
       const st=(n.lst||0)+(n.soli||0)+(n.kirche||0);
-      return { brutto:br, netto:n.netto, est:st, satz: br>0? st/br : 0, alg:algJ, kv:kvJ, sperr:sperrJ };
+      return { brutto:br, netto:n.netto, est:st, satz: br>0? st/br : 0, alg:algJ, kv:kvJ, sperr:sperrJ, sv:n.sv };
     }
 
     /* ===== Steuersätze ===== */
@@ -1810,6 +1835,7 @@ details.calc summary .badge{
     document.getElementById('verlauf-kopf').innerHTML =
       '<tr><th>'+(verlaufKum?'bis Jahr':'Jahr')+'</th>'+
       '<th>Netto<br>'+(verlaufKum?'kumuliert':'im Jahr')+'</th><th>'+(verlaufKum?'⌀ pro':'Netto pro')+'<br>Monat</th>'+
+      '<th>Steuer&shy;satz<br>'+(verlaufKum?'⌀ bisher':'aufs Gehalt')+'</th>'+
       '<th>Gehalt weniger<br>als beim Bleiben</th>'+
       '<th>Anlage&shy;konto<br>Stand</th><th>Zinsen'+(verlaufKum?'<br>kumuliert':'')+'</th>'+
       '<th>Ent&shy;nahmen'+(verlaufKum?'<br>kumuliert':'')+'</th></tr>';
@@ -1818,12 +1844,17 @@ details.calc summary .badge{
     const geld=(v,vz)=>(v===0||v===undefined||v===null) ? '<td class="leer">—</td>'
       : '<td class="'+(v<0?'neg':(vz?'pos':''))+'">'+(vz&&v>0?'+':(v<0?'−':''))+eur0(Math.abs(v))+'</td>';
 
-    let rows='', kumNetto=0, kumVerlust=0, kumZins=0, kumEntnahme=0;
+    // Steuersatz = Steuer aufs Gehalt / Bruttogehalt (E80); die Abfindung hat ihren eigenen Satz
+    const satzZelle=(st,br)=> br>0 ? g(prozent(st/br)) : g('—','leer');
+
+    let rows='', kumNetto=0, kumVerlust=0, kumZins=0, kumEntnahme=0, kumSteuer=0, kumBrutto=0;
     for(let j=1;j<=N;j++){
       const d=E.jahresDaten(wegAktiv,j), sim=W && W.sim ? W.sim[j-1] : null;
       const netto=d.netto+(d.alg||0)-(d.kv||0);
       kumNetto    += netto;
       kumVerlust  += netto - E.aNetJahr;
+      kumSteuer   += d.est;
+      kumBrutto   += d.brutto;
       if (sim){ kumZins += sim.zinsen; kumEntnahme += sim.entnommen; }
       const istAbfJahr = j===E.abfJahr && wegAktiv!=='bleiben' && wegAktiv!=='abl';
       const zNetto   = verlaufKum? kumNetto : netto;
@@ -1834,6 +1865,7 @@ details.calc summary .badge{
       rows += '<tr'+(istAbfJahr?' class="abfjahr"':'')+'>'+
         g('Jahr '+j)+
         geld(zNetto)+ geld(zMonat)+
+        (verlaufKum ? satzZelle(kumSteuer,kumBrutto) : satzZelle(d.est,d.brutto))+
         geld(zVerlust)+
         (sim && sim.rest!==null ? geld(sim.rest) : g('—','leer'))+
         (zZins>0 ? geld(zZins,1) : g('—','leer'))+
@@ -1842,15 +1874,19 @@ details.calc summary .badge{
     }
     document.getElementById('verlauf-body').innerHTML=rows;
 
+    // Abfindungssteuer je Option (E50): mit Pause gilt die eigene Rechnung
+    const A = wegAktiv==='alg' ? E.abfMit : E.abfOhne;
     document.getElementById('verlauf-note').innerHTML = W && W.sim
-      ? 'Im Jahr '+E.abfJahr+' geht die Abfindung mit <b>'+eur(E.abfAuszahlung)+
+      ? 'Im Jahr '+E.abfJahr+' geht die Abfindung mit <b>'+eur(A.auszahlung)+
         '</b> auf das Anlagekonto. Im Jahr '+(E.abfJahr+1)+' kommt die Steuererstattung von <b>'+
-        eur(E.erstattung)+'</b> dazu — der Arbeitgeber hatte ohne Fünftelregelung zu viel einbehalten.'
+        eur(A.erstattung)+'</b> dazu — der Arbeitgeber hatte ohne Fünftelregelung zu viel einbehalten.'+
+        '<br>Steuer auf die Abfindung, endgültig: <b>'+eur(A.stEndg)+'</b> — das sind <b>'+
+        prozent(E.p.abf>0 ? A.stEndg/E.p.abf : 0)+'</b> der Abfindung. Der Steuersatz in der Tabelle gilt nur fürs Gehalt.'
       : 'Bei dieser Option gibt es keine Abfindung und damit kein Anlagekonto.';
   }
 
   /* ============ Der gewählte Weg ============ */
-  let view='monat', wegAktiv='neu', ERG=null;
+  let view='monat', wegAktiv='neu', ERG=null, pdfDatei=null;
 
   function renderWeg(){
     if(!ERG) return;
@@ -1947,8 +1983,161 @@ details.calc summary .badge{
     return el;
   }
 
+  /* ============ Bericht: Steuer im Detail (O9, O10, O12) ============
+     Alles wird aus ERG gelesen - dieselben Zahlen wie in der Anwendung. */
+  const satzTxt = (st, basis) => basis>0 ? prozent(st/basis) : '—';
+  const minus = v => v>0.5 ? '−'+eur(v) : eur(0);
+
+  function optionErklaerung(c, E){
+    const pause = E.pauseM===1 ? 'einem Monat' : E.pauseM+' Monaten';
+    return ({
+      neu:     'Du nimmst die Abfindung an und beginnst direkt im Anschluss eine neue Stelle, ohne Tag Arbeitslosigkeit.',
+      alg:     'Du nimmst die Abfindung an, bist zunächst ohne Job und beginnst nach '+pause+' eine neue Stelle. Dazwischen können Ruhen, Sperrzeit und Arbeitslosengeld greifen.',
+      bleiben: 'Du lehnst das Angebot ab und bleibst zu den bisherigen Bedingungen bis zur Rente. An dieser Option werden die anderen gemessen.',
+      abl:     'Du lehnst das Angebot ab und wechselst '+c.s+' doch noch — dann ohne Abfindung.'
+    })[c.k];
+  }
+
+  function abfFuer(k, E){ return k==='neu' ? E.abfOhne : (k==='alg' ? E.abfMit : null); }
+
+  function soRechnetSam(E){
+    const p = E.p, pz = x => String(Math.round(x*1000)/10).replace('.',',')+' %';
+    const kv = p.gkv
+      ? 'Kranken '+pz(K.kvAN+p.zusatz/200)+' (7,3 % plus halber Zusatzbeitrag), Pflege '+
+        pz(K.pvAN+(p.kinder>0?0:K.pvKinderlos))+' bis zur Beitragsbemessungsgrenze von '+eur(K.bbgKV)
+      : 'Kranken- und Pflegeversicherung privat, daher hier nicht abgezogen';
+    return '<ul class="bo-liste">'+
+      '<li><b>Einkommen</b> ist das Bruttogehalt aus deinen Eingaben, aufs Jahr gerechnet, einschließlich der eingetragenen Sonderzahlungen.</li>'+
+      '<li><b>Zu versteuerndes Einkommen</b> ist das Einkommen minus der Arbeitnehmeranteile zur Sozialversicherung: Rente '+pz(K.rvAN)+
+        ' und Arbeitslosenversicherung '+pz(K.avAN)+' bis zur Beitragsbemessungsgrenze von '+eur(K.bbgRV)+', '+kv+
+        '. Diese Abzüge stehen näherungsweise für die Vorsorgeaufwendungen.</li>'+
+      '<li><b>Nicht berücksichtigt</b> sind Werbungskosten (mindestens der Pauschbetrag von 1.230 €), Sonderausgaben, außergewöhnliche Belastungen, '+
+        'andere Einkünfte wie Mieten oder Kapitalerträge und die Einkünfte eines Ehe- oder Lebenspartners. Sam kennt sie nicht und lässt sie bewusst weg — '+
+        'das zu versteuernde Einkommen ist deshalb eine Näherung.</li>'+
+      '<li><b>Steuer</b> ist die Einkommensteuer nach dem Tarif 2026 (§ 32a EStG)'+(p.stkl===3?' mit Splitting (Steuerklasse III)':', Grundtarif')+
+        ', dazu der Solidaritätszuschlag (5,5 % mit Freigrenze und Milderungszone)'+
+        (p.kirche>0 ? ' und die Kirchensteuer ('+pz(p.kirche)+' der Einkommensteuer)' : '; Kirchensteuer fällt nicht an')+'.</li>'+
+      '<li><b>Steuersatz</b> ist die Steuer geteilt durch das Bruttoeinkommen. Für die Abfindung gilt ein eigener Satz: Steuer auf die Abfindung geteilt durch die Abfindung.</li>'+
+      '<li><b>Abfindung:</b> Auf sie fallen keine Sozialabgaben an. Sie wird nach der Fünftelregelung (§ 34 EStG) versteuert. Der Arbeitgeber behält die Steuer ohne diese Ermäßigung ein (§ 39b EStG), die Ermäßigung kommt mit der Steuererklärung des Folgejahres zurück.</li>'+
+      '<li><b>Arbeitslosengeld</b> ist steuerfrei, erhöht aber den Steuersatz auf das übrige Einkommen desselben Jahres, auch auf die Abfindung (Progressionsvorbehalt, § 32b EStG).</li>'+
+      '</ul>';
+  }
+
+  // Drei typische Jahre: Auszahlung, Folgejahr (Erstattung), ein normales Jahr
+  function dreiJahre(E){
+    const N = E.J, jA = Math.min(N, E.abfJahr), jF = Math.min(N, jA+1);
+    const jN = Math.min(N, Math.max(jA+2, Math.ceil(E.bleibeM/12)+1));
+    const liste = [[jA,'Auszahlung der Abfindung'],[jF,'Folgejahr, Erstattung vom Finanzamt'],[jN,'ein normales Jahr']];
+    return liste.filter((x,i)=> liste.findIndex(y=>y[0]===x[0])===i);
+  }
+
+  function vergleichDreiJahre(E){
+    const kopf = '<tr><th></th>'+E.spalten.map((c,i)=>
+      '<th class="bo-o k'+(i+1)+'">Option '+(i+1)+'<small>'+c.t+'</small></th>').join('')+'</tr>';
+    const zeile = (txt, f, cls) => '<tr'+(cls?' class="'+cls+'"':'')+'><td>'+txt+'</td>'+
+      E.spalten.map(c=>'<td>'+f(c)+'</td>').join('')+'</tr>';
+    let rows = '';
+    dreiJahre(E).forEach(([j, was])=>{
+      const D = {}; E.spalten.forEach(c=>{ D[c.k] = E.jahresDaten(c.k, j); });
+      rows += '<tr class="bo-grp"><td colspan="5">Jahr '+j+' · '+was+'</td></tr>';
+      rows += zeile('Einkommen (Gehalt brutto)', c=>eur(D[c.k].brutto));
+      rows += zeile('minus Sozialabgaben', c=>minus(D[c.k].sv));
+      rows += zeile('zu versteuerndes Einkommen', c=>eur(Math.max(0, D[c.k].brutto-D[c.k].sv)), 'bo-sub');
+      if (E.spalten.some(c=>D[c.k].alg>0))
+        rows += zeile('Arbeitslosengeld (steuerfrei)', c=>D[c.k].alg>0 ? eur(D[c.k].alg) : '—');
+      rows += zeile('Steuer aufs Gehalt', c=>eur(D[c.k].est));
+      rows += zeile('Steuersatz aufs Gehalt', c=>satzTxt(D[c.k].est, D[c.k].brutto), 'bo-satz');
+      if (j===E.abfJahr){
+        rows += zeile('Abfindung brutto', c=>abfFuer(c.k,E) ? eur(E.p.abf) : '—');
+        rows += zeile('Steuer auf die Abfindung, endgültig', c=>{ const A=abfFuer(c.k,E); return A ? eur(A.stEndg) : '—'; });
+        rows += zeile('Steuersatz auf die Abfindung', c=>{ const A=abfFuer(c.k,E); return A ? satzTxt(A.stEndg, E.p.abf) : '—'; }, 'bo-satz');
+        rows += zeile('vom Arbeitgeber einbehalten', c=>{ const A=abfFuer(c.k,E); return A ? eur(A.stVoll) : '—'; });
+      }
+      if (j===E.abfJahr+1)
+        rows += zeile('Erstattung vom Finanzamt', c=>{ const A=abfFuer(c.k,E); return A ? '+'+eur(A.erstattung) : '—'; });
+      rows += zeile('Netto aus Gehalt und Arbeitslosengeld', c=>eur(D[c.k].netto+(D[c.k].alg||0)-(D[c.k].kv||0)), 'bo-sub');
+    });
+    return '<div class="bo-scroll"><table class="bo-steuer">'+kopf+rows+'</table></div>';
+  }
+
+  function rechenwegAbfindung(c, i, E){
+    const A = abfFuer(c.k, E), p = E.p, f = A.f5, jA = E.abfJahr;
+    const est5  = f.ohne + (f.mitFuenftel - f.ohne)/5;     // Steuer auf zvE + ein Fuenftel
+    const estAb = f.mitFuenftel - f.ohne;
+    const soliD = soli(f.mitFuenftel,p.stkl) - soli(f.ohne,p.stkl);
+    const monate = [A.jb.altM ? A.jb.altM+' Monate bisheriges Gehalt' : '',
+                    A.jb.neuM ? A.jb.neuM+' Monate neues Gehalt' : '',
+                    A.jb.freiM ? A.jb.freiM+' Monate ohne Job' : ''].filter(Boolean).join(', ');
+    const prog = A.lohnersatz>0 ? ', mit Progressionsvorbehalt' : '';
+    let n = 0;
+    const z = (txt, wert, cls) => '<tr'+(cls?' class="'+cls+'"':'')+'><td class="nr">'+(++n)+'</td><td>'+txt+'</td><td>'+wert+'</td></tr>';
+    return '<div class="bo-weg bo-block k'+(i+1)+'"><div class="bo-weg-k">Option '+(i+1)+' · '+c.t+
+      '<small>'+c.s+' — Abfindung von brutto zu netto, Jahr '+jA+'</small></div>'+
+      '<div class="bo-scroll"><table class="bo-rw">'+
+      z('Einkommen im Jahr '+jA+' ohne Abfindung ('+monate+')', eur(A.brutto))+
+      z('minus Sozialabgaben auf das Gehalt', minus(A.sv))+
+      z('zu versteuerndes Einkommen ohne Abfindung', eur(A.zvE), 'bo-sub')+
+      (A.lohnersatz>0 ? z('Arbeitslosengeld in diesem Jahr — steuerfrei, erhöht aber den Satz (§ 32b EStG)', eur(A.lohnersatz)) : '')+
+      z('Einkommensteuer auf Zeile 3'+prog, eur(f.ohne))+
+      z('zu versteuerndes Einkommen plus ein Fünftel der Abfindung ('+eur(p.abf)+' ÷ 5 = '+eur(p.abf/5)+')', eur(A.zvE+p.abf/5))+
+      z('Einkommensteuer darauf'+prog, eur(est5))+
+      z('Unterschied der beiden Steuerbeträge', eur(est5-f.ohne))+
+      z('mal fünf = Einkommensteuer auf die Abfindung (§ 34 EStG)', eur(estAb), 'bo-sub')+
+      z('plus Solidaritätszuschlag, soweit er durch die Abfindung steigt', eur(soliD))+
+      z('plus Kirchensteuer'+(p.kirche>0?' ('+prozent(p.kirche)+')':''), eur(estAb*p.kirche))+
+      z('Steuer auf die Abfindung, endgültig', eur(A.stEndg), 'bo-sum')+
+      z('Abfindung netto ('+eur(p.abf)+' minus Steuer)', eur(A.netto), 'bo-sum')+
+      z('Steuersatz auf die Abfindung (Steuer ÷ Abfindung)', satzTxt(A.stEndg, p.abf), 'bo-satz')+
+      '<tr class="bo-grp"><td colspan="3">Zahlungsfluss</td></tr>'+
+      z('vom Arbeitgeber einbehalten — ohne Fünftelregelung (§ 39b EStG)', eur(A.stVoll))+
+      z('Auszahlung aufs Konto im Jahr '+jA, eur(A.auszahlung))+
+      z('Erstattung über die Steuererklärung, Jahr '+(jA+1), '+'+eur(A.erstattung))+
+      '</table></div></div>';
+  }
+
+  // Jahre mit gleichem Ergebnis werden zu einer Zeile zusammengefasst
+  function steuerJahre(c, i, E){
+    const gruppen = [];
+    for (let j=1; j<=E.J; j++){
+      const d = E.jahresDaten(c.k, j);
+      const sig = [d.brutto, d.sv, d.est, d.alg||0].map(Math.round).join('|');
+      const g = gruppen[gruppen.length-1];
+      if (g && g.sig===sig) g.bis = j; else gruppen.push({von:j, bis:j, sig, d});
+    }
+    const rows = gruppen.map(g=>{
+      const d = g.d, jahre = g.von===g.bis ? 'Jahr '+g.von : 'Jahr '+g.von+' bis '+g.bis+' <small>je Jahr</small>';
+      return '<tr><td>'+jahre+'</td><td>'+eur(d.brutto)+'</td><td>'+minus(d.sv)+'</td><td>'+
+        eur(Math.max(0,d.brutto-d.sv))+'</td><td>'+(d.alg>0?eur(d.alg):'—')+'</td><td>'+eur(d.est)+'</td><td>'+
+        satzTxt(d.est, d.brutto)+'</td></tr>';
+    }).join('');
+    return '<div class="bo-weg bo-block k'+(i+1)+'"><div class="bo-weg-k">Option '+(i+1)+' · '+c.t+
+      '<small>'+c.s+' — Steuer aufs Gehalt, Jahr für Jahr</small></div>'+
+      '<div class="bo-scroll"><table class="bo-sj"><tr><th>Jahre</th><th>Einkommen</th><th>Sozial&shy;abgaben</th>'+
+      '<th>zu versteuern</th><th>Arbeits&shy;losengeld</th><th>Steuer</th><th>Steuer&shy;satz</th></tr>'+rows+
+      '</table></div></div>';
+  }
+
+  function steuerTeil(E){
+    return '<h3 class="neue-seite">Nachrechnung deiner Eingaben — die Steuer im Detail</h3>'+
+      '<p class="bo-info">Dieser Teil legt offen, wie Sam die Steuer rechnet, damit sich jede Zahl nachprüfen lässt. '+
+      'Er enthält keine Bewertung und keine Empfehlung.</p>'+
+      '<h3>So rechnet Sam</h3>'+ soRechnetSam(E)+
+      '<h3>Drei typische Jahre im Vergleich</h3>'+
+      '<p class="bo-info">Das Jahr der Auszahlung, das Jahr danach mit der Erstattung und ein Jahr, in dem sich nichts mehr ändert. '+
+      'Gehalt und Abfindung stehen getrennt, jede mit ihrem eigenen Steuersatz.</p>'+
+      vergleichDreiJahre(E)+
+      '<h3>Die Abfindung von brutto zu netto — je Option</h3>'+
+      '<p class="bo-info">Die Steuer auf die Abfindung hängt vom übrigen Einkommen im Jahr der Zahlung ab und ist deshalb für jede Option anders. '+
+      'Bei Option 3 und 4 gibt es keine Abfindung.</p>'+
+      E.spalten.map((c,i)=> abfFuer(c.k,E) ? rechenwegAbfindung(c,i,E) : '').join('')+
+      '<h3>Die Steuer aufs Gehalt, Jahr für Jahr — je Option</h3>'+
+      '<p class="bo-info">Jahre mit gleichem Ergebnis sind zu einer Zeile zusammengefasst. Die Abfindung ist hier nicht enthalten.</p>'+
+      E.spalten.map((c,i)=> steuerJahre(c,i,E)).join('');
+  }
+
   function berichtBauen(){
     if(!ERG) return;
+    pdfDatei = null;   // neuer Bericht, altes PDF verwerfen
     const heute = new Date().toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'});
     const N = ERG.J;
     const icon = document.querySelector('.sam-icon').outerHTML;
@@ -1974,10 +2163,17 @@ details.calc summary .badge{
         '<div class="d">Erstellt am '+heute+'<br>Gerechnet über '+N+' Jahre</div>'+
       '</div>'+
 
+      '<h3>Wozu dieser Bericht</h3>'+
+      '<p class="bo-info">Er hält fest, was Sam aus deinen Angaben errechnet hat: für dich zum Nachlesen und für andere zum Prüfen, '+
+      'zum Beispiel für eine Steuerberaterin oder einen Steuerberater. Dafür rechnet Sam vier Optionen durch, also Situationen, '+
+      'die nach einem Abfindungsangebot eintreten können, jede bis zum Rentenbeginn. Im hinteren Teil steht die Nachrechnung der Steuer: '+
+      'Einkommen, zu versteuerndes Einkommen, Steuer und Steuersatz je Option sowie der Rechenweg der Abfindung von brutto zu netto.</p>'+
+
       '<h3>Die vier Optionen</h3>'+
       '<div class="bo-legende">'+ERG.spalten.map((c,i)=>
         '<div class="bo-leg k'+(i+1)+'"><b>Option '+(i+1)+' · '+c.t+'</b>'+
-        '<span>'+c.s+' — '+ABF_ZUSATZ[c.k]+'</span></div>').join('')+'</div>'+
+        '<span>'+c.s+' — '+ABF_ZUSATZ[c.k]+'</span>'+
+        '<span class="bo-leg-e">'+optionErklaerung(c, ERG)+'</span></div>').join('')+'</div>'+
 
       '<h3>Die Optionen im Überblick</h3>'+
       '<p class="bo-info">Gerechnet sind Nettoeinkommen, Entnahmen aus der Abfindung und das Anlagekonto über die gesamte Zeit bis zum Rentenbeginn.</p>'+
@@ -1990,6 +2186,8 @@ details.calc summary .badge{
       '<h3 class="neue-seite">Der Verlauf, Jahr für Jahr — alle Werte aufaddiert</h3>'+
       '<p class="bo-info">Jede Zeile zeigt, was bis zu diesem Jahr zusammengekommen ist. Die letzte Zeile jeder Tabelle entspricht dem Ergebnis oben.</p>'+
       verlaeufe+
+
+      steuerTeil(ERG)+
 
       '<div class="bo-fuss"><b>Haftungsausschluss</b>'+
       '<p>Diese Auswertung ist eine Orientierungshilfe und <b>keine Steuer-, Renten- oder Rechtsberatung</b>. Sie ersetzt weder die Prüfung deines Vertrags durch eine Fachanwältin oder einen Fachanwalt für Arbeitsrecht noch die Beratung durch eine Steuerberaterin oder einen Steuerberater. Für Entscheidungen, die auf dieser Auswertung beruhen, wird keine Haftung übernommen.</p>'+
@@ -2025,6 +2223,80 @@ details.calc summary .badge{
     document.body.style.overflow = '';
   });
   document.getElementById('bo-druck').addEventListener('click',()=>window.print());
+
+  /* ============ Bericht teilen (O11) ============
+     Eine Webseite darf Mail nicht direkt mit Anhang oeffnen. Stattdessen wird
+     das PDF hier erzeugt und an das Teilen-Menue des Geraets uebergeben; dort
+     waehlt man Mail. Ohne Teilen-Menue (Computer) wird es heruntergeladen.
+     Die Bibliothek wird erst beim ersten Tippen geladen. */
+  const PDF_BIB = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+  const teilenBtn = document.getElementById('bo-teilen');
+  function bibLaden(){
+    if (window.html2pdf) return Promise.resolve();
+    return new Promise((ok, fehl)=>{
+      const s = document.createElement('script');
+      s.src = PDF_BIB; s.onload = ok;
+      s.onerror = ()=>fehl(new Error('PDF-Bibliothek nicht erreichbar'));
+      document.head.appendChild(s);
+    });
+  }
+  function dateiName(){
+    const d = new Date();
+    return 'Abfindung-Bericht-'+d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+'.pdf';
+  }
+  async function pdfErzeugen(){
+    await bibLaden();
+    const blatt = document.getElementById('bo-blatt');
+    // iOS begrenzt Zeichenflaechen auf rund 16 Mio. Bildpunkte - Aufloesung daran anpassen
+    const flaeche = 820 * Math.max(1, blatt.scrollHeight * 820 / Math.max(1, blatt.offsetWidth));
+    const scale = Math.max(1, Math.min(2, Math.sqrt(14e6 / flaeche)));
+    // Die Bibliothek rendert eine Kopie - sie bekommt eine eigene Kennung und damit
+    // die PDF-Regeln (#bo-pdf), sonst wuerde sie das Original mit Bildschirm-Optik treffen
+    const quelle = blatt.cloneNode(true);
+    quelle.id = 'bo-pdf';
+    const blob = await window.html2pdf().set({
+      margin: [12, 10, 12, 10],
+      image: {type:'jpeg', quality:0.94},
+      // Keine eigene Fensterbreite: Die Seitenumbrueche werden im echten Fenster gemessen,
+      // gezeichnet werden muss im selben - sonst verrutscht jeder Umbruch und das Blatt seitlich
+      html2canvas: {scale, scrollX:0, scrollY:0, useCORS:true, backgroundColor:'#ffffff'},
+      jsPDF: {unit:'mm', format:'a4', orientation:'portrait'},
+      // Nur ganze Bloecke schuetzen: Abstandhalter zwischen Tabellenzeilen zerstoeren die Hoehenrechnung
+      pagebreak: {mode:['css'], before:'.neue-seite',
+                  avoid:['.bo-weg', '.bo-leg', '.bo-eing', '.bo-scroll', '.bo-info', '.bo-liste li', 'h3']}
+    }).from(quelle).outputPdf('blob');
+    return new File([blob], dateiName(), {type:'application/pdf'});
+  }
+  function herunterladen(datei){
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(datei); a.download = datei.name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 30000);
+  }
+  async function teilen(datei){
+    if (navigator.canShare && navigator.canShare({files:[datei]})){
+      try { await navigator.share({files:[datei], title:'Abfindungs-Bericht'}); }
+      catch(e){
+        // Das Erzeugen dauert - Safari verlangt dann einen zweiten Fingertipp
+        if (e.name==='NotAllowedError') teilenBtn.textContent = 'PDF fertig — jetzt teilen';
+      }
+    } else {
+      herunterladen(datei);
+    }
+  }
+  teilenBtn.addEventListener('click', async ()=>{
+    if (pdfDatei){ teilen(pdfDatei); return; }
+    teilenBtn.disabled = true; teilenBtn.textContent = 'PDF wird erstellt …';
+    try {
+      pdfDatei = await pdfErzeugen();
+      teilenBtn.textContent = 'Bericht teilen';
+      await teilen(pdfDatei);
+    } catch(e){
+      teilenBtn.textContent = 'Teilen nicht möglich — bitte Drucken nutzen';
+    } finally {
+      teilenBtn.disabled = false;
+    }
+  });
   document.addEventListener('keydown',e=>{
     if(e.key==='Escape' && !document.getElementById('bericht-overlay').hidden)
       document.getElementById('bo-zu').click();
