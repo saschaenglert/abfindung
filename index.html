@@ -689,6 +689,35 @@ details.calc summary .badge{
   @page{size:A4; margin:15mm 13mm}
 }
 
+/* ---------- Eingaben merken (O13) ----------
+   Desktop: in der Kopfleiste. Handy: schwebend unten rechts, laeuft immer mit. */
+.merken-btn{
+  font-family:'Syne',sans-serif; font-size:12px; font-weight:700; letter-spacing:.2px;
+  background:var(--accent); color:#fff; border:none; border-radius:8px; cursor:pointer;
+  padding:9px 14px; min-height:36px;
+}
+.merken-btn:hover{background:#1a6478}
+.merken-btn.ok{background:#2f7d5b}
+.merken-btn.hd{position:absolute; right:16px; top:50%; transform:translateY(-50%)}
+.merken-btn.fl{display:none}
+@media(max-width:700px){
+  .merken-btn.hd{display:none}
+  .merken-btn.fl{
+    display:block; position:fixed; z-index:150;
+    right:calc(14px + env(safe-area-inset-right)); bottom:calc(14px + env(safe-area-inset-bottom));
+    padding:12px 18px; min-height:44px; border-radius:22px; box-shadow:0 4px 16px rgba(28,37,64,.35);
+  }
+}
+.merk-hinweis{
+  display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+  background:var(--accent-bg); border:1px solid #9cc6d3; border-radius:10px;
+  padding:9px 13px; margin-bottom:14px; font-size:13px; color:var(--ink);
+}
+.merk-link{background:none; border:none; color:#1F6E85; font-weight:600; font-size:13px;
+  text-decoration:underline; cursor:pointer; padding:4px 2px}
+.merk-stand{font-size:12.5px; color:var(--ink-mid); margin:12px 0 0}
+.merk-stand:empty{display:none}
+
 /* ---------- Haftung ---------- */
 .legal{
   background:var(--white); border:1px solid var(--red); border-left:3px solid var(--red);
@@ -726,9 +755,15 @@ details.calc summary .badge{
     <div class="hd-name">Sam</div>
     <div class="hd-sub">der Abfindungs-Rechner</div>
   </div>
+  <button type="button" class="merken-btn hd" data-merken>Eingaben merken</button>
 </header>
 
 <div class="wrap">
+
+  <div class="merk-hinweis" id="merk-hinweis" hidden>
+    <span>Deine gemerkten Eingaben vom <b id="merk-datum-oben"></b> sind geladen.</span>
+    <button type="button" class="merk-link" data-vergessen>Löschen</button>
+  </div>
 
   <p class="claim"><strong>Ein Abfindungsangebot ist eine Entscheidung über viele Jahre — nicht über eine Summe.</strong></p>
   <p class="claim">Sam stellt vier deiner Optionen nebeneinander und rechnet jede bis zu deinem Renteneintritt durch: Gehalt, Steuern, Arbeitslosengeld, Rentenansprüche und das, was aus der angelegten Abfindung wird. Am Ende steht für jede Option eine Zahl — und du siehst, woraus sie sich zusammensetzt.</p>
@@ -1068,7 +1103,10 @@ details.calc summary .badge{
     <div class="sec-head"><span class="sec-num">MITNEHMEN</span><h2>Ergebnis sichern</h2></div>
     <p class="sec-intro">Sam erstellt aus deinen Angaben einen mehrseitigen Bericht: das Ergebnis aller vier Optionen, deine Eingaben zum Nachvollziehen, den Verlauf Jahr für Jahr und die Nachrechnung der Steuer — geeignet auch zur Prüfung durch eine Steuerberaterin oder einen Steuerberater. Mit <b>Bericht teilen</b> öffnet sich auf dem iPhone das Teilen-Menü; dort <b>Mail</b> antippen, das PDF hängt dann schon an.</p>
     <button type="button" id="btn-bericht" class="gross-btn">Bericht erstellen</button>
+    <p class="merk-stand" id="merk-stand"></p>
   </section>
+
+  <button type="button" class="merken-btn fl" data-merken>Merken</button>
 
   <div class="legal">
     <h3>Keine Steuer- oder Rechtsberatung</h3>
@@ -1077,7 +1115,7 @@ details.calc summary .badge{
     <p>Ob das Arbeitslosengeld tatsächlich ruht und wie lange, entscheidet allein die Agentur für Arbeit im Einzelfall. Kläre das vor Unterschrift eines Aufhebungsvertrags dort ab.</p>
   </div>
 
-  <p class="foot">Sam, der Abfindungs-Rechner · Rechenstand 2026<br>Es werden keine Daten gespeichert oder übertragen</p>
+  <p class="foot">Sam, der Abfindungs-Rechner · Rechenstand 2026<br>Es werden keine Daten übertragen. Gespeichert wird nur, wenn du „Eingaben merken“ tippst — und nur in deinem Browser auf diesem Gerät.</p>
 
 <div id="bericht-overlay" hidden>
   <div class="bo-leiste">
@@ -1916,6 +1954,72 @@ details.calc summary .badge{
     el.addEventListener('input',rechne);
     el.addEventListener('change',rechne);
   });
+
+  /* ============ Eingaben merken (O13) ============
+     Nur im Browser dieses Geraets (localStorage), nichts geht an einen Server.
+     Jeder Zugriff in try/catch: privates Fenster oder gesperrter Speicher
+     duerfen die Seite nicht stoeren. */
+  const MERK_SCHLUESSEL = 'sam-abfindung-eingaben-v1';
+  const merkFelder = () => [...document.querySelectorAll('.wrap input[id], .wrap select[id]')];
+  const datumTxt = iso => new Date(iso).toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'});
+  function merkLesen(){
+    try { const r = localStorage.getItem(MERK_SCHLUESSEL); return r ? JSON.parse(r) : null; }
+    catch(e){ return null; }
+  }
+  function merkStandZeigen(m){
+    document.getElementById('merk-stand').innerHTML = m
+      ? 'Deine Eingaben sind auf diesem Gerät gemerkt (Stand '+datumTxt(m.datum)+'). '+
+        '<button type="button" class="merk-link" data-vergessen>Gemerkte Eingaben löschen</button>'
+      : '';
+  }
+  function merken(btn){
+    const werte = {};
+    merkFelder().forEach(e=>{ werte[e.id] = e.value; });
+    const m = {datum:new Date().toISOString(), werte,
+               entnahmeGesetzt: !!document.getElementById('entnahme').dataset.touched};
+    let ok = true;
+    try { localStorage.setItem(MERK_SCHLUESSEL, JSON.stringify(m)); } catch(e){ ok = false; }
+    const alt = btn.textContent;
+    btn.textContent = ok ? 'Gemerkt ✓' : 'Speichern nicht möglich';
+    btn.classList.toggle('ok', ok);
+    setTimeout(()=>{ btn.textContent = alt; btn.classList.remove('ok'); }, 2200);
+    if (ok) merkStandZeigen(m);
+  }
+  function merkLaden(){
+    const m = merkLesen();
+    if (!m || !m.werte) return;
+    merkFelder().forEach(e=>{
+      if (!(e.id in m.werte)) return;
+      const v = m.werte[e.id];
+      // Auswahl nur setzen, wenn es die Option noch gibt - die Seite kann sich geaendert haben
+      if (e.tagName==='SELECT' && ![...e.options].some(o=>o.value===v)) return;
+      e.value = v;
+    });
+    if (m.entnahmeGesetzt) document.getElementById('entnahme').dataset.touched = '1';
+    document.getElementById('merk-datum-oben').textContent = datumTxt(m.datum);
+    document.getElementById('merk-hinweis').hidden = false;
+    merkStandZeigen(m);
+  }
+  document.querySelectorAll('[data-merken]').forEach(b=>b.addEventListener('click',()=>merken(b)));
+  document.addEventListener('click', e=>{
+    if (!e.target.closest('[data-vergessen]')) return;
+    try { localStorage.removeItem(MERK_SCHLUESSEL); } catch(err){ /* nichts gemerkt */ }
+    // Nicht neu laden - Safari stellt Formularfelder dabei selbst wieder her.
+    // Stattdessen auf die Beispielwerte aus dem Seitentext zuruecksetzen.
+    merkFelder().forEach(f=>{
+      if (f.tagName==='SELECT'){
+        const std = [...f.options].find(o=>o.defaultSelected) || f.options[0];
+        f.value = std.value;
+      } else {
+        f.value = f.defaultValue;
+      }
+    });
+    delete document.getElementById('entnahme').dataset.touched;
+    document.getElementById('merk-hinweis').hidden = true;
+    merkStandZeigen(null);
+    rechne();
+  });
+  merkLaden();
   const pop = document.createElement('div');
   pop.className = 'infopop'; pop.hidden = true;
   document.body.appendChild(pop);
